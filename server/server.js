@@ -20,7 +20,7 @@ app.get('/', (req, res)=>{
 });
 app.get('/index', (req, res)=>{
     res.status(200);
-    res.render('index');
+    res.render('views/index');
 });
 
 
