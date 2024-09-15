@@ -1,0 +1,53 @@
+# Node modules (common for both React Native and Node.js projects)
+node_modules/
+  
+# Directory for iOS builds
+ios/Pods/
+ios/build/
+
+# Directory for Android builds
+android/app/build/
+android/.gradle/
+android/.idea/
+android/local.properties
+android/.settings/
+android/build/
+
+# macOS-specific files
+*.DS_Store
+
+# Logs and debugging files
+*.log
+*.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Packager files (Metro Bundler)
+.expo/
+.expo-shared/
+
+# OS-specific files
+.idea/
+.vscode/
+
+# Configuration files
+.env
+
+# Temporary files
+*.tmp
+*.swp
+
+# Generated artifacts
+*.apk
+*.aab
+*.ipa
+
+# Watchman config (macOS)
+.watchmanconfig
+
+# React Native Debugger
+ReactNativeDebug.json
+
+# Coverage reports
+coverage/
