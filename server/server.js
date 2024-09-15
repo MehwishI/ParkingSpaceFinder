@@ -1,15 +1,33 @@
-import express from "express";
-import cors from "cors";
-import records from "./routes/record.js";
+// load .env data into process.env
+require('dotenv').config();
+//const sassMiddleware = require('./lib/sass-middleware');
+const express = require('express');
 
-const PORT = process.env.PORT || 5050;
 const app = express();
+//const PORT = 3000;
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
-app.use(cors());
-app.use(express.json());
-app.use("/record", records);
+app.set('view engine', 'ejs');
+app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-// start the Express server
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+const PORT = process.env.PORT || 3000;
+app.get('/', (req, res)=>{
+    res.status(200);
+    res.send("Welcome to root URL of Server");
 });
+app.get('/index', (req, res)=>{
+    res.status(200);
+    res.render("index");
+});
+
+
+app.listen(PORT, (error) =>{
+    if(!error)
+        console.log("Server is Successfully Running, and App is listening on port "+ PORT)
+    else 
+        console.log("Error occurred, server can't start", error);
+    }
+);
