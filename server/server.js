@@ -21,8 +21,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                // url: 'http://localhost:3000',
-                url: 'https://parking-space-finder-backend.vercel.app',
+                url: 'http://localhost:3000',
             },
         ],
     },
