@@ -12,10 +12,13 @@
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
     "@react-navigation/stack": "^6.4.1",
+    "auth0-js": "^9.26.1",
     "expo": "^51.0.0",
     "expo-status-bar": "~1.12.1",
+    "openai": "^4.63.0",
     "react": "18.2.0",
     "react-native": "0.74.5",
+    "react-native-auth0": "^3.2.1",
     "react-navigation-stack": "^2.10.4"
   },
   "devDependencies": {

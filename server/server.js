@@ -1,16 +1,25 @@
-// load .env data into process.env
+// Load .env data into process.env
 require('dotenv').config();
-//const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
-
-const app = express();
-//const PORT = 3000;
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
+const aiRoutes = require('./routes/aiRoute');
+const cors = require('cors');
 
+const app = express();
 
+app.use(cors());
+
+// Middleware setup
+app.set('view engine', 'ejs');
+app.use(morgan('dev'));
+app.use(express.json());  // Parse JSON bodies
+app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
+app.use(express.static('public'));
+
+// Swagger Setup
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -25,32 +34,29 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: ['./api/*.js'],
+    apis: ['./routes/*.js'],  // Path to API documentation
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.set('view engine', 'ejs');
-app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
-const PORT = process.env.PORT || 3000;
+// Routes setup
 app.get('/', (req, res) => {
-    res.status(200);
-    res.send("Welcome to root URL of Server");
+    res.status(200).send("Welcome to root URL of Server");
 });
+
 app.get('/index', (req, res) => {
-    res.status(200);
-    res.render("index");
+    res.status(200).render('index');
 });
 
+app.use('/api', aiRoutes);
 
+// Server listening on a port
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, (error) => {
-    if (!error)
-        console.log("Server is Successfully Running, and App is listening on port " + PORT)
-    else
-        console.log("Error occurred, server can't start", error);
-}
-);
+    if (!error) {
+        console.log(`Server is Successfully Running, and App is listening on port ${PORT}`);
+    } else {
+        console.log('Error occurred, server can\'t start', error);
+    }
+});

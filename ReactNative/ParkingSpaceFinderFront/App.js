@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import {StackNavigator} from "./StackNavigator";
+import Home from "./screens/Home";
+// import { getTestApi, getTestCreateSpeech } from "./screens/AIRecommendation";
 
 export default function App() {
   return (
@@ -15,8 +17,9 @@ export default function App() {
         <Text>
           WELCOME TO PARKING SPOT FINDER!
         </Text>
-
+        <Home />
         <Button title='SEARCH NOW'/>
+        <Button title='AIRecommendation' />
       </View>
       
     </NavigationContainer>
