@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
-import StackNavigator from "./StackNavigator";
+import {StackNavigator} from "./StackNavigator";
+import Home from "./screens/Home";
 
 export default function App() {
   return (
@@ -12,15 +13,6 @@ export default function App() {
     <NavigationContainer>
       <StackNavigator style={styles.container} /> 
       <StatusBar style="dark"/>
-      {/* <View style={styles.container}>
-        <Text>
-          WELCOME TO PARKING SPOT FINDER!
-        </Text>
-
-        <Button title='SEARCH NOW' />
-      </View> */}
-      
-    </NavigationContainer>
   );
 }
 
