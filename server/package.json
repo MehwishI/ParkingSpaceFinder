@@ -30,11 +30,10 @@
     "express-session": "^1.18.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.4",
+    "oidc-provider": "^8.5.1",
     "openai": "^4.63.0",
     "sass-middleware": "^0.0.3",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1",
-    "oidc-provider": "^8.5.1"
-    
+    "swagger-ui-express": "^5.0.1"
   }
 }
