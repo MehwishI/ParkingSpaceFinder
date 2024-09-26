@@ -6,12 +6,21 @@ const cookieParser = require('cookie-parser');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const aiRoutes = require('./routes/aiRoute');
+const wpaPaystationRoutes = require('./routes/wpaPaystation');
 const cors = require('cors');
 
 const app = express();
 
 app.use(cors());
-
+//app.use(cors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    credentials: true,
+      exposedHeaders: ["Set-Cookie", "Date", "ETag"],
+    content : "application/json"
+  })
+);
 // Middleware setup
 app.set('view engine', 'ejs');
 app.use(morgan('dev'));
@@ -30,7 +39,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
+                url: 'http://localhost:3001',
             },
         ],
     },
@@ -49,7 +58,8 @@ app.get('/index', (req, res) => {
     res.status(200).render('index');
 });
 
-app.use('/api', aiRoutes);
+app.use('/api/aiRoute', aiRoutes);
+app.use('/api/wpapaystation', wpaPaystationRoutes)
 
 // Server listening on a port
 const PORT = process.env.PORT || 3001;
