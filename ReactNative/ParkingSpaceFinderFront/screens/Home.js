@@ -1,11 +1,12 @@
 import { View, Text, SafeAreaView, Button } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native'
 // import auth0 from 'auth0-js';
 import Auth0 from 'react-native-auth0';
 
 const auth0Client = new Auth0({
-  domain: 'dev-yu5loj22bbugaxrq.us.auth0.com',
-  clientId: 'UzULQhvlGuLveXufyJGFJlnvEMwYK8qo',
+  domain: '',
+  clientId: '',
 });
 
 const Home = () => {
@@ -30,6 +31,15 @@ const Home = () => {
       <Button title="Login" onPress={login} />
     </SafeAreaView>
   )
-}
+};
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
+
 
 export default Home
