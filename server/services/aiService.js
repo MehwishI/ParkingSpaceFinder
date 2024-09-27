@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const getOpenai = new OpenAI({
-    apiKey: process.env.API_KEY_OPENAI,
+   apiKey: process.env.API_KEY_OPENAI,
 });
 
 const speechFile = path.join(__dirname, 'speech.mp3');
