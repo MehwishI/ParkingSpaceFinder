@@ -1,0 +1,16 @@
+.mapcontainer {
+  position: relative;
+  overflow: scroll;
+   width: 800px;
+  height: 700px;
+
+   border: 2px solid black;
+  border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+        margin-top: 20px;
+
+
+}
