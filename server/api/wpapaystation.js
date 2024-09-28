@@ -1,6 +1,3 @@
-//connect api endpoint
-console.log("reached wpapastation")
-//const request = require("request");
 const fetch = (...args) => import('node-fetch')
   .then(({default: fetch}) => fetch(...args));
 

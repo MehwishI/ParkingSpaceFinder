@@ -52,7 +52,7 @@ const getCreateSpeech = async (genTextReq) => {
         });
 
         const buffer = Buffer.from(await mp3.arrayBuffer());
-        await fs.promises.writeFile(speechFile, buffer);
+        // await fs.promises.writeFile(speechFile, buffer);
 
         return buffer;
     } catch (error) {
