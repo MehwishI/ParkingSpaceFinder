@@ -58,8 +58,8 @@ app.get('/index', (req, res) => {
     res.status(200).render('index');
 });
 
-app.use('/api/aiRoute', aiRoutes);
-app.use('/api/wpapaystation', wpaPaystationRoutes)
+app.use('/api', aiRoutes);
+app.use('/api', wpaPaystationRoutes)
 
 // Server listening on a port
 const PORT = process.env.PORT || 3001;

@@ -6,6 +6,8 @@ const { getGeneratedVoice } = require('../controllers/aiController');
  * @swagger
  * /api/generate-ai-voice:
  *   post:
+ *     tags:
+ *       - AI Suggestion
  *     summary: Returns an AI voice generated response
  *     requestBody:
  *       required: true
