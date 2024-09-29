@@ -18,7 +18,15 @@ const getWpaPayStationAll = async () => {
 const getWpaPayStationStreet = async (getStreet) => {
     console.log(getStreet)
     try {
-        const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`street=${getStreet}`+`?$$app_token=${appToken}`);
+        const resp = await axios.get(urlBase + `street=${getStreet}`,
+            {
+                headers: {
+                    'X-App-Token': appToken
+                }
+            }
+        );
+      
+        // const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`street=${getStreet}`+`?$$app_token=${appToken}`);
 
         return resp.data;
     } catch (error) {
@@ -26,12 +34,18 @@ const getWpaPayStationStreet = async (getStreet) => {
         throw error;
     }
 };
+
 const getWpaPayStationTimeLimit = async (getTimeLimit) => {
-    console.log(getTimeLimit)
+    console.log('time limit',getTimeLimit)
     const getTimeLimitFull = getTimeLimit.toString() + ' HOUR PARKING';
     console.log(getTimeLimitFull)
     try {
-        const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`time_limit=${getTimeLimitFull}`+`?$$app_token=${appToken}`);
+        // const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`time_limit=${getTimeLimitFull}`+`?$$app_token=${appToken}`);
+        const resp = await axios.get(`${urlBase}time_limit=${getTimeLimitFull}`, {
+            headers: {
+                'X-App-Token': appToken
+            }
+        });
 
        // const resp = await axios.get(url + `?time_limit=${getTimeLimitFull}`);
 
@@ -45,7 +59,12 @@ const getWpaPayStationTimeLimit = async (getTimeLimit) => {
 const getWpaPayStationLocation = async (getLocation) => {
    // const getTimeLimitFull = getTimeLimit.toString() + 'HOUR PARKING';
     try {
-        const resp = await axios.get(urlBase + `location=${getLocation}`);
+        const resp = await axios.get(urlBase + `location=${getLocation}`,
+            {
+                headers: {
+                    'X-App-Token': appToken
+                }
+            });
 
         return resp.data;
     } catch (error) {
@@ -57,6 +76,6 @@ const getWpaPayStationLocation = async (getLocation) => {
 module.exports = {
     getWpaPayStationAll,
     getWpaPayStationStreet,
-    getWpaPayStationTimeLimit
-
+    getWpaPayStationTimeLimit,
+    getWpaPayStationLocation
 };

@@ -5,6 +5,7 @@ const Login = () => {
     const { loginWithRedirect } = useAuth0();
 
     const getHandleLogin = async () => {
+        
         await loginWithRedirect();
     }
 
