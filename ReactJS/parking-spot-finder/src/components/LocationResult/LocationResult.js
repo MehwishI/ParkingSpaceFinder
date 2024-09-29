@@ -1,32 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { locAllResultSearch } from '../../services/locationResultService';
 
-const getBaseApi = process.env.REACT_APP_BASE_URL_API;
-
-const LocationResult = async () => {
+const LocationResult = () => {
   const [getLocRes, setLocRes] = useState(null);
 
   useEffect(() => {
-    
-    console.log("I got yanks...");
     const fetchLocAllRes = async () => {
       try {
-        
         const getAllLoc = await locAllResultSearch();
         console.log(getAllLoc);
-        
         setLocRes(getAllLoc);
-
       } catch (error) {
-        throw error;
+        console.error("Error fetching location results:", error);
       }
     };
 
     fetchLocAllRes();
-  }, [])
+  }, []);
 
   return (
-    <div>LocationResult</div>
+    <>
+      <div>LocationResult</div>
+      {getLocRes ? (
+        <ul>
+          {getLocRes.map((loc, index) => (
+            <>
+              <li key={index}>Latitude: {loc.location.latitude}</li>
+              <li key={index}>Longitude: {loc.location.longitude}</li>
+              <br></br>
+            </>
+          ))}
+        </ul>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </>
   )
 }
 

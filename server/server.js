@@ -17,7 +17,7 @@ app.use(cors());
 //app.use(cors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     credentials: true,
       exposedHeaders: ["Set-Cookie", "Date", "ETag"],
     content : "application/json"
