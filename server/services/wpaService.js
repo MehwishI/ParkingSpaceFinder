@@ -26,7 +26,7 @@ const getWpaPayStationStreet = async (getStreet) => {
             }
         );
       
-        // const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`street=${getStreet}`+`?$$app_token=${appToken}`);
+       // const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`street=${getStreet}`+`?$$app_token=${appToken}`);
 
         return resp.data;
     } catch (error) {
@@ -40,12 +40,13 @@ const getWpaPayStationTimeLimit = async (getTimeLimit) => {
     const getTimeLimitFull = getTimeLimit.toString() + ' HOUR PARKING';
     console.log(getTimeLimitFull)
     try {
-        // const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`time_limit=${getTimeLimitFull}`+`?$$app_token=${appToken}`);
+       //  const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`time_limit=${getTimeLimitFull}`+`?$$app_token=${appToken}`);
         const resp = await axios.get(`${urlBase}time_limit=${getTimeLimitFull}`, {
             headers: {
                 'X-App-Token': appToken
             }
-        });
+            
+       });
 
        // const resp = await axios.get(url + `?time_limit=${getTimeLimitFull}`);
 
