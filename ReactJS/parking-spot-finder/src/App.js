@@ -6,6 +6,7 @@ import Profile from './components/Profile/Profile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logout from './components/Authentication/Logout';
 import AISuggestion from './components/AISuggestion/AISuggestion';
+import MapContainer from './components/MapContainer/MapContainer';
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -20,12 +21,18 @@ function App() {
         <h3>Smart Park Login</h3>
 
         {isAuthenticated ? (
-          <>
+          <div >
           Hi {user.given_name}, Welcome to Smart Park!
           <Logout />
-          <br></br>
-          <AISuggestion />
-          </>
+            <br></br>
+            
+            <AISuggestion />
+            
+            <MapContainer />
+              
+              
+              
+          </div>
         ) : (
           <>
             <Login />
@@ -35,6 +42,7 @@ function App() {
       </div>
       <Routes>
         <Route path='/profile' element={<Profile />} />
+        
       </Routes>
     </Router>
   );
