@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Login from './components/Authentication/Login';
 import Profile from './components/Profile/Profile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Logout from './components/Authentication/Logout';
+// import Logout from './components/Authentication/Logout';
 import AISuggestion from './components/AISuggestion/AISuggestion';
 import MapContainer from './components/MapContainer/MapContainer';
 
@@ -23,7 +23,7 @@ function App() {
         {isAuthenticated ? (
           <div >
           Hi {user.given_name}, Welcome to Smart Park!
-          <Logout />
+          {/* <Logout /> */}
             <br></br>
             
             <AISuggestion />

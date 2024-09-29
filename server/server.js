@@ -76,7 +76,6 @@ app.get('/index', (req, res) => {
 });
 
 app.use('/api', aiRoutes);
-app.use('/api', aiRoutes);
 app.use('/api', wpaPaystationRoutes)
 
 // Server listening on a port

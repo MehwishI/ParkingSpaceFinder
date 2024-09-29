@@ -39,7 +39,9 @@ const fetchWpaApiTimeLimit = async (req, res) => {
     try {
         // convert to an object
         const reqTimeLimit = req.body.time_limit;
-        console.log("typeof reqTimeLimit:",typeof(reqTimeLimit))
+        console.log("typeof reqTimeLimit:",typeof(reqTimeLimit));
+        console.log("After object");
+        
         
         const getData = await getWpaService.getWpaPayStationTimeLimit(reqTimeLimit);
 
