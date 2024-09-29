@@ -23,7 +23,7 @@ function App() {
         {isAuthenticated ? (
           <div >
           Hi {user.given_name}, Welcome to Smart Park!
-          <Logout />
+          {/* <Logout /> */}
             <br></br>
             
             <AISuggestion />
