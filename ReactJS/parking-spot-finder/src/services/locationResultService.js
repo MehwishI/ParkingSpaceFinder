@@ -17,7 +17,7 @@ const locResultSearch = async () => {
 
 const locAllResultSearch = async () => {
   try {
-    const getAllLocRes = await axios.post(`${getBaseApi}/wpapaystation`);
+    const getAllLocRes = await axios.get(`${getBaseApi}/wpapaystation`);
     
     return getAllLocRes.data;
 

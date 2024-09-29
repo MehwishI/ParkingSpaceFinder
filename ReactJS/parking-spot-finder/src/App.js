@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import Logout from './components/Authentication/Logout';
 import AISuggestion from './components/AISuggestion/AISuggestion';
 import MapContainer from './components/MapContainer/MapContainer';
-import LocationResult from './components/LocationResult/LocationResult';
+//import LocationResult from './components/LocationResult/LocationResult';
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -32,7 +32,7 @@ function App() {
             
             <MapContainer />
               
-            <LocationResult />
+            {/* <LocationResult /> */}
               
           </div>
         ) : (
