@@ -1,13 +1,14 @@
 import React from 'react';
 import { useMemo, useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, useJsApiLoader, MarkerF } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, useJsApiLoader, MarkerF , InfoWindow} from '@react-google-maps/api';
 import './MapContainer.css'
 //import { findCoordinatesByAddress } from ".../helpers/findCoordinates";
 
 
 const MapContainer = () => {
      const initialCenter = { lat: 48.1, lng: -97.39 }
-  const [defaultCenter, setDefaultCenter ] = useState(initialCenter)
+  const [defaultCenter, setDefaultCenter] = useState(initialCenter);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -60,16 +61,22 @@ const MapContainer = () => {
     );
   }
  
-  //{ defaultCenter.lat, defaultCenter.lng } = getUserLocation();
+ 
+
+  const onMarkerClick = (marker) => {
+    setSelectedMarker(marker);
+  };
+
+  const onCloseInfoWindow = () => {
+    setSelectedMarker(null);
+  };  
+  const markers = [
   
-//   const renderMarkers = (map, maps) => {
-//   let marker = new maps.Marker({
-//   position: { lat: defaultCenter.lat, lng: defaultCenter.lng },
-//   map,
-//   title: 'Hello World!'
-//   });
-//   return marker;
-//  };
+    { id: 1, position: { lat: 37.7749, lng: -122.4194 }, info: "San Francisco" },
+    { id: 2, position: { lat: 34.0522, lng: -118.2437 } , info: "Los Angeles"},
+    { id: 3, position: { lat: 40.7128, lng: -74.0060 }, info: "New York" },
+    { id: 4, position:{ lat: defaultCenter.lat, lng: defaultCenter.lng }, info: "You are here" }
+  ];
 
   return (
     // <LoadScript
@@ -81,8 +88,24 @@ const MapContainer = () => {
         center={defaultCenter}
        // onGoogleApiLoaded={renderMarkers(map,maps)}
       >
-        <MarkerF key="current_location"  title="You are here!"  animation= "DROP" position={{ lat: defaultCenter.lat, lng: -97.1419 }}  />
-        </GoogleMap>
+        {/* <MarkerF key="current_location"  title="You are here!"  animation= "DROP" position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}  /> */}
+        
+
+       {markers.map(marker => (
+         <MarkerF key={marker.id} position={marker.position} onClick={()=>onMarkerClick(marker)} />
+         
+       ))}  
+         {selectedMarker && (
+          <InfoWindow
+            position={selectedMarker.position}
+            onCloseClick={onCloseInfoWindow}
+          >
+            
+              <h2>{selectedMarker.info}</h2>
+            
+          </InfoWindow>
+        )}
+      </GoogleMap>
       
     </div>
    
