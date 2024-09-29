@@ -1,8 +1,12 @@
 .mapcontainer {
   position: relative;
   overflow: scroll;
-   width: 800px;
-  height: 700px;
+   
+      height: 80vh;
+    width: 80%;
+    margin-left: 50px;
+ 
+
 
    border: 2px solid black;
   border-radius: 20px;
