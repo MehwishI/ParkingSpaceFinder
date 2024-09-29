@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logout from 'components/Authentication/Logout';
 import AISuggestion from './components/AISuggestion/AISuggestion';
 import MapContainer from './components/MapContainer/MapContainer';
-import SearchContainer from './components/SearchContainer/SearchContainer';
+//import SearchContainer from './components/SearchContainer/SearchContainer';
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -28,7 +28,7 @@ function App() {
             <br></br>
             
             <AISuggestion />
-            <SearchContainer />
+           
             
             <MapContainer />
               
