@@ -1,11 +1,12 @@
 import React from 'react';
 import { useMemo, useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, useJsApiLoader ,MarkerF} from '@react-google-maps/api';
+import { GoogleMap, LoadScript, useJsApiLoader, MarkerF } from '@react-google-maps/api';
 import './MapContainer.css'
+//import { findCoordinatesByAddress } from ".../helpers/findCoordinates";
+
 
 const MapContainer = () => {
-  
-   var initialCenter = { lat: 48.1, lng: -97.39 }
+     const initialCenter = { lat: 48.1, lng: -97.39 }
   const [defaultCenter, setDefaultCenter ] = useState(initialCenter)
 
   const { isLoaded } = useJsApiLoader({
@@ -21,7 +22,9 @@ const MapContainer = () => {
     align: "center"
     // justify-content: "center"
   };
- 
+  //console.log(findCoordinatesByAddress("360 Portage Avenue"));
+  
+  
   useEffect(() => {
        
     navigator.geolocation.getCurrentPosition(
