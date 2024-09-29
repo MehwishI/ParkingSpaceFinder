@@ -1,6 +1,8 @@
 // Load .env data into process.env
 require('dotenv').config();
 const express = require('express');
+const { expressjwt: jwt } = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const swaggerUi = require('swagger-ui-express');
@@ -27,6 +29,21 @@ app.use(morgan('dev'));
 app.use(express.json());  // Parse JSON bodies
 app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
 app.use(express.static('public'));
+
+
+// auth0 authorization
+const getCheckJwt = jwt({
+    secret: jwksRsa.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+    }),
+
+    audience: process.env.AUTH0_AUD,
+    issuer:`https://${process.env.AUTH0_DOMAIN}/`,
+    algorithms: ['RS256']
+});
 
 // Swagger Setup
 const swaggerOptions = {
@@ -58,6 +75,7 @@ app.get('/index', (req, res) => {
     res.status(200).render('index');
 });
 
+app.use('/api', aiRoutes);
 app.use('/api', aiRoutes);
 app.use('/api', wpaPaystationRoutes)
 

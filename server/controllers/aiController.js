@@ -25,8 +25,11 @@ const getGeneratedText = async (req, res) => {
 };
 
 const getGeneratedVoice = async (req, res) => {
+    
+    console.log('body...',req);
     // start decrypting data
     const decryptData = getDecryptedData(req.body);
+    
     const decryptDataObj =JSON.parse(decryptData);
 
     try {

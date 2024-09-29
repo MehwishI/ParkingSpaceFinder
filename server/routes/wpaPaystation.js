@@ -54,7 +54,7 @@ const { fetchWpaApiData, fetchWpaApiStreet } = require('../controllers/wpaContro
  */
 
 router.get("/wpapaystation", fetchWpaApiData);
-router.post("/wpastreet", fetchWpaApiStreet)
+router.post("/wpastreet", fetchWpaApiStreet);
 //router.get("api/")
 
 module.exports = router;

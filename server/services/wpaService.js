@@ -17,7 +17,13 @@ const getWpaPayStationAll = async () => {
 
 const getWpaPayStationStreet = async (getStreet) => {
     try {
-        const resp = await axios.get(urlBase + `street=${getStreet}`);
+        const resp = await axios.get(urlBase + `street=${getStreet}`,
+            {
+                headers: {
+                    'X-App-Token': appToken
+                }
+            }
+        );
 
         return resp.data;
     } catch (error) {
