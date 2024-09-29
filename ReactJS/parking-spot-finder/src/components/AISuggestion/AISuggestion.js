@@ -4,6 +4,7 @@ import { ClipLoader } from 'react-spinners';
 import './AISuggestion.css';
 import VoiceIndicator from './VoiceIndicator';
 import { getEncryptedData, getDecryptedData } from '../../services/encryptdecrypt';
+import { useAuth0 } from '@auth0/auth0-react'
 
 const getBaseApi = process.env.REACT_APP_BASE_URL_API;
 
@@ -20,16 +21,27 @@ const AISuggestion = () => {
     const [error, setError] = useState(null);
     const audioRef = useRef(null);
 
+    const { getAccessTokenSilently } = useAuth0();
+
     const getHandleGenVoice = async () => {
         setIsLoading(true);
         try {
-            // encryp data before sending it to the database
+            // get auth token
+            const getAuth0Tok = await getAccessTokenSilently();
+
+            // encrypt data before sending it to the database
             const encryptData = getEncryptedData(jsonData);
-            console.log(encryptData);
 
             const getResp = await axios.post(`${getBaseApi}/generate-ai-voice`, encryptData, {
-                responseType: 'blob'
+                responseType: 'blob',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${getAuth0Tok}`
+                }
             });
+
+            
+            console.log('tok', getAuth0Tok);
 
             const getUrl = URL.createObjectURL(getResp.data);
 
