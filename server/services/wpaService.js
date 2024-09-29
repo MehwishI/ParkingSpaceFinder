@@ -16,6 +16,7 @@ const getWpaPayStationAll = async () => {
 };
 
 const getWpaPayStationStreet = async (getStreet) => {
+    console.log(getStreet)
     try {
         const resp = await axios.get(urlBase + `street=${getStreet}`,
             {
@@ -24,6 +25,35 @@ const getWpaPayStationStreet = async (getStreet) => {
                 }
             }
         );
+      
+        // const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`street=${getStreet}`+`?$$app_token=${appToken}`);
+
+        return resp.data;
+    } catch (error) {
+        console.log('Error in ApiService:', error);
+        throw error;
+    }
+};
+const getWpaPayStationTimeLimit = async (getTimeLimit) => {
+    console.log(getTimeLimit)
+    const getTimeLimitFull = getTimeLimit.toString() + ' HOUR PARKING';
+    console.log(getTimeLimitFull)
+    try {
+        const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`time_limit=${getTimeLimitFull}`+`?$$app_token=${appToken}`);
+
+       // const resp = await axios.get(url + `?time_limit=${getTimeLimitFull}`);
+
+        return resp.data;
+    } catch (error) {
+        console.log('Error in ApiService:', error);
+        throw error;
+    }
+};
+
+const getWpaPayStationLocation = async (getLocation) => {
+   // const getTimeLimitFull = getTimeLimit.toString() + 'HOUR PARKING';
+    try {
+        const resp = await axios.get(urlBase + `location=${getLocation}`);
 
         return resp.data;
     } catch (error) {
@@ -34,5 +64,7 @@ const getWpaPayStationStreet = async (getStreet) => {
 
 module.exports = {
     getWpaPayStationAll,
-    getWpaPayStationStreet
+    getWpaPayStationStreet,
+    getWpaPayStationTimeLimit
+
 };
