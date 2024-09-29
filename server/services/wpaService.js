@@ -18,6 +18,14 @@ const getWpaPayStationAll = async () => {
 const getWpaPayStationStreet = async (getStreet) => {
     console.log(getStreet)
     try {
+        const resp = await axios.get(urlBase + `street=${getStreet}`,
+            {
+                headers: {
+                    'X-App-Token': appToken
+                }
+            }
+        );
+      
         const resp = await axios.get(`https://data.winnipeg.ca/resource/b85e-mbuw.json?`+`street=${getStreet}`+`?$$app_token=${appToken}`);
 
         return resp.data;
