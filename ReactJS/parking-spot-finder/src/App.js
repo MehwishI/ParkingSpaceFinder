@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logout from './components/Authentication/Logout';
 import AISuggestion from './components/AISuggestion/AISuggestion';
 import MapContainer from './components/MapContainer/MapContainer';
-//import LocationResult from './components/LocationResult/LocationResult';
+import LocationResult from './components/LocationResult/LocationResult';
+import Home from './components/Home/Home';
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -26,11 +27,12 @@ function App() {
           Hi {user.given_name}, Welcome to Smart Park!
            <Logout />
             <br></br>
-            
+            <Home />
+
             <AISuggestion />
            
             
-            <MapContainer />
+            {/* <MapContainer /> */}
               
             {/* <LocationResult /> */}
               
@@ -44,7 +46,7 @@ function App() {
       </div>
       <Routes>
         <Route path='/profile' element={<Profile />} />
-        
+        <Route path='/locationresult' element={<LocationResult />} />
       </Routes>
     </Router>
   );

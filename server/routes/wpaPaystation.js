@@ -87,5 +87,6 @@ const { fetchWpaApiData, fetchWpaApiStreet,fetchWpaApiTimeLimit } = require('../
 router.get("/wpapaystation", fetchWpaApiData);
 router.post("/wpastreet", fetchWpaApiStreet);
 router.post("/wpatimelimit", fetchWpaApiTimeLimit);
+router.post("/wpatimelimit", fetchWpaApiTimeLimit);
 
 module.exports = router;
