@@ -1,22 +1,21 @@
 import React from 'react';
 import { useMemo, useState, useEffect } from 'react';
-import { GoogleMap, useJsApiLoader, MarkerF , InfoWindow} from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, useJsApiLoader, MarkerF } from '@react-google-maps/api';
 import './MapContainer.css'
-//import { findCoordinatesByAddress } from ".../helpers/findCoordinates";
-import { locAllResultSearch , locResultSearch} from "services/locationResultService";
-
+import { locAllResultSearch } from '../../services/locationResultService';
 
 const MapContainer = () => {
-     const initialCenter = { lat: 48.1, lng: -97.39 }
-  const [defaultCenter, setDefaultCenter] = useState(initialCenter);
+  const [getLocPoints, setLocPoints] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [parkingData, setParkingData] = useState([]);
+
+  let initialCenter = { lat: 48.1, lng: -97.39 }
+  const [defaultCenter, setDefaultCenter] = useState(initialCenter)
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
-  
+
   const mapStyles = {
     height: "100%",
     width: "100%",
@@ -25,44 +24,36 @@ const MapContainer = () => {
     align: "center"
     // justify-content: "center"
   };
-  //console.log(findCoordinatesByAddress("360 Portage Avenue"));
-  const markers= []
-  const fetchParkingLocations = async () => {
-    try {
-      const parkingData = await locAllResultSearch();
-      console.log(parkingData);
-      
-      setParkingData(parkingData);
-     // setMarkers(parkingData)
-      //markers.push(parkingDat)
+  // const onMarkerClick = (marker) => {
+  //   setSelectedMarker(marker);
+    
+  // };
+  // const onCloseInfoWindow = () => {
+  //   setSelectedMarker(null);
+  // };
 
+  const getAllLocs = async () => {
+    try {
+      const locServiceAll = await locAllResultSearch();
+    //  console.log("posty",locServiceAll);
+      
+      const constLocData = locServiceAll.map((item, index) => ({
+        lat: Number(item.location.latitude),
+        lng: Number(item.location.longitude),
+        title: `${item.street}` + '\n' + `Time Limit: ${item.time_limit}` +
+          '\n' + `Total space: ${item.total_space}` +
+        '\n' + `Hourly rate: $${item.hourly_rate}`
+      }));
+
+      //console.log("lojuk",constLocData);
+      
+      setLocPoints(constLocData);
+    } catch (error) {
+      console.error(error);
     }
-    catch (error) {
-      throw error;
-    }
-  }
-  const onMarkerClick = (marker) => {
-    setSelectedMarker(marker);
   };
 
-  const onCloseInfoWindow = () => {
-    setSelectedMarker(null);
-  };  
-  
-  //const setMarkers = (parkingData) => {
-    for (let i of parkingData) {
-      let obj = { id: i + 1, position: { lat: parkingData[i].location.latitude, lng: parkingData[i].location.longitude }, info: parkingData[i].paystation_number }
-      markers.push(obj);
-
-    }
-    console.log("markers:", markers)
-  //}
-  
-
   useEffect(() => {
-
-    fetchParkingLocations(); // Getting parking locations
-   // setMarkers(parkingData);
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -73,22 +64,12 @@ const MapContainer = () => {
       },
       (error) => {
         console.log(error);
-      })
-  },[])
-    
-  // const showPosition = (position) => {
-  //   console.log(position)
-  //  // console.log(userLocation)
-  //   const userLocation = {            
-  //         lat: position.coords.latitude,  
-  //         lng: position.coords.longitude, 
-  //   };
-  //   defaultCenter.lat = userLocation.lat;
-  //   defaultCenter.lng = userLocation.lng;
-  //   console.log("changed defaultcenter:",defaultCenter)
-  // }  
- // getUserLocation()
- // console.log("defaultcenter after getting user location:", defaultCenter)
+      });
+
+      getAllLocs();
+  }, [])
+
+  console.log("defaultcenter after getting user location:", defaultCenter)
   if (!isLoaded) {
     return (
       <div>
@@ -96,45 +77,53 @@ const MapContainer = () => {
       </div>
     );
   }
- 
-  
-    // { id: 1, position: { lat: 37.7749, lng: -122.4194 }, info: "San Francisco" },
-    // { id: 2, position: { lat: 34.0522, lng: -118.2437 } , info: "Los Angeles"},
-    // { id: 3, position: { lat: 40.7128, lng: -74.0060 }, info: "New York" },
-    // { id: 4, position:{ lat: defaultCenter.lat, lng: defaultCenter.lng }, info: "You are here" }
-  
 
   return (
-    // <LoadScript
-    //   googleMapsApiKey={process.env.GOOGLE_MAPS_API_KEY}>
-    <div className='mapcontainer'>  
-    <GoogleMap
+    <div className='mapcontainer'>
+      <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={10}
         center={defaultCenter}
-       // onGoogleApiLoaded={renderMarkers(map,maps)}
       >
-        {/* <MarkerF key="current_location"  title="You are here!"  animation= "DROP" position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}  /> */}
-        
+        {getLocPoints.map((locPoints, index) => (
+          <MarkerF
+            key={index}
+            title={locPoints.title}
+            position={{ lat: locPoints.lat, lng: locPoints.lng }}
+            animation="DROP"
+            info={locPoints.title}
+            onClick={() => setSelectedMarker(locPoints)}
+          >
+            {selectedMarker && (
+              <InfoWindow
+                position={selectedMarker.position}
+                onCloseClick={() => setSelectedMarker(null)}
+              >
+            
+                <h2>{selectedMarker.title}</h2>
+            
+              </InfoWindow>
 
-       {markers.map(marker => (
-         <MarkerF key={marker.id} position={marker.position} onClick={()=>onMarkerClick(marker)} />
-         
-       ))}  
-         {selectedMarker && (
+            )}
+          </MarkerF>
+        ))}
+
+        <MarkerF key="curr_loc" title="You are here!" animation="DROP" position={{ lat: defaultCenter.lat, lng: -97.1419 }}  onClick={() => setSelectedMarker(this)} />
+
+          {selectedMarker && (
           <InfoWindow
             position={selectedMarker.position}
-            onCloseClick={onCloseInfoWindow}
+            onCloseClick={()=>setSelectedMarker(null)}
           >
             
-              <h2>{selectedMarker.info}</h2>
+              <h2>{selectedMarker.title}</h2>
             
           </InfoWindow>
         )}
       </GoogleMap>
-      
+
     </div>
-   
+
   );
 }
 export default MapContainer
