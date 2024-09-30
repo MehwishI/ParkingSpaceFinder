@@ -1,39 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { locAllResultSearch } from '../../services/locationResultService';
+import { useLocation } from 'react-router-dom';
+import MapContainer from '../MapContainer/MapContainer';
 
 const LocationResult = () => {
-  const [getLocRes, setLocRes] = useState(null);
+  // const [getLocRes, setLocRes] = useState(null);
 
-  useEffect(() => {
-    const fetchLocAllRes = async () => {
-      try {
-        const getAllLoc = await locAllResultSearch();
-        console.log(getAllLoc);
-        setLocRes(getAllLoc);
-      } catch (error) {
-        console.error("Error fetching location results:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchLocAllRes = async () => {
+  //     try {
+        
+  //     } catch (error) {
+  //       console.error("Error fetching location results:", error);
+  //     }
+  //   };
 
-    fetchLocAllRes();
-  }, []);
+  //   fetchLocAllRes();
+  // }, []);
+
+  const getLocation = useLocation();
+
+  console.log("location state", getLocation.state);
+  
+  const { address, coordinates } = getLocation.state || {};
 
   return (
     <>
+      <MapContainer coordinates={coordinates}/>
       <div>LocationResult</div>
-      {getLocRes ? (
-        <ul>
-          {getLocRes.map((loc, index) => (
-            <>
-              <li key={index}>Latitude: {loc.location.latitude}</li>
-              <li key={index}>Longitude: {loc.location.longitude}</li>
-              <br></br>
-            </>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading...</p>
-      )}
+      {address}
     </>
   )
 }

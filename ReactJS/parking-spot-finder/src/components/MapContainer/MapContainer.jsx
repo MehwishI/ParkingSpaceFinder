@@ -4,7 +4,7 @@ import { GoogleMap, LoadScript, useJsApiLoader, MarkerF } from '@react-google-ma
 import './MapContainer.css'
 import { locAllResultSearch } from '../../services/locationResultService';
 
-const MapContainer = () => {
+const MapContainer = ({ coordinates }) => {
   const [getLocPoints, setLocPoints] = useState([]);
 
   let initialCenter = { lat: 48.1, lng: -97.39 }
@@ -26,16 +26,15 @@ const MapContainer = () => {
 
   const getAllLocs = async () => {
     try {
+      console.log("got coordinates", coordinates);
+      
       const locServiceAll = await locAllResultSearch();
-      console.log("posty",locServiceAll);
       
       const constLocData = locServiceAll.map((item, index) => ({
         lat: Number(item.location.latitude),
         lng: Number(item.location.longitude),
         title: `Marker ${index + 1}`
       }));
-
-      console.log("lojuk",constLocData);
       
       setLocPoints(constLocData);
     } catch (error) {
