@@ -6,28 +6,28 @@
 // const LocationResult = async () => {
 //   const [getLocRes, setLocRes] = useState(null);
 
-//   useEffect(() => {
+  useEffect(() => {
     
-//     console.log("I got yanks...");
-//     const fetchLocAllRes = async () => {
-//       try {
+    console.log("I got yanks...");
+    const fetchLocAllRes = async () => {
+      try {
         
-//         const getAllLoc = await locAllResultSearch();
-//         console.log(getAllLoc);
+        const getAllLoc = await locAllResultSearch();
+        console.log(getAllLoc);
         
-//         setLocRes(getAllLoc);
+        setLocRes(getAllLoc);
 
-//       } catch (error) {
-//         throw error;
-//       }
-//     };
+      } catch (error) {
+        throw error;
+      }
+    };
 
-//     fetchLocAllRes();
-//   }, [])
+    fetchLocAllRes();
+  }, [])
 
-//   return (
-//     <div>LocationResult</div>
-//   )
-// }
+  return (
+    <div>LocationResult</div>
+  )
+}
 
 // export default LocationResult
