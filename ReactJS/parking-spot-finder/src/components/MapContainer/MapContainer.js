@@ -1,18 +1,23 @@
-import React from 'react';
-import { useMemo, useState, useEffect } from 'react';
-import { GoogleMap, InfoWindow, useJsApiLoader, MarkerF } from '@react-google-maps/api';
-import './MapContainer.css'
-import { locAllResultSearch } from '../../services/locationResultService';
+import React from "react";
+import { useMemo, useState, useEffect } from "react";
+import {
+  GoogleMap,
+  InfoWindow,
+  useJsApiLoader,
+  MarkerF,
+} from "@react-google-maps/api";
+import "./MapContainer.css";
+import { locAllResultSearch } from "../../services/locationResultService";
 
 const MapContainer = () => {
   const [getLocPoints, setLocPoints] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
 
-  let initialCenter = { lat: 48.1, lng: -97.39 }
-  const [defaultCenter, setDefaultCenter] = useState(initialCenter)
+  let initialCenter = { lat: 48.1, lng: -97.39 };
+  const [defaultCenter, setDefaultCenter] = useState(initialCenter);
 
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
+    id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
@@ -21,12 +26,12 @@ const MapContainer = () => {
     width: "100%",
     position: "relative",
     overflow: "none",
-    align: "center"
+    align: "center",
     // justify-content: "center"
   };
   // const onMarkerClick = (marker) => {
   //   setSelectedMarker(marker);
-    
+
   // };
   // const onCloseInfoWindow = () => {
   //   setSelectedMarker(null);
@@ -35,18 +40,23 @@ const MapContainer = () => {
   const getAllLocs = async () => {
     try {
       const locServiceAll = await locAllResultSearch();
-    //  console.log("posty",locServiceAll);
-      
+      //  console.log("posty",locServiceAll);
+
       const constLocData = locServiceAll.map((item, index) => ({
         lat: Number(item.location.latitude),
         lng: Number(item.location.longitude),
-        title: `${item.street}` + '\n' + `Time Limit: ${item.time_limit}` +
-          '\n' + `Total space: ${item.total_space}` +
-        '\n' + `Hourly rate: $${item.hourly_rate}`
+        title:
+          `${item.street}` +
+          "\n" +
+          `Time Limit: ${item.time_limit}` +
+          "\n" +
+          `Total space: ${item.total_space}` +
+          "\n" +
+          `Hourly rate: $${item.hourly_rate}`,
       }));
 
       //console.log("lojuk",constLocData);
-      
+
       setLocPoints(constLocData);
     } catch (error) {
       console.error(error);
@@ -54,7 +64,6 @@ const MapContainer = () => {
   };
 
   useEffect(() => {
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const latitude = position.coords.latitude;
@@ -64,12 +73,13 @@ const MapContainer = () => {
       },
       (error) => {
         console.log(error);
-      });
+      }
+    );
 
-      getAllLocs();
-  }, [])
+    getAllLocs();
+  }, []);
 
-  console.log("defaultcenter after getting user location:", defaultCenter)
+  console.log("defaultcenter after getting user location:", defaultCenter);
   if (!isLoaded) {
     return (
       <div>
@@ -79,12 +89,8 @@ const MapContainer = () => {
   }
 
   return (
-    <div className='mapcontainer'>
-      <GoogleMap
-        mapContainerStyle={mapStyles}
-        zoom={10}
-        center={defaultCenter}
-      >
+    <div className="mapcontainer">
+      <GoogleMap mapContainerStyle={mapStyles} zoom={10} center={defaultCenter}>
         {getLocPoints.map((locPoints, index) => (
           <MarkerF
             key={index}
@@ -99,31 +105,30 @@ const MapContainer = () => {
                 position={selectedMarker.position}
                 onCloseClick={() => setSelectedMarker(null)}
               >
-            
                 <h2>{selectedMarker.title}</h2>
-            
               </InfoWindow>
-
             )}
           </MarkerF>
         ))}
 
-        <MarkerF key="curr_loc" title="You are here!" animation="DROP" position={{ lat: defaultCenter.lat, lng: -97.1419 }}  onClick={() => setSelectedMarker(this)} />
+        <MarkerF
+          key="curr_loc"
+          title="You are here!"
+          animation="DROP"
+          position={{ lat: defaultCenter.lat, lng: -97.1419 }}
+          onClick={() => setSelectedMarker(this)}
+        />
 
-          {selectedMarker && (
+        {selectedMarker && (
           <InfoWindow
             position={selectedMarker.position}
-            onCloseClick={()=>setSelectedMarker(null)}
+            onCloseClick={() => setSelectedMarker(null)}
           >
-            
-              <h2>{selectedMarker.title}</h2>
-            
+            <h2>{selectedMarker.title}</h2>
           </InfoWindow>
         )}
       </GoogleMap>
-
     </div>
-
   );
-}
-export default MapContainer
+};
+export default MapContainer;
