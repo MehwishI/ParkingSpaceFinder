@@ -13,14 +13,15 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
-//app.use(cors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+
 app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
-      exposedHeaders: ["Set-Cookie", "Date", "ETag"],
-    content : "application/json"
+    exposedHeaders: ["Set-Cookie", "Date", "ETag"],
+    content: "application/json",
+    //access-control-allow-orign: "*"
+    
   })
 );
 // Middleware setup
