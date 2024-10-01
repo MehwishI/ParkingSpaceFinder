@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { fetchWpaApiData, fetchWpaApiStreet,fetchWpaApiTimeLimit } = require('../controllers/wpaController');
+const {
+  fetchWpaApiData,
+  fetchWpaApiStreet,
+  fetchWpaApiTimeLimit,
+  fetchWpaApiLocation,
+} = require("../controllers/wpaController");
 
 /**
  *@swagger
@@ -23,7 +28,7 @@ const { fetchWpaApiData, fetchWpaApiStreet,fetchWpaApiTimeLimit } = require('../
  *                   example: wpaPaystation data!
  */
 
- /**
+/**
  *@swagger
  * /api/wpastreet:
  *   post:
@@ -53,8 +58,7 @@ const { fetchWpaApiData, fetchWpaApiStreet,fetchWpaApiTimeLimit } = require('../
  *                   example: wpaPaystation data!
  */
 
-
- /**
+/**
  *@swagger
  * /api/wpatimelimit:
  *   post:
@@ -81,11 +85,44 @@ const { fetchWpaApiData, fetchWpaApiStreet,fetchWpaApiTimeLimit } = require('../
  *               properties:
  *                 message:
  *                   type: string
+ *                   example: wpaPaystation data  by time limit!
+ */
+/**
+ *@swagger
+ * /api/wpalocation:
+ *   post:
+ *     tags:
+ *       - WPA Parking Data
+ *     summary: Returns wpaPaystation data for on-street parking and parking lots in ciy of Winnipeg by location coordinates.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               latitude:
+ *                 type: double
+ *                 example: "Add latitude here."
+ *               longitude:
+ *                  type: double
+ *                  example: "Add longitude here"
+ *
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
  *                   example: wpaPaystation data!
  */
-
 router.get("/wpapaystation", fetchWpaApiData);
 router.post("/wpastreet", fetchWpaApiStreet);
 router.post("/wpatimelimit", fetchWpaApiTimeLimit);
+router.post("/wpalocation", fetchWpaApiLocation);
 
 module.exports = router;

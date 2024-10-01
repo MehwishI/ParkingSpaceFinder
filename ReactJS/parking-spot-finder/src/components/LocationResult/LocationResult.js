@@ -1,33 +1,23 @@
-// import React, { useState, useEffect } from 'react';
-// import { locAllResultSearch } from '../../services/locationResultService';
+import React, { useState, useEffect } from 'react';
+import { locAllResultSearch } from '../../services/locationResultService';
+import { useLocation } from 'react-router-dom';
+import MapContainer from '../MapContainer/MapContainer';
 
-// const getBaseApi = process.env.REACT_APP_BASE_URL_API;
+const LocationResult = () => {
 
-// const LocationResult = async () => {
-//   const [getLocRes, setLocRes] = useState(null);
+  const getLocation = useLocation();
 
-  useEffect(() => {
-    
-    console.log("I got yanks...");
-    const fetchLocAllRes = async () => {
-      try {
-        
-        const getAllLoc = await locAllResultSearch();
-        console.log(getAllLoc);
-        
-        setLocRes(getAllLoc);
-
-      } catch (error) {
-        throw error;
-      }
-    };
-
-    fetchLocAllRes();
-  }, [])
+  console.log("location state", getLocation.state);
+  
+  const { address, coordinates } = getLocation.state || {};
 
   return (
-    <div>LocationResult</div>
-  )
+    <>
+      <MapContainer coordinates={coordinates}/>
+      <div>LocationResult</div>
+      {address}
+    </>
+)
 }
 
-// export default LocationResult
+export default LocationResult

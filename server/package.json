@@ -31,6 +31,7 @@
     "express-session": "^1.18.0",
     "jwks-rsa": "^3.1.0",
     "jwt-decode": "^4.0.0",
+    "mongoose": "^8.7.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.4",
     "oidc-provider": "^8.5.1",

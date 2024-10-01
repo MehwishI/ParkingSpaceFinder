@@ -1,13 +1,14 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { useAuth0 } from "@auth0/auth0-react";
-import Login from "./components/Authentication/Login";
-import Profile from "./components/Profile/Profile";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Logout from "./components/Authentication/Logout";
-import AISuggestion from "./components/AISuggestion/AISuggestion";
-import MapContainer from "./components/MapContainer/MapContainer";
-//import LocationResult from './components/LocationResult/LocationResult';
+import logo from './logo.svg';
+import './App.css';
+import { useAuth0 } from '@auth0/auth0-react';
+import Login from './components/Authentication/Login';
+import Profile from './components/Profile/Profile';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Logout from './components/Authentication/Logout';
+import AISuggestion from './components/AISuggestion/AISuggestion';
+import MapContainer from './components/MapContainer/MapContainer';
+import LocationResult from './components/LocationResult/LocationResult';
+import Home from './components/Home/Home';
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -26,8 +27,13 @@ function App() {
             Hi {user.given_name}, Welcome to Smart Park!
             <Logout />
             <br></br>
+            <Home />
+
             <AISuggestion />
-            <MapContainer />
+           
+            
+            {/* <MapContainer /> */}
+              
             {/* <LocationResult /> */}
           </div>
         ) : (
@@ -38,7 +44,8 @@ function App() {
         )}
       </div>
       <Routes>
-        <Route path="/profile" element={<Profile />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/locationresult' element={<LocationResult />} />
       </Routes>
     </Router>
   );
