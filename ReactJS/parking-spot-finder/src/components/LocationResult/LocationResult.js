@@ -4,19 +4,6 @@ import { useLocation } from 'react-router-dom';
 import MapContainer from '../MapContainer/MapContainer';
 
 const LocationResult = () => {
-  // const [getLocRes, setLocRes] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchLocAllRes = async () => {
-  //     try {
-        
-  //     } catch (error) {
-  //       console.error("Error fetching location results:", error);
-  //     }
-  //   };
-
-  //   fetchLocAllRes();
-  // }, []);
 
   const getLocation = useLocation();
 
@@ -30,7 +17,7 @@ const LocationResult = () => {
       <div>LocationResult</div>
       {address}
     </>
-  )
+)
 }
 
 export default LocationResult
