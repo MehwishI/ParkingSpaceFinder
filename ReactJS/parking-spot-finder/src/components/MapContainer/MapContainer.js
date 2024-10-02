@@ -2,9 +2,10 @@ import React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
 import './MapContainer.css'
-import { locAllResultSearch } from '../../services/locationResultService';
+import { locResultForCoord } from '../../services/locationResultService';
 
-const MapContainer = ({ coordinates }) => {
+// const MapContainer = ({ coordinates }) => {
+const MapContainer = ({ wpaResData }) => {
   const [getLocPoints, setLocPoints] = useState([]);
   const [map, setMap] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
@@ -44,16 +45,17 @@ const MapContainer = ({ coordinates }) => {
 
   const getAllLocs = async () => {
     try {
-      console.log("got coordinates", coordinates);
+      console.log("got coordinates", wpaResData.coordinates);
+      const getCoordPoints = wpaResData.coordinates;
 
-      // const locServiceAll = await locAllResultSearch();
+      const locServiceCoord = await locResultForCoord(getCoordPoints);
 
-      // const constLocData = locServiceAll.map((item, index) => ({
-      //   lat: Number(item.location.latitude),
-      //   lng: Number(item.location.longitude),
-      //   title: `Marker ${index + 1}`,
-      //   description: item.location.description
-      // }));
+      const constLocData = locServiceCoord.map((item, index) => ({
+        lat: Number(item.location.latitude),
+        lng: Number(item.location.longitude),
+        title: `Marker ${index + 1}`,
+        description: item.location.description
+      }));
 
       setLocPoints(constLocData);
 
