@@ -1,9 +1,16 @@
 
 import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 const getBaseApi = process.env.REACT_APP_BASE_URL_API;
+ const { getAccessTokenSilently } = useAuth0();
 
 const locResultSearch = async () => {
+ 
+  
+  const authtoken = await getAccessTokenSilently();
+
     try {
         const getLocRes = await axios.post(`${getBaseApi}/wpatimelimit`);
 
