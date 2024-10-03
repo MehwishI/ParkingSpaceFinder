@@ -12,13 +12,7 @@ const locResultSearch = async () => {
   const authtoken = await getAccessTokenSilently();
 
     try {
-        console.log("Before location result...");
-        
-      const getLocRes = await axios.post(`${getBaseApi}/wpatimelimit`, {
-        headers: 
-         'Authorization': `Bearer ${authtoken}`
-          
-        });
+        const getLocRes = await axios.post(`${getBaseApi}/wpatimelimit`);
 
         console.log(getLocRes.data);
         
@@ -33,16 +27,7 @@ const locResultSearch = async () => {
 
 const locAllResultSearch = async () => {
   try {
-    console.log(getBaseApi);
-    
-    const getAllLocRes = await axios.get(`${getBaseApi}/wpapaystation`, {
-      headers:
-        'Authorization': `Bearer ${authtoken}`
-          
-        });
-
-
-    console.log("my data",getAllLocRes);
+    const getAllLocRes = await axios.get(`${getBaseApi}/wpapaystation`);
     
     return getAllLocRes.data;
 
@@ -52,4 +37,15 @@ const locAllResultSearch = async () => {
   }
 };
 
-export { locResultSearch, locAllResultSearch }
+const locResultForCoord = async (coordPoints) => {
+  const getLocCoRes = await axios.post(`${getBaseApi}/wpalocation`, {
+    latitude: coordPoints.lat,
+    longitude: coordPoints.lng
+  });
+
+  console.log('COORDINATE DATA', getLocCoRes.data);
+
+  return getLocCoRes.data;
+};
+
+export { locResultSearch, locAllResultSearch, locResultForCoord }

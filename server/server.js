@@ -9,6 +9,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const aiRoutes = require("./routes/aiRoute");
 const wpaPaystationRoutes = require("./routes/wpaPaystation");
+const googleApiRoutes = require("./routes/googleRoute");
 const cors = require("cors");
 
 const app = express();
@@ -90,6 +91,7 @@ app.get("/index", (req, res) => {
 
 app.use("/api", aiRoutes);
 app.use("/api", wpaPaystationRoutes);
+app.use("/api", googleApiRoutes);
 
 // Server listening on a port
 const PORT = process.env.PORT || 3001;

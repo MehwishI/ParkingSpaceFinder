@@ -1,23 +1,36 @@
-import React from "react";
-import { useMemo, useState, useEffect } from "react";
-import {
-  GoogleMap,
-  InfoWindow,
-  useJsApiLoader,
-  MarkerF,
-} from "@react-google-maps/api";
-import "./MapContainer.css";
-import { locAllResultSearch } from "../../services/locationResultService";
+import React from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
+import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
+import './MapContainer.css'
+import { locResultForCoord } from '../../services/locationResultService';
 
-const MapContainer = () => {
+// const MapContainer = ({ coordinates }) => {
+const MapContainer = ({ wpaResData }) => {
   const [getLocPoints, setLocPoints] = useState([]);
-  const [selectedMarker, setSelectedMarker] = useState(null);
+  const [map, setMap] = useState(null);
+  const [activeMarker, setActiveMarker] = useState(null);
+  const boundsRef = useRef(null);
+  const [directResp, setDirectResp] = useState(null);
 
-  let initialCenter = { lat: 48.1, lng: -97.39 };
-  const [defaultCenter, setDefaultCenter] = useState(initialCenter);
+  const constLocData = {
+    lat: 49.821311,
+    lng:  -97.157452,
+    title: 'Marker 1',
+    description: 'Test Location'
+  };
+
+  const constLocDataTwo = {
+    lat: 49.815678,
+    lng:  -97.208330,
+    title: 'Marker 2',
+    description: 'Test Location two'
+  };
+
+  let initialCenter = { lat: 48.1, lng: -97.39 }
+  const [defaultCenter, setDefaultCenter] = useState(initialCenter)
 
   const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
+    id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
@@ -26,60 +39,92 @@ const MapContainer = () => {
     width: "100%",
     position: "relative",
     overflow: "none",
-    align: "center",
+    align: "center"
     // justify-content: "center"
   };
-  // const onMarkerClick = (marker) => {
-  //   setSelectedMarker(marker);
-
-  // };
-  // const onCloseInfoWindow = () => {
-  //   setSelectedMarker(null);
-  // };
 
   const getAllLocs = async () => {
     try {
-      const locServiceAll = await locAllResultSearch();
-      //  console.log("posty",locServiceAll);
+      console.log("got coordinates", wpaResData.coordinates);
+      const getCoordPoints = wpaResData.coordinates;
 
-      const constLocData = locServiceAll.map((item, index) => ({
+      const locServiceCoord = await locResultForCoord(getCoordPoints);
+
+      const constLocData = locServiceCoord.map((item, index) => ({
         lat: Number(item.location.latitude),
         lng: Number(item.location.longitude),
-        title:
-          `${item.street}` +
-          "\n" +
-          `Time Limit: ${item.time_limit}` +
-          "\n" +
-          `Total space: ${item.total_space}` +
-          "\n" +
-          `Hourly rate: $${item.hourly_rate}`,
+        title: `Marker ${index + 1}`,
+        description: item.location.description
       }));
 
-      //console.log("lojuk",constLocData);
-
       setLocPoints(constLocData);
+
+      if (map && constLocData.length > 0) {
+        const bounds = new window.google.maps.LatLngBounds();
+        constLocData.forEach((loc) => bounds.extend(loc));
+        boundsRef.current = bounds;
+        map.fitBounds(bounds);
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const latitude = position.coords.latitude;
-        const long = position.coords.longitude;
+        const userLocaton = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
         // const center = { lat: lat, lng: long };
-        setDefaultCenter({ lat: latitude, lng: long });
+        setDefaultCenter(userLocaton);
+
+        if (map) {
+          map.panTo(userLocaton);
+          map.setZoom(15);
+        }
       },
       (error) => {
         console.log(error);
-      }
-    );
+      });
 
     getAllLocs();
-  }, []);
+  }, [map])
 
-  console.log("defaultcenter after getting user location:", defaultCenter);
+const handleMapLoad = (mapInstance) => {
+  setMap(mapInstance);
+};
+
+const handleMarkerClick = (marker) => {
+  if (activeMarker === marker) {
+    
+    setActiveMarker(null);
+  } else {
+    console.log("I am getting to marker");
+    setActiveMarker(marker);
+  }
+};
+
+const getHandleDrawPoly = async (destination) => {
+  if (defaultCenter && destination) {
+    const dirService = new window.google.maps.DirectionsService();
+
+    const getRes = await dirService.route({
+      origin: defaultCenter,
+      destination: destination,
+      travelMode: window.google.maps.TravelMode.DRIVING,
+    });
+
+    if (getRes.status === 'OK') {
+      setDirectResp(getRes);
+    } else {
+      console.error(`Failed to fetch direction`);
+    }
+  }
+}
+
   if (!isLoaded) {
     return (
       <div>
@@ -89,46 +134,57 @@ const MapContainer = () => {
   }
 
   return (
-    <div className="mapcontainer">
-      <GoogleMap mapContainerStyle={mapStyles} zoom={10} center={defaultCenter}>
-        {getLocPoints.map((locPoints, index) => (
+    <div className='mapcontainer'>
+      <GoogleMap
+        mapContainerStyle={mapStyles}
+        zoom={10}
+        center={defaultCenter}
+        onLoad={handleMapLoad}
+      >
+        {/* {getLocPoints.map((locPoints, index) => (
           <MarkerF
             key={index}
             title={locPoints.title}
             position={{ lat: locPoints.lat, lng: locPoints.lng }}
             animation="DROP"
-            info={locPoints.title}
-            onClick={() => setSelectedMarker(locPoints)}
-          >
-            {selectedMarker && (
-              <InfoWindow
-                position={selectedMarker.position}
-                onCloseClick={() => setSelectedMarker(null)}
-              >
-                <h2>{selectedMarker.title}</h2>
-              </InfoWindow>
-            )}
-          </MarkerF>
-        ))}
+            onClick={() => handleMarkerClick(locPoints)}
+          />
+        ))} */}
+        <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocData} onClick={() => handleMarkerClick(constLocData)}/>
+        <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocDataTwo} onClick={() => handleMarkerClick(constLocDataTwo)}/>
 
-        <MarkerF
-          key="curr_loc"
-          title="You are here!"
-          animation="DROP"
-          position={{ lat: defaultCenter.lat, lng: -97.1419 }}
-          onClick={() => setSelectedMarker(this)}
-        />
+        <MarkerF key="current_location" title="You are here!" animation="DROP" position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }} />
 
-        {selectedMarker && (
+        {activeMarker && (
           <InfoWindow
-            position={selectedMarker.position}
-            onCloseClick={() => setSelectedMarker(null)}
+           position={{ lat: activeMarker.lat, lng: activeMarker.lng}}
+           onCloseClick={() => setActiveMarker(null)}
           >
-            <h2>{selectedMarker.title}</h2>
+            <div>
+              <h3>{activeMarker.title}</h3>
+              <p>{activeMarker.description}</p>
+              <button onClick={() => getHandleDrawPoly(activeMarker)}>
+                View Details
+              </button>
+            </div>
           </InfoWindow>
         )}
+
+        {directResp && (
+          <DirectionsRenderer
+          directions={directResp}
+          options={{
+            polylineOptions: {
+              strokeColor: '#FF0000',
+              strokeWeight: 5,
+            }
+          }}
+          />
+        )}
       </GoogleMap>
+
     </div>
+
   );
-};
-export default MapContainer;
+}
+export default MapContainer
