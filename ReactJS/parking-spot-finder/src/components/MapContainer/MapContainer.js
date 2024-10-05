@@ -16,7 +16,7 @@ const MapContainer = ({ wpaResData }) => {
     lat: 49.821311,
     lng:  -97.157452,
     title: 'Marker 1',
-    description: 'Test Location'
+    description: 'Test Location' 
   };
 
   const constLocDataTwo = {

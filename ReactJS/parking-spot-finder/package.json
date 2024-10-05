@@ -21,7 +21,6 @@
     "react-scripts": "5.0.1",
     "react-spinners": "^0.14.1",
     "request": "^2.88.2",
-   
     "web-vitals": "^2.1.4"
   },
   "scripts": {

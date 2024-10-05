@@ -1,38 +1,31 @@
-
-import axios from 'axios';
-import { useAuth0 } from "@auth0/auth0-react";
-
+import axios from "axios";
+//import { useAuth0 } from "@auth0/auth0-react";
 
 const getBaseApi = process.env.REACT_APP_BASE_URL_API;
- const { getAccessTokenSilently } = useAuth0();
+//const { getAccessTokenSilently } = useAuth0();
 
 const locResultSearch = async () => {
- 
-  
-  const authtoken = await getAccessTokenSilently();
+  //const authtoken = await getAccessTokenSilently();
 
-    try {
-        const getLocRes = await axios.post(`${getBaseApi}/wpatimelimit`);
+  try {
+    const getLocRes = await axios.post(`${getBaseApi}/wpatimelimit`);
 
-        console.log(getLocRes.data);
-        
-        
-        return getLocRes.data;
-    
-      } catch (error) {
-        console.error('Error getting location result', error);
-        return error;
-      }
+    console.log(getLocRes.data);
+
+    return getLocRes.data;
+  } catch (error) {
+    console.error("Error getting location result", error);
+    return error;
+  }
 };
 
 const locAllResultSearch = async () => {
   try {
     const getAllLocRes = await axios.get(`${getBaseApi}/wpapaystation`);
-    
-    return getAllLocRes.data;
 
+    return getAllLocRes.data;
   } catch (error) {
-    console.error('Error getting location result', error);
+    console.error("Error getting location result", error);
     return error;
   }
 };
@@ -40,12 +33,12 @@ const locAllResultSearch = async () => {
 const locResultForCoord = async (coordPoints) => {
   const getLocCoRes = await axios.post(`${getBaseApi}/wpalocation`, {
     latitude: coordPoints.lat,
-    longitude: coordPoints.lng
+    longitude: coordPoints.lng,
   });
 
-  console.log('COORDINATE DATA', getLocCoRes.data);
+  console.log("COORDINATE DATA", getLocCoRes.data);W
 
   return getLocCoRes.data;
 };
 
-export { locResultSearch, locAllResultSearch, locResultForCoord }
+export { locResultSearch, locAllResultSearch, locResultForCoord };
