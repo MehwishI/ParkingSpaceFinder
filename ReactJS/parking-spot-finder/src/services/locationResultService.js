@@ -36,7 +36,7 @@ const locResultForCoord = async (coordPoints) => {
     longitude: coordPoints.lng,
   });
 
-  console.log("COORDINATE DATA", getLocCoRes.data);W
+  console.log("COORDINATE DATA", getLocCoRes.data);
 
   return getLocCoRes.data;
 };

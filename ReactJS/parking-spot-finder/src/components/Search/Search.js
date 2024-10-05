@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getGoogleAutocomplete } from "services/searchService";
+import { getGoogleCoordinates } from "services/getCoordinatesService";
 
 import { useAsyncError } from "react-router";
 
 const Search = ({ onDataChange }) => {
-  const [getAddress, setGetAddress] = useState("");
+  //const [getAddress, setGetAddress] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
   const [addressCoord, setAddressCoord] = useState({});
   const autocompleteRef = useRef(null);
@@ -30,23 +32,20 @@ const Search = ({ onDataChange }) => {
     }
   };
 
-  const handlePredictionClick = (description) => {
+  const handlePredictionClick = (description, place_id) => {
     setInputValue(description);
+    setPlaceId(place_id);
     setGglePrediction([]);
     onDataChange(description);
   };
   const OnSearchClick = async () => {
     //get coordinates
-    // setGetAddress(inputValue);
-    // console.log("getAddress:", getAddress);
-    // console.log(inputValue);
-    // console.log("getAddress:", getAddress);
-    // const data = await getCoordinatesByAddress("393 Portage Avenue");
-    // console.log(data);
-    // // console.log("getAddress:", getAddress);
-    // const coordinates = data.geometry.location;
-    // setAddressCoord(coordinates);
-    // console.log(coordinates);
+
+    console.log("placeid", placeid);
+    const coordinates = await getGoogleCoordinates(placeid);
+
+    setAddressCoord(coordinates);
+    console.log(coordinates);
   };
 
   return (
@@ -63,7 +62,9 @@ const Search = ({ onDataChange }) => {
         {predictions.map((prediction) => (
           <li
             key={prediction.place_id}
-            onClick={() => handlePredictionClick(prediction.description)}
+            onClick={() =>
+              handlePredictionClick(prediction.description, prediction.place_id)
+            }
           >
             {prediction.description}
           </li>
