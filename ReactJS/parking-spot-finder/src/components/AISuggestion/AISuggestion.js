@@ -97,13 +97,13 @@ const AISuggestion = ({ onDataChange }) => {
                 {getIsLoading ? 'Generating AI Suggestion...' : 'Generate AI Suggestion'}
             </button>
 
-            {/* {getAiText && (
+            {getAiText && (
                 <>
                   <a>
                     {String(getAiText)}
                   </a>
                 </>
-            )} */}
+            )}
         </div>
     );
 }
