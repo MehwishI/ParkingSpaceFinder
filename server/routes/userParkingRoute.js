@@ -2,17 +2,17 @@
 const express = require("express");
 const router = express.Router();
 const {
-  fetchUserData,
-  saveUserData,
-} = require("../controllers/userDataController");
+  fetchUserParkingData,
+  saveUserParkingData,
+} = require("../controllers/userParkingController");
 
 /**
  *@swagger
- * /api/user/profile:
+ * /api/user/parking:
  *   post:
  *     tags:
- *       - User Profile
- *     summary: Returns user profile data from DB.
+ *       - User Parking
+ *     summary: Returns user parking history from DB.
  *     requestBody:
  *       required: true
  *       content:
@@ -34,16 +34,16 @@ const {
  *               properties:
  *                 message:
  *                   type: string
- *                   example: User Profile Data!
+ *                   example: User Parking Data!
  */
 
 /**
  *@swagger
- * /api/user/profile/save:
+ * /api/user/parking/save:
  *   post:
  *     tags:
- *       - User Profile
- *     summary: Saves the user data into Database.
+ *       - User Parking
+ *     summary: Saves the user parking data into Database.
  *     requestBody:
  *       required: true
  *       content:
@@ -51,20 +51,16 @@ const {
  *           schema:
  *             type: object
  *             properties:
- *               userid:
- *                 type: number
- *                 example: Add user id
- *               firstname:
- *                 type: text
- *                 example: "Add first name"
- *               lastname:
- *                 type: text
- *                 example: "Add last name"
  *               email:
  *                  type: string
  *                  format: email
  *                  example: "Add user email here"
- *
+ *               latitude:
+ *                  type: number
+ *                  example: "Add latitude here"
+ *               longitude:
+ *                  type: number
+ *                  example: "Add longitude here"
  *
  *     responses:
  *       200:
@@ -76,10 +72,9 @@ const {
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "User data saved successfully"
+ *                   example: "User parking data saved successfully"
  */
 
-router.post("/user/profile", fetchUserData);
-router.post("/user/profile/save", saveUserData);
-
+router.post("/user/parking", fetchUserParkingData);
+router.post("/user/parking/save", saveUserParkingData);
 module.exports = router;
