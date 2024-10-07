@@ -26,7 +26,6 @@ const getGeneratedText = async (req, res) => {
 
 const getGeneratedVoice = async (req, res) => {
     
-    console.log('body...',req);
     // start decrypting data
     const decryptData = getDecryptedData(req.body);
     
@@ -45,7 +44,6 @@ const getGeneratedVoice = async (req, res) => {
 
         // encrypt response
         // const encryptResData = getEncrytedData(fetchVoice);
-        // console.log("encrypted res", encryptResData);
 
         res.set('Content-Type', 'audio/mpeg');
         res.set('Content-Disposition', 'inline; filename="audio.mp3"');
@@ -56,7 +54,15 @@ const getGeneratedVoice = async (req, res) => {
         // console.log("after buffer",setAudioBuffer);
         
         // res.send(setAudioBuffer);
-        res.send(fetchVoice);
+
+        // res.send(fetchVoice);
+        res.json({
+            text: fetchVoice.text,
+            txtJson: fetchVoice.textJson,
+            audio: fetchVoice.buffer.toString('base64')
+        })
+
+
         // res.send(encryptResData);
 
     } catch (error) {

@@ -32,21 +32,27 @@ const Search = ({ onDataChange }) => {
     }
   };
 
-  const handlePredictionClick = (description, place_id) => {
+  const handlePredictionClick = async (description, place_id) => {
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
-    onDataChange(description);
-  };
-  const OnSearchClick = async () => {
-    //get coordinates
 
-    console.log("placeid", placeid);
     const coordinates = await getGoogleCoordinates(placeid);
-
     setAddressCoord(coordinates);
-    console.log(coordinates);
+
+    onDataChange(addressCoord);
   };
+//   const OnSearchClick = async () => {
+//     //get coordinates
+
+//     console.log("placeid", placeid);
+//     const coordinates = await getGoogleCoordinates(placeid);
+//     console.log("coordinates", coordinates);
+    
+
+//     setAddressCoord(coordinates);
+//     console.log(coordinates);
+//   };
 
   return (
     <>
@@ -70,9 +76,9 @@ const Search = ({ onDataChange }) => {
           </li>
         ))}
       </ul>
-      <button title="searchbtn" onClick={() => OnSearchClick()}>
+      {/* <button title="searchbtn" onClick={() => OnSearchClick()}>
         Search
-      </button>
+      </button> */}
     </>
   );
 };

@@ -5,8 +5,6 @@ import Login from './components/Authentication/Login';
 import Profile from './components/Profile/Profile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logout from './components/Authentication/Logout';
-import AISuggestion from './components/AISuggestion/AISuggestion';
-import MapContainer from './components/MapContainer/MapContainer';
 import LocationResult from './components/LocationResult/LocationResult';
 import Home from './components/Home/Home';
 
@@ -28,13 +26,6 @@ function App() {
             <Logout />
             <br></br>
             <Home />
-
-            <AISuggestion />
-           
-            
-            {/* <MapContainer /> */}
-              
-            {/* <LocationResult /> */}
           </div>
         ) : (
           <>

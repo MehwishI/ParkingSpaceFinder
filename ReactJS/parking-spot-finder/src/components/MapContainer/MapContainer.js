@@ -5,7 +5,7 @@ import './MapContainer.css'
 import { locResultForCoord } from '../../services/locationResultService';
 
 // const MapContainer = ({ coordinates }) => {
-const MapContainer = ({ wpaResData }) => {
+const MapContainer = ({ wpaResData, aiSugData }) => {
   const [getLocPoints, setLocPoints] = useState([]);
   const [map, setMap] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
@@ -45,8 +45,10 @@ const MapContainer = ({ wpaResData }) => {
 
   const getAllLocs = async () => {
     try {
-      console.log("got coordinates", wpaResData.coordinates);
-      const getCoordPoints = wpaResData.coordinates;
+      const getCoordPoints = {
+        lat: wpaResData.lat,
+        lng: wpaResData.lng
+      };
 
       const locServiceCoord = await locResultForCoord(getCoordPoints);
 
@@ -71,7 +73,30 @@ const MapContainer = ({ wpaResData }) => {
   };
 
   useEffect(() => {
+    if (wpaResData && map) {
+      getAllLocs();
+    }
+  }, [wpaResData, map]);
 
+  useEffect(() => {
+    if (aiSugData && map) {
+      const convAiSugData = convertToObject(aiSugData);
+
+      const getAiLocs = convAiSugData.parking.map((location) => ({
+        lat: location.coordinates.lat,
+        lng: location.coordinates.lng,
+        title: location.name
+      }));
+
+      setLocPoints(getAiLocs);
+    }
+  }, [aiSugData, map]);
+
+  useEffect(() => {
+    console.log("I got axios ...");
+    
+    console.log("Hello Axios",wpaResData);
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userLocaton = {
@@ -102,7 +127,6 @@ const handleMarkerClick = (marker) => {
     
     setActiveMarker(null);
   } else {
-    console.log("I am getting to marker");
     setActiveMarker(marker);
   }
 };
@@ -123,7 +147,13 @@ const getHandleDrawPoly = async (destination) => {
       console.error(`Failed to fetch direction`);
     }
   }
-}
+};
+
+const convertToObject = (jsonData) => {
+  const parsedJson = JSON.parse(jsonData);
+
+  return parsedJson;
+};
 
   if (!isLoaded) {
     return (
@@ -141,7 +171,7 @@ const getHandleDrawPoly = async (destination) => {
         center={defaultCenter}
         onLoad={handleMapLoad}
       >
-        {/* {getLocPoints.map((locPoints, index) => (
+        {getLocPoints.map((locPoints, index) => (
           <MarkerF
             key={index}
             title={locPoints.title}
@@ -149,9 +179,9 @@ const getHandleDrawPoly = async (destination) => {
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
           />
-        ))} */}
-        <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocData} onClick={() => handleMarkerClick(constLocData)}/>
-        <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocDataTwo} onClick={() => handleMarkerClick(constLocDataTwo)}/>
+        ))}
+        {/* <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocData} onClick={() => handleMarkerClick(constLocData)}/>
+        <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocDataTwo} onClick={() => handleMarkerClick(constLocDataTwo)}/> */}
 
         <MarkerF key="current_location" title="You are here!" animation="DROP" position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }} />
 

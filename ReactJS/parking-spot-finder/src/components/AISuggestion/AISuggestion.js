@@ -4,7 +4,7 @@ import { ClipLoader } from 'react-spinners';
 import './AISuggestion.css';
 import VoiceIndicator from './VoiceIndicator';
 import { getEncryptedData, getDecryptedData } from '../../services/encryptdecrypt';
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react';
 
 const getBaseApi = process.env.REACT_APP_BASE_URL_API;
 
@@ -15,11 +15,12 @@ const jsonData = {
     destCoordinates: "Lat: 49.87167903906522, Long: -97.11233221002861"
 }
 
-const AISuggestion = () => {
+const AISuggestion = ({ onDataChange }) => {
     const [getAudioSource, setAudioSource] = useState(null);
     const [getIsLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const audioRef = useRef(null);
+    const [getAiText, setAiText] = useState('');
 
     const { getAccessTokenSilently } = useAuth0();
 
@@ -32,18 +33,32 @@ const AISuggestion = () => {
             // encrypt data before sending it to the database
             const encryptData = getEncryptedData(jsonData);
 
+            // const getResp = await axios.post(`${getBaseApi}/generate-ai-voice`, encryptData, {
+            //     responseType: 'blob',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${getAuth0Tok}`
+            //     }
+            // });
             const getResp = await axios.post(`${getBaseApi}/generate-ai-voice`, encryptData, {
-                responseType: 'blob',
+                responseType: 'json',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${getAuth0Tok}`
                 }
             });
 
-            
-            console.log('tok', getAuth0Tok);
+            const { text, txtJson, audio } = getResp.data;
+            setAiText(text);
 
-            const getUrl = URL.createObjectURL(getResp.data);
+            onDataChange(txtJson);
+            
+            // const { buffer } = getResp.data;
+            // const getAudioBlob = new Blob([new Uint8Array(buffer)], { type: 'audio/mpeg' });
+            const getAudioBlob = new Blob([new Uint8Array(atob(audio).split("").map(c => c.charCodeAt(0)))], { type: 'audio/mpeg' });
+            
+            const getUrl = URL.createObjectURL(getAudioBlob);
+            // const getUrl = URL.createObjectURL(getResp.data);
 
             setAudioSource(getUrl);
         } catch (error) {
@@ -81,6 +96,14 @@ const AISuggestion = () => {
             <button onClick={getHandleGenVoice} disabled={getIsLoading} className='button-gen'>
                 {getIsLoading ? 'Generating AI Suggestion...' : 'Generate AI Suggestion'}
             </button>
+
+            {/* {getAiText && (
+                <>
+                  <a>
+                    {String(getAiText)}
+                  </a>
+                </>
+            )} */}
         </div>
     );
 }
