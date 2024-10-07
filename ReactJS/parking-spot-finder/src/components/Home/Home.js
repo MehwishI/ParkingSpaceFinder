@@ -7,7 +7,7 @@ const Home = () => {
 
   const getHandleDataChange = (resData) => {
     setWpaSearchRes(resData);
-    console.log("result oil",resData);
+    console.log("result",resData);
     
   };
 
