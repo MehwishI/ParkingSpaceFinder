@@ -17,25 +17,24 @@ const getCreateText = async (reqText) => {
             messages: [
                 {
                     role: 'system',
-                    content: 'You are a parking recommendation assistant. You will analyze parking data based on coordinates and addresses provided by the user.',
+                    content: 'You are a parking recommendation assistant. You will analyze parking data based on coordinates and address provided by the user.',
                 },
                 {
                     role: 'user',
                     content: `Given the following details, suggest the best parking options and provide nearby alternatives if available:
           - Destination Coordinates: ${reqText.destCoordinates}
           - Current Coordination: ${reqText.currentCoordinates}
-          - User's Current Location: ${reqText.currentLocAddress}
           - User's Destination: ${reqText.destLocAddress}
     
           Based on the information provided, recommend the most optimal parking spot and suggest alternatives if the initial one is less ideal. Suggest if the parking area is safe. If there is street parking nearby. Provide any additional suggestions regarding nearby amenities, traffic conditions based on past knowledge, or relevant insights to help the user make an informed decision.
           Please don't include anything like "Based on the information provided" in your response. Also, don't recommend any app.
           
-          Additionally, please provide the recommended parking spots with the structure below just after the detailed sugestion you have already provided for the request above (separate this from the detailed suggestion with a space. Do not include any headers or titles):
+          Additionally, please provide the recommended parking spots with the structure below just after the detailed sugestion you have already provided for the request above (separate this from the detailed suggestion with a space. Do not include any headers or titles. Do not include any additional formatting or surrounding code block markers). The format should look like the following:
            aiSugJsonStruct {
                 "parking": [
                     {
                         "name": "Parking Lot A",
-                        "coordinates": {"lat": 37.7749, "lng": -122.4194},
+                        "coordinates": {"lat": 37.7749, "lng": -122.4194}
                     },
                     {
                         "name": "Parking Lot B",
@@ -50,6 +49,8 @@ const getCreateText = async (reqText) => {
 
         const aiRespAw = resp.choices[0].message.content;
 
+        console.log("ai suggeston",aiRespAw);
+        
         return aiRespAw;
     } catch (error) {
         console.error('Error with OpenAI API:', error.response ? error.response.data : error.message);

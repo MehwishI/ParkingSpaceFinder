@@ -42,28 +42,14 @@ const getGeneratedVoice = async (req, res) => {
         
         const fetchVoice = await getCreateSpeech(fetchText);
 
-        // encrypt response
-        // const encryptResData = getEncrytedData(fetchVoice);
-
         res.set('Content-Type', 'audio/mpeg');
         res.set('Content-Disposition', 'inline; filename="audio.mp3"');
 
-        // console.log("before buffer", encryptResData);
-        
-        // const setAudioBuffer = Buffer.from(encryptResData, 'base64');
-        // console.log("after buffer",setAudioBuffer);
-        
-        // res.send(setAudioBuffer);
-
-        // res.send(fetchVoice);
         res.json({
             text: fetchVoice.text,
             txtJson: fetchVoice.textJson,
             audio: fetchVoice.buffer.toString('base64')
         })
-
-
-        // res.send(encryptResData);
 
     } catch (error) {
         res.status(500).json({

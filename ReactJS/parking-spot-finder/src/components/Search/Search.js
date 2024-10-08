@@ -9,8 +9,10 @@ const Search = ({ onDataChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
-  const [addressCoord, setAddressCoord] = useState({});
+  const [addressCoord, setAddressCoord] = useState(null);
   const autocompleteRef = useRef(null);
+
+  const addressCoordinate = {};
 
   const getHandleChange = (e) => {
     setInputValue(e.target.value);
@@ -38,21 +40,16 @@ const Search = ({ onDataChange }) => {
     setGglePrediction([]);
 
     const coordinates = await getGoogleCoordinates(placeid);
-    setAddressCoord(coordinates);
+    await setAddressCoord(coordinates);
 
-    onDataChange(addressCoord);
+    if (addressCoord !== null) {
+        addressCoordinate.destLocAddress = description;
+        addressCoordinate.lat = coordinates.lat;
+        addressCoordinate.lng = coordinates.lng;
+
+        onDataChange(addressCoordinate);
+    }
   };
-//   const OnSearchClick = async () => {
-//     //get coordinates
-
-//     console.log("placeid", placeid);
-//     const coordinates = await getGoogleCoordinates(placeid);
-//     console.log("coordinates", coordinates);
-    
-
-//     setAddressCoord(coordinates);
-//     console.log(coordinates);
-//   };
 
   return (
     <>

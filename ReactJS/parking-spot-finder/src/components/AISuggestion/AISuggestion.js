@@ -8,14 +8,16 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const getBaseApi = process.env.REACT_APP_BASE_URL_API;
 
-const jsonData = {
-    currentLocAddress: "340 Provencher Blvd, Winnipeg, MB R2H 0G7",
-    currentCoordinates: "Lat: 49.89418822548855, Long: -97.11417756985763",
-    destLocAddress: "433 St Mary's Rd, Winnipeg, MB R2M 3K7",
-    destCoordinates: "Lat: 49.87167903906522, Long: -97.11233221002861"
-}
+// const jsonData = {
+//     currentLocAddress: "340 Provencher Blvd, Winnipeg, MB R2H 0G7",
+//     currentCoordinates: "Lat: 49.89418822548855, Long: -97.11417756985763",
+//     destLocAddress: "433 St Mary's Rd, Winnipeg, MB R2M 3K7",
+//     destCoordinates: "Lat: 49.87167903906522, Long: -97.11233221002861"
+// }
 
-const AISuggestion = ({ onDataChange }) => {
+const jsonData = {}
+
+const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
     const [getAudioSource, setAudioSource] = useState(null);
     const [getIsLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -27,19 +29,26 @@ const AISuggestion = ({ onDataChange }) => {
     const getHandleGenVoice = async () => {
         setIsLoading(true);
         try {
+
+            // check that object is not empty
+            // if (Object.keys(jsonData).length === 0) {
+            //     return "Data cannot be empty";
+            // };
+
+            // append current location before sending to api
+            
+            jsonData.currentAddress = "";
+            jsonData.currentCoordinates = `Lat: ${getCurrLoc.lat}, Long: ${getCurrLoc.lng}`;
+            jsonData.destLocAddress = getDestLoc.destLocAddress;
+            jsonData.destCoordinates = `Lat: ${getDestLoc.lat}, Long: ${getDestLoc.lng}`;
+
+            // return;
             // get auth token
             const getAuth0Tok = await getAccessTokenSilently();
 
             // encrypt data before sending it to the database
             const encryptData = getEncryptedData(jsonData);
 
-            // const getResp = await axios.post(`${getBaseApi}/generate-ai-voice`, encryptData, {
-            //     responseType: 'blob',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': `Bearer ${getAuth0Tok}`
-            //     }
-            // });
             const getResp = await axios.post(`${getBaseApi}/generate-ai-voice`, encryptData, {
                 responseType: 'json',
                 headers: {
@@ -53,12 +62,9 @@ const AISuggestion = ({ onDataChange }) => {
 
             onDataChange(txtJson);
             
-            // const { buffer } = getResp.data;
-            // const getAudioBlob = new Blob([new Uint8Array(buffer)], { type: 'audio/mpeg' });
             const getAudioBlob = new Blob([new Uint8Array(atob(audio).split("").map(c => c.charCodeAt(0)))], { type: 'audio/mpeg' });
             
             const getUrl = URL.createObjectURL(getAudioBlob);
-            // const getUrl = URL.createObjectURL(getResp.data);
 
             setAudioSource(getUrl);
         } catch (error) {
@@ -70,6 +76,10 @@ const AISuggestion = ({ onDataChange }) => {
     };
 
     useEffect(() => {
+        console.log("mmnnkk", getDestLoc);
+        console.log("get current location", getCurrLoc);
+        
+        
         if (getAudioSource && audioRef.current) {
             audioRef.current.play();
         }
