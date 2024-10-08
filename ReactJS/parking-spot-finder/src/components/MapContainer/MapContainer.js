@@ -1,30 +1,18 @@
 import React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
-import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
+import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import './MapContainer.css'
 import { locResultForCoord } from '../../services/locationResultService';
 
 // const MapContainer = ({ coordinates }) => {
-const MapContainer = ({ wpaResData }) => {
+const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const [getLocPoints, setLocPoints] = useState([]);
+  const [getLocAiPoints, setLocAiPoints] = useState([]);
   const [map, setMap] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
   const boundsRef = useRef(null);
   const [directResp, setDirectResp] = useState(null);
-
-  const constLocData = {
-    lat: 49.821311,
-    lng:  -97.157452,
-    title: 'Marker 1',
-    description: 'Test Location' 
-  };
-
-  const constLocDataTwo = {
-    lat: 49.815678,
-    lng:  -97.208330,
-    title: 'Marker 2',
-    description: 'Test Location two'
-  };
+  const [selectedAiPoint, setSelectedAiPoint] = useState(null);
 
   let initialCenter = { lat: 48.1, lng: -97.39 }
   const [defaultCenter, setDefaultCenter] = useState(initialCenter)
@@ -45,8 +33,10 @@ const MapContainer = ({ wpaResData }) => {
 
   const getAllLocs = async () => {
     try {
-      console.log("got coordinates", wpaResData.coordinates);
-      const getCoordPoints = wpaResData.coordinates;
+      const getCoordPoints = {
+        lat: wpaResData.lat,
+        lng: wpaResData.lng
+      };
 
       const locServiceCoord = await locResultForCoord(getCoordPoints);
 
@@ -71,7 +61,29 @@ const MapContainer = ({ wpaResData }) => {
   };
 
   useEffect(() => {
+    if (wpaResData && map) {
+      getAllLocs();
+    }
+  }, [wpaResData, map]);
 
+  useEffect(() => {
+    if (aiSugData && map) {
+
+      const convAiSugData = convertToObject(aiSugData);
+
+      const getAiLocs = convAiSugData.parking.map((location) => ({
+        lat: location.coordinates.lat,
+        lng: location.coordinates.lng,
+        title: location.name
+      }));
+
+      setLocAiPoints(getAiLocs);
+      fitBoundsWithRad(getAiLocs);
+    }
+  }, [aiSugData, map]);
+
+  useEffect(() => {
+    // when map loads, get current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userLocaton = {
@@ -80,6 +92,8 @@ const MapContainer = ({ wpaResData }) => {
         };
         // const center = { lat: lat, lng: long };
         setDefaultCenter(userLocaton);
+
+        onDataChange(userLocaton);
 
         if (map) {
           map.panTo(userLocaton);
@@ -93,37 +107,71 @@ const MapContainer = ({ wpaResData }) => {
     getAllLocs();
   }, [map])
 
-const handleMapLoad = (mapInstance) => {
-  setMap(mapInstance);
-};
+  const handleMapLoad = (mapInstance) => {
+    setMap(mapInstance);
+  };
 
-const handleMarkerClick = (marker) => {
-  if (activeMarker === marker) {
-    
-    setActiveMarker(null);
-  } else {
-    console.log("I am getting to marker");
-    setActiveMarker(marker);
-  }
-};
+  const handleMarkerClick = (marker) => {
+    if (activeMarker === marker) {
 
-const getHandleDrawPoly = async (destination) => {
-  if (defaultCenter && destination) {
-    const dirService = new window.google.maps.DirectionsService();
-
-    const getRes = await dirService.route({
-      origin: defaultCenter,
-      destination: destination,
-      travelMode: window.google.maps.TravelMode.DRIVING,
-    });
-
-    if (getRes.status === 'OK') {
-      setDirectResp(getRes);
+      setActiveMarker(null);
     } else {
-      console.error(`Failed to fetch direction`);
+      setActiveMarker(marker);
+    }
+  };
+
+  const getHandleDrawPoly = async (destination) => {
+    if (defaultCenter && destination) {
+      const dirService = new window.google.maps.DirectionsService();
+
+      const getRes = await dirService.route({
+        origin: defaultCenter,
+        destination: destination,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      });
+
+      if (getRes.status === 'OK') {
+        setDirectResp(getRes);
+      } else {
+        console.error(`Failed to fetch direction`);
+      }
+    }
+  };
+
+  const convertToObject = (jsonData) => {
+    const parsedJson = JSON.parse(jsonData);
+
+    return parsedJson;
+  };
+
+  const calcCenter = (aiPoint) => {
+    const latSum = aiPoint.reduce((acc, point) => acc + point.lat, 0);
+    const lngSum = aiPoint.reduce((acc, point) => acc + point.lng, 0);
+
+    return {
+      lat: latSum / aiPoint.length,
+      lng: lngSum / aiPoint.length,
+    };
+  };
+
+  const fitBoundsWithRad = (aiPoints) => {
+    console.log("aipoint",aiPoints);
+    
+    if (map && aiPoints.length > 0) {
+      const bounds = new window.google.maps.LatLngBounds();
+      
+      aiPoints.forEach(aiPoint => {
+        bounds.extend(new window.google.maps.LatLng(aiPoint.lat, aiPoint.lng));
+      });
+
+      const center = calcCenter(aiPoints)
+      map.fitBounds(bounds);
+
+      const zoomLev = 15;
+      map.setCenter(center);
+      map.setZoom(zoomLev);
     }
   }
-}
 
   if (!isLoaded) {
     return (
@@ -141,7 +189,7 @@ const getHandleDrawPoly = async (destination) => {
         center={defaultCenter}
         onLoad={handleMapLoad}
       >
-        {/* {getLocPoints.map((locPoints, index) => (
+        {getLocPoints.map((locPoints, index) => (
           <MarkerF
             key={index}
             title={locPoints.title}
@@ -149,16 +197,31 @@ const getHandleDrawPoly = async (destination) => {
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
           />
-        ))} */}
-        <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocData} onClick={() => handleMarkerClick(constLocData)}/>
-        <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocDataTwo} onClick={() => handleMarkerClick(constLocDataTwo)}/>
+        ))}
 
-        <MarkerF key="current_location" title="You are here!" animation="DROP" position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }} />
+        {getLocAiPoints.map((locAiPoints, index) => (
+          <MarkerF
+            key={index}
+            title={locAiPoints.title}
+            position={{ lat: locAiPoints.lat, lng: locAiPoints.lng }}
+            animation="DROP"
+            onClick={() => handleMarkerClick(locAiPoints)}
+          />
+        ))}
+        {/* <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocData} onClick={() => handleMarkerClick(constLocData)}/>
+        <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocDataTwo} onClick={() => handleMarkerClick(constLocDataTwo)}/> */}
+
+        <MarkerF
+          key="current_location"
+          title="You are here!"
+          animation="DROP"
+          position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
+        />
 
         {activeMarker && (
           <InfoWindow
-           position={{ lat: activeMarker.lat, lng: activeMarker.lng}}
-           onCloseClick={() => setActiveMarker(null)}
+            position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
+            onCloseClick={() => setActiveMarker(null)}
           >
             <div>
               <h3>{activeMarker.title}</h3>
@@ -172,13 +235,13 @@ const getHandleDrawPoly = async (destination) => {
 
         {directResp && (
           <DirectionsRenderer
-          directions={directResp}
-          options={{
-            polylineOptions: {
-              strokeColor: '#FF0000',
-              strokeWeight: 5,
-            }
-          }}
+            directions={directResp}
+            options={{
+              polylineOptions: {
+                strokeColor: '#FF0000',
+                strokeWeight: 5,
+              }
+            }}
           />
         )}
       </GoogleMap>

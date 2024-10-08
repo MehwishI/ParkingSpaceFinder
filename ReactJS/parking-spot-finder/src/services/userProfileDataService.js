@@ -2,7 +2,8 @@ import axios from 'axios';
 const localBaseUrl = process.env.REACT_APP_BASE_URL_API
 
 
-const getUserProfileData = async () {
+const getUserProfileData = async () => {
+  const userid = "";
 
   try {
     const response = await axios.post(`${localBaseUrl}/user/profile`, {
@@ -20,7 +21,7 @@ const getUserProfileData = async () {
 
 }
 
-const saveUserProfileData = async (userData) {
+const saveUserProfileData = async (userData) => {
 
   try {
     const response = await axios.post(`${localBaseUrl}/user/profile/save`, {
@@ -35,3 +36,5 @@ const saveUserProfileData = async (userData) {
   }
 
 }
+
+export { saveUserProfileData }

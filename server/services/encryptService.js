@@ -5,7 +5,6 @@ const getEncKey = process.env.ENCRYPTION_KEY;
 const getIv = crypto.randomBytes(16);
 
 const getEncrytedData = (getData) =>{
-    console.log("got to encrypted...");
     
     const getCipher = crypto.createCipheriv(getAlgorithm, Buffer.from(getEncKey), getIv);
     let getEncrypted = getCipher.update(JSON.stringify(getData), 'utf8', 'hex');

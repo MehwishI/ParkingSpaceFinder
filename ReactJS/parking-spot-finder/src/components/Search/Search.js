@@ -9,8 +9,10 @@ const Search = ({ onDataChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
-  const [addressCoord, setAddressCoord] = useState({});
+  const [addressCoord, setAddressCoord] = useState(null);
   const autocompleteRef = useRef(null);
+
+  const addressCoordinate = {};
 
   const getHandleChange = (e) => {
     setInputValue(e.target.value);
@@ -26,26 +28,27 @@ const Search = ({ onDataChange }) => {
       const getSearchRes = await getGoogleAutocomplete(getInput);
 
       //get place ID
-      setGglePrediction(getSearchRes.predictions || []);
+      await setGglePrediction(getSearchRes.predictions || []);
     } catch (error) {
       console.error("Error fetching autocomplete suggestions", error);
     }
   };
 
-  const handlePredictionClick = (description, place_id) => {
+  const handlePredictionClick = async (description, place_id) => {
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
-    onDataChange(description);
-  };
-  const OnSearchClick = async () => {
-    //get coordinates
 
-    console.log("placeid", placeid);
-    const coordinates = await getGoogleCoordinates(placeid);
+    const coordinates = await getGoogleCoordinates(place_id);
+    await setAddressCoord(coordinates);
 
-    setAddressCoord(coordinates);
-    console.log(coordinates);
+    if (addressCoord !== null) {
+        addressCoordinate.destLocAddress = description;
+        addressCoordinate.lat = coordinates.lat;
+        addressCoordinate.lng = coordinates.lng;
+
+        onDataChange(addressCoordinate);
+    }
   };
 
   return (
@@ -70,9 +73,9 @@ const Search = ({ onDataChange }) => {
           </li>
         ))}
       </ul>
-      <button title="searchbtn" onClick={() => OnSearchClick()}>
+      {/* <button title="searchbtn" onClick={() => OnSearchClick()}>
         Search
-      </button>
+      </button> */}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { saveUserProfileData } from "services/userProfileDataService";
+import { saveUserProfileData } from "../../services/userProfileDataService";
 
 const Login = () => {
   const { loginWithRedirect, user } = useAuth0();
