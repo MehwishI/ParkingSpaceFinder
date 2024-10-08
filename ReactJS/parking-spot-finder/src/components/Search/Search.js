@@ -28,7 +28,7 @@ const Search = ({ onDataChange }) => {
       const getSearchRes = await getGoogleAutocomplete(getInput);
 
       //get place ID
-      setGglePrediction(getSearchRes.predictions || []);
+      await setGglePrediction(getSearchRes.predictions || []);
     } catch (error) {
       console.error("Error fetching autocomplete suggestions", error);
     }
@@ -39,7 +39,7 @@ const Search = ({ onDataChange }) => {
     setPlaceId(place_id);
     setGglePrediction([]);
 
-    const coordinates = await getGoogleCoordinates(placeid);
+    const coordinates = await getGoogleCoordinates(place_id);
     await setAddressCoord(coordinates);
 
     if (addressCoord !== null) {
