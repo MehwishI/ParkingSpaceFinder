@@ -1,12 +1,17 @@
-//import axios from "axios";
 const userService = require("../services/userDataService");
 
 const fetchUserData = async (req, res) => {
   const userid = req.body.userid;
   try {
-    const result = await userService.getUserData(userid);
-    console.log(result.data);
-    return result.data;
+    const user = await userService.getUserData(userid);
+    console.log(user);
+    if (!user) {
+      console.log("User not found!");
+      return null;
+    } else {
+      console.log("User found");
+      return user;
+    }
   } catch (error) {
     console.log(error);
     throw error;
@@ -14,17 +19,18 @@ const fetchUserData = async (req, res) => {
 };
 
 const saveUserData = async (req, res) => {
-  console.log("reached user data controller");
-  console.log("req.body in controller:", req.body);
-  const userData = {
-    userid: req.body.userid,
-    userFirstName: req.body.firstname,
-    userLastName: req.body.lastname,
-    userEmail: req.body.email,
-  };
+  // console.log("reached user data controller");
+  //console.log("req.body in controller:", req.body);
+  // const userData = {
+  //   userid: req.body.userid,
+  //   userFirstName: req.body.firstname,
+  //   userLastName: req.body.lastname,
+  //   userEmail: req.body.email,
+
+  // };
   try {
-    const data = await userService.saveUserData(userData);
-    console.log("data returned", data);
+    const data = await userService.saveUserData(req.body.userData);
+    console.log("user data returned", data);
     if (data) {
       res.status(200).send("User data saved!");
     } else {

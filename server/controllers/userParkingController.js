@@ -4,31 +4,39 @@ const userParkingService = require("../services/userParkingService");
 
 const fetchUserParkingData = async (req, res) => {
   try {
-    const result = await userParkingService.getUserParkingHistory();
-    console.log(result.data);
-    return result.data;
+    const parkHistory = await userParkingService.getUserParkingHistory(
+      req.body.userid
+    );
+    console.log(parkHistory);
+    if (!parkHistory) {
+      console.log("Parking history not found for this user.");
+      res.status(500).send(error.message);
+    }
+    return res.status(200).send(parkHistory);
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(500).json({ message: error.message });
   }
 };
 
 const saveUserParkingData = async (req, res) => {
-  const userName = req.body.userName;
-  const userEmail = req.body.userEmail;
-  const latitude = req.body.latitude;
-  const longitude = req.body.longitude;
+  const userid = req.body.userid;
+
+  const parkData = {
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    date: Date.now(),
+  };
   try {
-    const response = await userParkingService.saveUserParkingHistory(
-      userid,
-      userName,
-      userEmail,
-      latitude,
-      longitude
+    const savedHistory = await userParkingService.saveUserParkingHistory(
+      parkData,
+      userid
     );
 
-    console.log(response.status);
-    return response;
+    console.log("savedHistory:", savedHistory);
+    if (savedHistory) {
+      return res.status(200).send("History saved successfully!");
+    } else res.status(500).send("User Parking History not saved!");
   } catch (error) {
     console.log(error);
     throw error;
