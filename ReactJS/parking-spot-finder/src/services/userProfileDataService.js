@@ -1,37 +1,30 @@
-import axios from 'axios';
-const localBaseUrl = process.env.REACT_APP_BASE_URL_API
+import axios from "axios";
+const localBaseUrl = process.env.REACT_APP_BASE_URL_API;
 
+const getUserProfileData = async () => {
+  // try {
+  //   const response = await axios.post(`${localBaseUrl}/user/profile`, {
+  //     userid: userid,
+  //   });
+  //   console.log(response.data);
+  //   return response.data;
+  // } catch (error) {
+  //   console.log(error);
+  //   return error;
+  // }
+};
 
-const getUserProfileData = async () {
-
-  try {
-    const response = await axios.post(`${localBaseUrl}/user/profile`, {
-      userid: userid
-      
-
-    });
-    console.log(response.data);
-    return response.data;
-  }
-  catch (error) {
-    console.log(error)
-    return error;
-  }
-
-}
-
-const saveUserProfileData = async (userData) {
-
+const saveUserProfileData = async (userData) => {
   try {
     const response = await axios.post(`${localBaseUrl}/user/profile/save`, {
-      userData
+      userData,
     });
     console.log(response.result);
     return response.result;
-  }
-  catch (error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     return error;
   }
+};
 
-}
+export { getUserProfileData, saveUserProfileData };
