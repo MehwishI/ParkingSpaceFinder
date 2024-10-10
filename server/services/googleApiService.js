@@ -12,7 +12,6 @@ const getGoogSearchResult = async (getInput) => {
         getInput.address
       )}&key=${gglApiKey}`
     );
-    console.log("returned", getRes);
 
     return getRes.data; //get place ID
   } catch (error) {
@@ -25,7 +24,6 @@ const getCoordinatesByPlaceId = async (placeid) => {
     const response = await axios.get(
       `${gglBaseUrl}/place/details/json?place_id=${placeid}&key=${gglApiKey}`
     );
-    console.log(response.data.result.geometry.location);
     return response.data.result.geometry.location; // returning cooridinates in the form for e.g: { lat: 49.88412429999999, lng: -97.1989378 }
   } catch (error) {
     console.log(error);

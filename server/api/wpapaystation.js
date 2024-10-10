@@ -6,7 +6,6 @@ const url = `https://data.winnipeg.ca/resource/b85e-mbuw.json?$$app_token=${toke
 
 //GETs all paystation data
 const getWpaPaystation = async function () {
-console.log("reached fetch url")
   await fetch(url, {
     method: 'GET',
     headers: {
@@ -20,7 +19,6 @@ console.log("reached fetch url")
     return response.json();
   })
     .then(data => {
-      console.log('Pay station data:', data)
       
     })
     .catch(error => {
@@ -47,8 +45,6 @@ const getWpaPaystationByStreet = async function (streetName) {
     return response.json();
   })
     .then(data => {
-      console.log('Pay station data:', data)
-      
       
     })
     .catch(error => {
@@ -73,8 +69,7 @@ const getWpaPaystationByTimeLimit = async function (time_limit) {
     return response.json();
   })
     .then(data => {
-      console.log('Pay station data:', data)
-      
+
     })
     .catch(error => {
       console.error('Error:', error);
@@ -101,7 +96,6 @@ const getWpaPaystationByHourlyRate = async function (req, res) {
     return response.json();
   })
     .then(data => {
-      console.log('Pay station data:', data)
       
     })
     .catch(error => {
@@ -127,7 +121,6 @@ const getWpaPaystationByAccesibleSpace = async function (req, res) {
     return response.json();
   })
     .then(data => {
-      console.log('Pay station data:', data)
       
     })
     .catch(error => {

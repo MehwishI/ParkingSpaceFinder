@@ -14,7 +14,6 @@ const fetchAutocompleteGgl = async (req, res) => {
 };
 
 const fetchCoordinatesbyPlaceId = async (req, res) => {
-  console.log("req.body", req.body);
   try {
     const getData = await getGglService.getCoordinatesByPlaceId(
       req.body.placeid
