@@ -8,6 +8,8 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const aiRoutes = require("./routes/aiRoute");
 const wpaPaystationRoutes = require("./routes/wpaPaystation");
 const googleApiRoutes = require("./routes/googleRoute");
+const userDataRoutes = require("./routes/userDataRoute");
+const userParkingRoutes = require("./routes/userParkingRoute");
 const getAuthService = require('./services/authService');
 const cors = require("cors");
 const { expressjwt: jwt } = require('express-jwt');
@@ -109,6 +111,8 @@ app.use("/api", aiRoutes);
 app.use("/api", wpaPaystationRoutes);
 // app.use("/api", getCheckJwt, wpaPaystationRoutes);
 app.use("/api", googleApiRoutes);
+app.use("/api", userDataRoutes);
+app.use("/api", userParkingRoutes);
 
 // Server listening on a port
 const PORT = process.env.PORT || 3001;
@@ -121,3 +125,4 @@ app.listen(PORT, (error) => {
     console.log("Error occurred, server can't start", error);
   }
 });
+module.exports = app;

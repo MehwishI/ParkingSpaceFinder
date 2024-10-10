@@ -5,5 +5,7 @@ const UserSchema = new mongoose.Schema({
   userFirstName: { type: String, required: true },
   userLastName: { type: String, required: false },
   userEmail: { type: String, required: true },
+  emailVerified: { type: Boolean, required: true },
+  parkHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "UserParking" }],
 });
 module.exports = mongoose.model("User", UserSchema);

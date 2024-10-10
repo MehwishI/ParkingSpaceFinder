@@ -13,6 +13,7 @@ const Login = () => {
       userFirstName: user.given_name,
       userLastName: user.family_name,
       userEmail: user.email,
+      emailVerified: user.email_verified === "Yes" ? true : false,
     };
     //call service  after successful sign up /
     const response = saveUserProfileData(userData);
