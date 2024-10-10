@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { saveUserProfileData } from "services/userProfileDataService";
+import { saveUserProfileData } from "../../services/userProfileDataService";
 
 const Login = () => {
   const { loginWithRedirect, user } = useAuth0();
@@ -13,6 +13,7 @@ const Login = () => {
       userFirstName: user.given_name,
       userLastName: user.family_name,
       userEmail: user.email,
+      emailVerified: user.email_verified === "Yes" ? true : false,
     };
     //call service  after successful sign up /
     const response = saveUserProfileData(userData);

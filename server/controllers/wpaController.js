@@ -20,7 +20,6 @@ const fetchWpaApiStreet = async (req, res) => {
     // convert to an object
 
     const reqTextAdd = req.body.address;
-    console.log(reqTextAdd);
 
     const getData = await getWpaService.getWpaPayStationStreet(reqTextAdd);
 
@@ -37,8 +36,6 @@ const fetchWpaApiTimeLimit = async (req, res) => {
   try {
     // convert to an object
     const reqTimeLimit = req.body.time_limit;
-    console.log("typeof reqTimeLimit:", typeof reqTimeLimit);
-    console.log("After object");
 
     const getData = await getWpaService.getWpaPayStationTimeLimit(reqTimeLimit);
 
@@ -57,8 +54,6 @@ const fetchWpaApiLocation = async (req, res) => {
       lat: req.body.latitude,
       lng: req.body.longitude,
     };
-    console.log("typeof reqTimeLimit:", typeof reqTimeLimit);
-    console.log("After object");
 
     const getData = await getWpaService.getWpaPayStationLocation(reqLocation);
 

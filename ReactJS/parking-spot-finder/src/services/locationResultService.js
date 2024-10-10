@@ -32,8 +32,8 @@ const locAllResultSearch = async () => {
 
 const locResultForCoord = async (coordPoints) => {
   const getLocCoRes = await axios.post(`${getBaseApi}/wpalocation`, {
-    latitude: coordPoints.lat,
-    longitude: coordPoints.lng,
+    latitude: String(coordPoints.lat),
+    longitude: String(coordPoints.lng),
   });
 
   console.log("COORDINATE DATA", getLocCoRes.data);

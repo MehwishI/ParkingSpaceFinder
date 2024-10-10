@@ -20,9 +20,9 @@ const {
  *           schema:
  *             type: object
  *             properties:
- *               email:
- *                 type: text
- *                 example: "type email here"
+ *               userid:
+ *                 type: number
+ *                 example: "type userid here"
  *
  *     responses:
  *       200:
@@ -51,6 +51,9 @@ const {
  *           schema:
  *             type: object
  *             properties:
+ *               userid:
+ *                  type: number
+ *                  example: "Add userid here"
  *               email:
  *                  type: string
  *                  format: email
