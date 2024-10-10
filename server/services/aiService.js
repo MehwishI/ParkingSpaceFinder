@@ -12,6 +12,8 @@ const speechFile = path.join(__dirname, 'speech.mp3');
 // Text to Text API
 const getCreateText = async (reqText) => {
     try {
+        console.log("tiwani",reqText);
+        
         const resp = await getOpenai.chat.completions.create({
             model: 'gpt-3.5-turbo',
             messages: [

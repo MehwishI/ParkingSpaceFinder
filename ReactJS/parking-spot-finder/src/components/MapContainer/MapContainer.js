@@ -1,8 +1,9 @@
 import React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
-import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer, TrafficLayer } from '@react-google-maps/api';
 import './MapContainer.css'
 import { locResultForCoord } from '../../services/locationResultService';
+import CustomMarker from '../FontIcon/FontIcon';
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
@@ -13,7 +14,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const boundsRef = useRef(null);
   const [directResp, setDirectResp] = useState(null);
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
-
+ 
   let initialCenter = { lat: 48.1, lng: -97.39 }
   const [defaultCenter, setDefaultCenter] = useState(initialCenter)
 
@@ -155,23 +156,33 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   };
 
   const fitBoundsWithRad = (aiPoints) => {
-    console.log("aipoint",aiPoints);
-    
+    console.log("aipoint", aiPoints);
+
     if (map && aiPoints.length > 0) {
       const bounds = new window.google.maps.LatLngBounds();
-      
+
       aiPoints.forEach(aiPoint => {
         bounds.extend(new window.google.maps.LatLng(aiPoint.lat, aiPoint.lng));
       });
 
-      const center = calcCenter(aiPoints)
-      map.fitBounds(bounds);
+      const center = calcCenter(aiPoints);
 
-      const zoomLev = 15;
-      map.setCenter(center);
-      map.setZoom(zoomLev);
+      map.setZoom(10);
+
+      setTimeout(() => {
+        map.panTo(center);
+
+        setTimeout(() => {
+          map.setZoom(15);
+        }, 2000);
+      }, 1000);
+      // map.fitBounds(bounds);
+
+      // const zoomLev = 15;
+      // map.setCenter(center);
+      // map.setZoom(zoomLev);
     }
-  }
+  };
 
   if (!isLoaded) {
     return (
@@ -215,6 +226,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
           key="current_location"
           title="You are here!"
           animation="DROP"
+          // icon={{
+          //   url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(<CustomMarker />),
+          //   scaledSize: new window.google.maps.Size(40, 40), // Adjust the size
+          // }}
           position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
         />
 
@@ -244,6 +259,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
             }}
           />
         )}
+
+        <TrafficLayer />
       </GoogleMap>
 
     </div>
