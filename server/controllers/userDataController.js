@@ -4,7 +4,7 @@ const fetchUserData = async (req, res) => {
   const userid = req.body.userid;
   try {
     const user = await userService.getUserData(userid);
-    console.log(user);
+    //console.log(user);
     if (!user) {
       console.log("User not found!");
       return null;

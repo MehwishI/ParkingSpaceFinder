@@ -14,9 +14,11 @@ const getUserParkingHistory = async (userId) => {
   try {
     userFound = await userService.getUserData(userId);
 
-    console.log("userFound", userFound);
-    if (userFound.emailVerified == false) {
-      console.log("Email not verified");
+    // console.log("userFound", userFound);
+    if (userFound.emailVerified === false) {
+      console.log(
+        "Email not verified, please verify your email to view parking history. "
+      );
       return null;
     }
   } catch (error) {
