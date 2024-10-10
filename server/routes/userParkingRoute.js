@@ -21,7 +21,7 @@ const {
  *             type: object
  *             properties:
  *               userid:
- *                 type: number
+ *                 type: string
  *                 example: "type userid here"
  *
  *     responses:
@@ -52,7 +52,7 @@ const {
  *             type: object
  *             properties:
  *               userid:
- *                  type: number
+ *                  type: string
  *                  example: "Add userid here"
  *               email:
  *                  type: string
