@@ -1,6 +1,5 @@
 const userCollection = require("../models/User");
 
-
 //get user data from db
 //call encrypt data() --sensitive data
 const getUserData = async (userId) => {
@@ -11,6 +10,11 @@ const getUserData = async (userId) => {
       })
       .exec();
 
+   // console.log("UserFound", userFound);
+    if (!userFound) {
+      console.log("User not found");
+      return null;
+    }
     return userFound;
   } catch (error) {
     console.error(error);

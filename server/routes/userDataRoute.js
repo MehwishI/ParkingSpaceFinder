@@ -21,8 +21,8 @@ const {
  *             type: object
  *             properties:
  *               userid:
- *                 type: number
- *                 example: type userid here
+ *                 type: string
+ *                 example: "type userid here"
  *
  *     responses:
  *       200:
@@ -52,8 +52,8 @@ const {
  *             type: object
  *             properties:
  *               userid:
- *                 type: number
- *                 example: Add user id
+ *                 type: string
+ *                 example: "Add user id"
  *               firstname:
  *                 type: text
  *                 example: "Add first name"
