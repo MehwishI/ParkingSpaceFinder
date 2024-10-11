@@ -10,10 +10,10 @@ const wpaPaystationRoutes = require("./routes/wpaPaystation");
 const googleApiRoutes = require("./routes/googleRoute");
 const userDataRoutes = require("./routes/userDataRoute");
 const userParkingRoutes = require("./routes/userParkingRoute");
-const getAuthService = require('./services/authService');
+const getAuthService = require("./services/authService");
 const cors = require("cors");
-const { expressjwt: jwt } = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+const { expressjwt: jwt } = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
 
 const app = express();
 const mongoose = require("mongoose");
@@ -24,10 +24,10 @@ const mongoose = require("mongoose");
 //     credentials: true,
 //     exposedHeaders: ["Set-Cookie", "Date", "ETag"],
 //     content: "application/json",
-    
+
 //     access-control-allow-orign: "*",
 //     access-control-allow-methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-    
+
 //   })
 // );
 
@@ -38,6 +38,26 @@ app.use(
     exposedHeaders: ["Set-Cookie", "Date", "ETag"],
     methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
     allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+var allowedOrigins = [
+  "http://localhost:3000",
+  "https://smartpark-react.vercel.app",
+];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not " +
+          "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
   })
 );
 //app.options('*', cors());
@@ -59,12 +79,12 @@ app.use(
 //   return await fn(req, res)
 // }
 
-const handler = (req, res) => {
-  const d = new Date()
-  res.end(d.toString())
-}
+// const handler = (req, res) => {
+//   const d = new Date();
+//   res.end(d.toString());
+// };
 
-module.exports = allowCors(handler)
+// module.exports = allowCors(handler);
 
 // Middleware setup
 app.set("view engine", "ejs");
@@ -81,7 +101,7 @@ app.use(express.static("public"));
 //   };
 
 //   console.log("I got to getCheckJwt...");
-  
+
 //   try {
 //     const decodedToken = await getAuthService.getVerifyToken(getToken);
 
@@ -95,12 +115,12 @@ const getCheckJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
-    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
   }),
   audience: `${process.env.AUTH0_AUD}`,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-  algorithms: ['RS256']
-})
+  algorithms: ["RS256"],
+});
 
 // Swagger Setup
 const swaggerOptions = {
@@ -114,7 +134,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3001", "https://parking-space-finder-backend.vercel.app",
+        url: [
+          "http://localhost:3001",
+          "https://parking-space-finder-backend.vercel.app",
+        ],
       },
     ],
   },
