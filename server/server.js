@@ -18,17 +18,54 @@ const jwksRsa = require('jwks-rsa');
 const app = express();
 const mongoose = require("mongoose");
 
+// app.use(
+//   cors({
+//     origin: ["http://localhost:3000","https://smartpark-react.vercel.app/"],
+//     credentials: true,
+//     exposedHeaders: ["Set-Cookie", "Date", "ETag"],
+//     content: "application/json",
+    
+//     access-control-allow-orign: "*",
+//     access-control-allow-methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+    
+//   })
+// );
+
 app.use(
   cors({
-    origin: "http://localhost:3000","https://smartpark-react.vercel.app/",
+    origin: ["http://localhost:3000", "https://smartpark-react.vercel.app"],
     credentials: true,
     exposedHeaders: ["Set-Cookie", "Date", "ETag"],
-    content: "application/json",
-    access-control-allow-orign: "*",
-    access-control-allow-methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-    
+    methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+//app.options('*', cors());
+
+// const allowCors = fn => async (req, res) => {
+//   res.setHeader('Access-Control-Allow-Credentials', true)
+//   res.setHeader('Access-Control-Allow-Origin', '*')
+//   // another common pattern
+//   // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+//   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+//   )
+//   if (req.method === 'OPTIONS') {
+//     res.status(200).end()
+//     return
+//   }
+//   return await fn(req, res)
+// }
+
+const handler = (req, res) => {
+  const d = new Date()
+  res.end(d.toString())
+}
+
+module.exports = allowCors(handler)
+
 // Middleware setup
 app.set("view engine", "ejs");
 app.use(morgan("dev"));
