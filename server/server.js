@@ -20,7 +20,7 @@ const mongoose = require("mongoose");
 
 app.use(
   cors({
-    origin: "http://localhost:3000","https://parking-space-finder-backend.vercel.app",
+    origin: "http://localhost:3000","https://smartpark-react.vercel.app/",
     credentials: true,
     exposedHeaders: ["Set-Cookie", "Date", "ETag"],
     content: "application/json",
