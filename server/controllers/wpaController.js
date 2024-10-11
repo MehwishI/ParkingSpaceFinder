@@ -57,6 +57,7 @@ const fetchWpaApiLocation = async (req, res) => {
 
     const getData = await getWpaService.getWpaPayStationLocation(reqLocation);
 
+    console.log("getData:", getData);
     res.json(getData);
   } catch (error) {
     console.error("Error in wpaController Fetch by location:", error);
