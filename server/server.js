@@ -25,6 +25,8 @@ app.use(
     exposedHeaders: ["Set-Cookie", "Date", "ETag"],
     content: "application/json",
     //access-control-allow-orign: "*"
+    access-control-allow-methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+    
   })
 );
 // Middleware setup
