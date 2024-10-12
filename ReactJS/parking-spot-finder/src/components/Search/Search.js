@@ -34,22 +34,23 @@ const Search = ({ onDataChange }) => {
     }
   };
 
-  const handlePredictionClick = async (description, place_id) => {
+  const handlePredictionClick = (description, place_id) => {
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
+  };
 
-    const coordinates = await getGoogleCoordinates(place_id);
-    await setAddressCoord(coordinates);
-
-    if (addressCoord !== null) {
-        addressCoordinate.destLocAddress = description;
+  const handleClickSubmit = async () => {
+    const coordinates = await getGoogleCoordinates(placeid);
+    setAddressCoord(coordinates);
+    if (coordinates !== null) {
+        addressCoordinate.destLocAddress = inputValue;
         addressCoordinate.lat = coordinates.lat;
         addressCoordinate.lng = coordinates.lng;
-
+        
         onDataChange(addressCoordinate);
     }
-  };
+  }
 
   return (
     <>
@@ -73,6 +74,7 @@ const Search = ({ onDataChange }) => {
           </li>
         ))}
       </ul>
+      <button onClick={handleClickSubmit}>Submit</button>
       {/* <button title="searchbtn" onClick={() => OnSearchClick()}>
         Search
       </button> */}

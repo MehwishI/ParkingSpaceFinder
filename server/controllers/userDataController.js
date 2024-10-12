@@ -7,14 +7,14 @@ const fetchUserData = async (req, res) => {
     //console.log(user);
     if (!user) {
       console.log("User not found!");
-      return null;
+      res.status.send(null);
     } else {
       console.log("User found");
       res.status(200).send(user);
     }
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status.send(error);
   }
 };
 
@@ -27,9 +27,9 @@ const saveUserData = async (req, res) => {
 
   // };
   //call fetchuserdata to check if email already exitsc
-  console.log("body received in controlller:", req.body);
+  //console.log("body received in controlller:", req.body);
 
-  console.log("userid received in controlller:", req.body.userid);
+  //console.log("userid received in controlller:", req.body.userid);
   const userExist = await userService.getUserData(req.body.userid);
   if (!userExist) {
     //if (req.body.email) {
@@ -54,7 +54,7 @@ const saveUserData = async (req, res) => {
 
     res.status(500).send({
       message:
-        "Userid and email Exists already. Please try again with a different email",
+        "Userid and email exists already. Please try again with a different email",
     });
   }
 };
