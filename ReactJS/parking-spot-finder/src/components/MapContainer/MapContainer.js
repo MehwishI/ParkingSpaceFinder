@@ -1,8 +1,17 @@
-import React from 'react';
-import { useMemo, useState, useEffect, useRef } from 'react';
-import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-import './MapContainer.css'
-import { locResultForCoord } from '../../services/locationResultService';
+import React from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  useJsApiLoader,
+  MarkerF,
+  InfoWindow,
+  Polyline,
+  DirectionsService,
+  DirectionsRenderer,
+} from "@react-google-maps/api";
+import "./MapContainer.css";
+import { locResultForCoord } from "../../services/locationResultService";
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
@@ -14,11 +23,11 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const [directResp, setDirectResp] = useState(null);
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
 
-  let initialCenter = { lat: 48.1, lng: -97.39 }
-  const [defaultCenter, setDefaultCenter] = useState(initialCenter)
+  let initialCenter = { lat: 48.1, lng: -97.39 };
+  const [defaultCenter, setDefaultCenter] = useState(initialCenter);
 
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
+    id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
@@ -27,7 +36,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
     width: "100%",
     position: "relative",
     overflow: "none",
-    align: "center"
+    align: "center",
     // justify-content: "center"
   };
 
@@ -35,7 +44,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
     try {
       const getCoordPoints = {
         lat: wpaResData.lat,
-        lng: wpaResData.lng
+        lng: wpaResData.lng,
       };
 
       const locServiceCoord = await locResultForCoord(getCoordPoints);
@@ -44,7 +53,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
         lat: Number(item.location.latitude),
         lng: Number(item.location.longitude),
         title: `Marker ${index + 1}`,
-        description: item.location.description
+        description: item.location.description,
       }));
 
       setLocPoints(constLocData);
@@ -68,13 +77,12 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
 
   useEffect(() => {
     if (aiSugData && map) {
-
       const convAiSugData = convertToObject(aiSugData);
 
       const getAiLocs = convAiSugData.parking.map((location) => ({
         lat: location.coordinates.lat,
         lng: location.coordinates.lng,
-        title: location.name
+        title: location.name,
       }));
 
       setLocAiPoints(getAiLocs);
@@ -88,7 +96,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       (position) => {
         const userLocaton = {
           lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lng: position.coords.longitude,
         };
         // const center = { lat: lat, lng: long };
         setDefaultCenter(userLocaton);
@@ -102,10 +110,11 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       },
       (error) => {
         console.log(error);
-      });
+      }
+    );
 
     getAllLocs();
-  }, [map])
+  }, [map]);
 
   const handleMapLoad = (mapInstance) => {
     setMap(mapInstance);
@@ -113,7 +122,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
 
   const handleMarkerClick = (marker) => {
     if (activeMarker === marker) {
-
       setActiveMarker(null);
     } else {
       setActiveMarker(marker);
@@ -130,7 +138,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
         travelMode: window.google.maps.TravelMode.DRIVING,
       });
 
-      if (getRes.status === 'OK') {
+      if (getRes.status === "OK") {
         setDirectResp(getRes);
       } else {
         console.error(`Failed to fetch direction`);
@@ -155,23 +163,23 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   };
 
   const fitBoundsWithRad = (aiPoints) => {
-    console.log("aipoint",aiPoints);
-    
+    console.log("aipoint", aiPoints);
+
     if (map && aiPoints.length > 0) {
       const bounds = new window.google.maps.LatLngBounds();
-      
-      aiPoints.forEach(aiPoint => {
+
+      aiPoints.forEach((aiPoint) => {
         bounds.extend(new window.google.maps.LatLng(aiPoint.lat, aiPoint.lng));
       });
 
-      const center = calcCenter(aiPoints)
+      const center = calcCenter(aiPoints);
       map.fitBounds(bounds);
 
       const zoomLev = 15;
       map.setCenter(center);
       map.setZoom(zoomLev);
     }
-  }
+  };
 
   if (!isLoaded) {
     return (
@@ -182,7 +190,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   }
 
   return (
-    <div className='mapcontainer'>
+    <div className="mapcontainer">
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={10}
@@ -199,7 +207,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
           />
         ))}
 
-        {getLocAiPoints.map((locAiPoints, index) => (
+        {/* {getLocAiPoints.map((locAiPoints, index) => (
           <MarkerF
             key={index}
             title={locAiPoints.title}
@@ -207,7 +215,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
             animation="DROP"
             onClick={() => handleMarkerClick(locAiPoints)}
           />
-        ))}
+        ))} */}
         {/* <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocData} onClick={() => handleMarkerClick(constLocData)}/>
         <MarkerF key="current_location" title="You are here!" animation="DROP" position={constLocDataTwo} onClick={() => handleMarkerClick(constLocDataTwo)}/> */}
 
@@ -238,16 +246,14 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
             directions={directResp}
             options={{
               polylineOptions: {
-                strokeColor: '#FF0000',
+                strokeColor: "#FF0000",
                 strokeWeight: 5,
-              }
+              },
             }}
           />
         )}
       </GoogleMap>
-
     </div>
-
   );
-}
-export default MapContainer
+};
+export default MapContainer;
