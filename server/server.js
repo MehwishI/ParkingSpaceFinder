@@ -40,26 +40,30 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-var allowedOrigins = [
-  "http://localhost:3000",
-  "https://smartpark-react.vercel.app",
-];
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin
-      // (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        var msg =
-          "The CORS policy for this site does not " +
-          "allow access from the specified Origin.";
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-  })
-);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+// var allowedOrigins = [
+//   "http://localhost:3000",
+//   "https://smartpark-react.vercel.app",
+// ];
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       // allow requests with no origin
+//       // (like mobile apps or curl requests)
+//       if (!origin) return callback(null, true);
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         var msg =
+//           "The CORS policy for this site does not " +
+//           "allow access from the specified Origin.";
+//         return callback(new Error(msg), false);
+//       }
+//       return callback(null, true);
+//     },
+//   })
+// );
 //app.options('*', cors());
 
 // const allowCors = fn => async (req, res) => {
@@ -134,10 +138,12 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: [
-          "http://localhost:3001",
-          "https://parking-space-finder-backend.vercel.app",
-        ],
+        url: "http://localhost:3001",
+        description: "Development server(local)",
+      },
+      {
+        url: "https://parking-space-finder-backend.vercel.app",
+        description: "Production server",
       },
     ],
   },
