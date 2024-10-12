@@ -5,9 +5,10 @@ import Logout from "components/Authentication/Logout";
 
 const TopNavigationBar = () => {
   return (
-    <Routes>
-      <Route path="/profile" element={<Profile />} />
-    </Routes>
+    // <Routes>
+    //   <Route path="/profile" element={<Profile />} />
+    // </Routes>
+    <></>
   );
 };
 

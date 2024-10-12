@@ -7,6 +7,8 @@ import CustomMarker from '../FontIcon/FontIcon';
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
+  let initialCenter = {}
+
   const [getLocPoints, setLocPoints] = useState([]);
   const [getLocAiPoints, setLocAiPoints] = useState([]);
   const [map, setMap] = useState(null);
@@ -14,9 +16,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const boundsRef = useRef(null);
   const [directResp, setDirectResp] = useState(null);
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
- 
-  let initialCenter = { lat: 48.1, lng: -97.39 }
-  const [defaultCenter, setDefaultCenter] = useState(initialCenter)
+  const [defaultCenter, setDefaultCenter] = useState(initialCenter);
+  const [getDirectionResp, setDirectionResp] = useState(null);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -62,12 +63,14 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   };
 
   useEffect(() => {
-    if (wpaResData && map) {
+    if (Object.keys(wpaResData).length > 0) {
+      
       getAllLocs();
     }
-  }, [wpaResData, map]);
+  }, [wpaResData]);
 
   useEffect(() => {
+    console.log("halos 222");
     if (aiSugData && map) {
 
       const convAiSugData = convertToObject(aiSugData);
@@ -81,9 +84,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       setLocAiPoints(getAiLocs);
       fitBoundsWithRad(getAiLocs);
     }
-  }, [aiSugData, map]);
+  }, [aiSugData]);
 
   useEffect(() => {
+    console.log("halos 333");
     // when map loads, get current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -104,9 +108,30 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       (error) => {
         console.log(error);
       });
+  }, [map]);
 
-    getAllLocs();
-  }, [map])
+  useEffect(() => {
+    if (directResp) {
+      const tesDirectn = {lat: 49.799473, lng: -97.165825}
+      getCalcRoute(defaultCenter, tesDirectn)
+    }
+  }, [directResp]);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success);
+    }
+  }, []);
+
+  const success = (position) => {
+    const currentPos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    console.log("got position", currentPos);
+    
+    setDefaultCenter(currentPos);
+  };
 
   const handleMapLoad = (mapInstance) => {
     setMap(mapInstance);
@@ -182,6 +207,24 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       // map.setCenter(center);
       // map.setZoom(zoomLev);
     }
+  };
+
+  const getCalcRoute = (origin, destination) => {
+    const getDirectionService = new window.google.maps.DirectionsService();
+
+    getDirectionService.route({
+      origin: origin,
+      destination: destination,
+      travelMode: window.google.maps.TravelMode.DRIVING
+    },
+    (result, status) => {
+      if (status === window.google.maps.DirectionsStatus.OK) {
+        setDirectionResp(result);
+      } else {
+        console.error('error fetching directions result');
+      }
+    }
+  );
   };
 
   if (!isLoaded) {

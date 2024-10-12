@@ -1,33 +1,26 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { saveUserProfileData } from "../../services/userProfileDataService";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const { loginWithRedirect, user } = useAuth0();
+  const navigate = useNavigate();
 
   const getHandleLogin = async () => {
+    console.log("before logging in...");
+    
     await loginWithRedirect();
-
-    const userData = {
-      userid: user.sub, //userid
-      userFirstName: user.given_name,
-      userLastName: user.family_name,
-      userEmail: user.email,
-      emailVerified: user.email_verified === "Yes" ? true : false,
-    };
-    //call service  after successful sign up /
-    const response = saveUserProfileData(userData);
-    console.log("saved user: ", response.data);
   };
 
-  //if()
-  //call a service ,post api
-  //save user info to db
+  const gethandleLabelClick = () => {
+    navigate('/register');
+  };
 
   return (
     <>
       <div>Login</div>
-      <button onClick={getHandleLogin}>Login</button>
+      <button onClick={getHandleLogin}>Login</button><br></br>
+      <label onClick={gethandleLabelClick} style={{ cursor: 'pointer', color: 'blue'}}>Please signup here</label>
     </>
   );
 };
