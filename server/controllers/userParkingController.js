@@ -1,5 +1,3 @@
-//import axios from "axios";
-
 const userParkingService = require("../services/userParkingService");
 
 const fetchUserParkingData = async (req, res) => {
@@ -12,7 +10,7 @@ const fetchUserParkingData = async (req, res) => {
     console.log(parkHistory);
     if (!parkHistory) {
       console.log("Parking history not found for this user.");
-      res.status(500).send(error.message);
+      res.status(404).send("Parking history not available for this user.");
     }
     return res.status(200).send(parkHistory);
   } catch (error) {
@@ -34,14 +32,13 @@ const saveUserParkingData = async (req, res) => {
       parkData,
       userid
     );
-
     console.log("savedHistory:", savedHistory);
     if (savedHistory) {
       return res.status(200).send("History saved successfully!");
     } else res.status(500).send("User Parking History not saved!");
   } catch (error) {
     console.log(error);
-    throw error;
+    res.status(500).send(error.message);
   }
 };
 
