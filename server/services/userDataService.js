@@ -10,7 +10,7 @@ const getUserData = async (userId) => {
       })
       .exec();
 
-   // console.log("UserFound", userFound);
+    console.log("UserFound returned in service", userFound);
     if (!userFound) {
       console.log("User not found");
       return null;
