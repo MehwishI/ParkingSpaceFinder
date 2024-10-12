@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import ParkingHistory from './ParkingHistory';
+import ParkingHistory from '../ParkingHistory/ParkingHistory';
 
 const Profile = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
