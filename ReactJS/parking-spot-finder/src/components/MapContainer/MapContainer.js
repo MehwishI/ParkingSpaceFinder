@@ -1,11 +1,14 @@
 import React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
-import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer, TrafficLayer } from '@react-google-maps/api';
 import './MapContainer.css'
 import { locResultForCoord } from '../../services/locationResultService';
+import CustomMarker from '../FontIcon/FontIcon';
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
+  let initialCenter = {}
+
   const [getLocPoints, setLocPoints] = useState([]);
   const [getLocAiPoints, setLocAiPoints] = useState([]);
   const [map, setMap] = useState(null);
@@ -13,9 +16,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const boundsRef = useRef(null);
   const [directResp, setDirectResp] = useState(null);
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
-
-  let initialCenter = { lat: 48.1, lng: -97.39 }
-  const [defaultCenter, setDefaultCenter] = useState(initialCenter)
+  const [defaultCenter, setDefaultCenter] = useState(initialCenter);
+  const [getDirectionResp, setDirectionResp] = useState(null);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -61,12 +63,14 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   };
 
   useEffect(() => {
-    if (wpaResData && map) {
+    if (Object.keys(wpaResData).length > 0) {
+      
       getAllLocs();
     }
-  }, [wpaResData, map]);
+  }, [wpaResData]);
 
   useEffect(() => {
+    console.log("halos 222");
     if (aiSugData && map) {
 
       const convAiSugData = convertToObject(aiSugData);
@@ -80,9 +84,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       setLocAiPoints(getAiLocs);
       fitBoundsWithRad(getAiLocs);
     }
-  }, [aiSugData, map]);
+  }, [aiSugData]);
 
   useEffect(() => {
+    console.log("halos 333");
     // when map loads, get current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -103,9 +108,30 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       (error) => {
         console.log(error);
       });
+  }, [map]);
 
-    getAllLocs();
-  }, [map])
+  useEffect(() => {
+    if (directResp) {
+      const tesDirectn = {lat: 49.799473, lng: -97.165825}
+      getCalcRoute(defaultCenter, tesDirectn)
+    }
+  }, [directResp]);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success);
+    }
+  }, []);
+
+  const success = (position) => {
+    const currentPos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    console.log("got position", currentPos);
+    
+    setDefaultCenter(currentPos);
+  };
 
   const handleMapLoad = (mapInstance) => {
     setMap(mapInstance);
@@ -155,23 +181,51 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   };
 
   const fitBoundsWithRad = (aiPoints) => {
-    console.log("aipoint",aiPoints);
-    
+    console.log("aipoint", aiPoints);
+
     if (map && aiPoints.length > 0) {
       const bounds = new window.google.maps.LatLngBounds();
-      
+
       aiPoints.forEach(aiPoint => {
         bounds.extend(new window.google.maps.LatLng(aiPoint.lat, aiPoint.lng));
       });
 
-      const center = calcCenter(aiPoints)
-      map.fitBounds(bounds);
+      const center = calcCenter(aiPoints);
 
-      const zoomLev = 15;
-      map.setCenter(center);
-      map.setZoom(zoomLev);
+      map.setZoom(10);
+
+      setTimeout(() => {
+        map.panTo(center);
+
+        setTimeout(() => {
+          map.setZoom(15);
+        }, 2000);
+      }, 1000);
+      // map.fitBounds(bounds);
+
+      // const zoomLev = 15;
+      // map.setCenter(center);
+      // map.setZoom(zoomLev);
     }
-  }
+  };
+
+  const getCalcRoute = (origin, destination) => {
+    const getDirectionService = new window.google.maps.DirectionsService();
+
+    getDirectionService.route({
+      origin: origin,
+      destination: destination,
+      travelMode: window.google.maps.TravelMode.DRIVING
+    },
+    (result, status) => {
+      if (status === window.google.maps.DirectionsStatus.OK) {
+        setDirectionResp(result);
+      } else {
+        console.error('error fetching directions result');
+      }
+    }
+  );
+  };
 
   if (!isLoaded) {
     return (
@@ -215,6 +269,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
           key="current_location"
           title="You are here!"
           animation="DROP"
+          // icon={{
+          //   url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(<CustomMarker />),
+          //   scaledSize: new window.google.maps.Size(40, 40), // Adjust the size
+          // }}
           position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
         />
 
@@ -244,6 +302,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
             }}
           />
         )}
+
+        <TrafficLayer />
       </GoogleMap>
 
     </div>

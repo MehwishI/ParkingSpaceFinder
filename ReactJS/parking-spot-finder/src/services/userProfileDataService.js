@@ -1,11 +1,11 @@
 import axios from "axios";
 const localBaseUrl = process.env.REACT_APP_BASE_URL_API;
 
-const getUserProfileData = async () => {
-  const userid = "";
+const getUserProfileData = async (getUserId) => {
+  const userid = getUserId;
 
   try {
-    const response = await axios.post(`${localBaseUrl}/user/profile`, {
+    const response = await axios.post(`${localBaseUrl}/user/parking`, {
       userid: userid,
     });
     console.log(response.data);

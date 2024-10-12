@@ -10,6 +10,8 @@ const User = mongoose.model("User");
 const getUserParkingHistory = async (userId) => {
   //get from db
   //get user ._id from getuserdata()
+  console.log(userId);
+  
   let userfound = {};
   try {
     userFound = await userService.getUserData(userId);

@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logout from './components/Authentication/Logout';
 import LocationResult from './components/LocationResult/LocationResult';
 import Home from './components/Home/Home';
+import Register from 'components/Authentication/Register';
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -37,6 +38,8 @@ function App() {
       <Routes>
         <Route path='/profile' element={<Profile />} />
         <Route path='/locationresult' element={<LocationResult />} />
+        {/* <Route path='/' element={<Home />} /> */}
+        <Route path='/register' element={<Register />} />
       </Routes>
     </Router>
   );
