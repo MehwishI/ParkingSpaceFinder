@@ -10,23 +10,86 @@ const wpaPaystationRoutes = require("./routes/wpaPaystation");
 const googleApiRoutes = require("./routes/googleRoute");
 const userDataRoutes = require("./routes/userDataRoute");
 const userParkingRoutes = require("./routes/userParkingRoute");
-const getAuthService = require('./services/authService');
+const getAuthService = require("./services/authService");
 const cors = require("cors");
-const { expressjwt: jwt } = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+const { expressjwt: jwt } = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
 
 const app = express();
 const mongoose = require("mongoose");
 
+// app.use(
+//   cors({
+//     origin: ["http://localhost:3000","https://smartpark-react.vercel.app/"],
+//     credentials: true,
+//     exposedHeaders: ["Set-Cookie", "Date", "ETag"],
+//     content: "application/json",
+
+//     access-control-allow-orign: "*",
+//     access-control-allow-methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+
+//   })
+// );
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://smartpark-react.vercel.app"],
     credentials: true,
     exposedHeaders: ["Set-Cookie", "Date", "ETag"],
-    content: "application/json",
-    //access-control-allow-orign: "*"
+    methods: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+// var allowedOrigins = [
+//   "http://localhost:3000",
+//   "https://smartpark-react.vercel.app",
+// ];
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       // allow requests with no origin
+//       // (like mobile apps or curl requests)
+//       if (!origin) return callback(null, true);
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         var msg =
+//           "The CORS policy for this site does not " +
+//           "allow access from the specified Origin.";
+//         return callback(new Error(msg), false);
+//       }
+//       return callback(null, true);
+//     },
+//   })
+// );
+//app.options('*', cors());
+
+// const allowCors = fn => async (req, res) => {
+//   res.setHeader('Access-Control-Allow-Credentials', true)
+//   res.setHeader('Access-Control-Allow-Origin', '*')
+//   // another common pattern
+//   // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+//   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+//   )
+//   if (req.method === 'OPTIONS') {
+//     res.status(200).end()
+//     return
+//   }
+//   return await fn(req, res)
+// }
+
+// const handler = (req, res) => {
+//   const d = new Date();
+//   res.end(d.toString());
+// };
+
+// module.exports = allowCors(handler);
+
 // Middleware setup
 app.set("view engine", "ejs");
 app.use(morgan("dev"));
@@ -42,7 +105,7 @@ app.use(express.static("public"));
 //   };
 
 //   console.log("I got to getCheckJwt...");
-  
+
 //   try {
 //     const decodedToken = await getAuthService.getVerifyToken(getToken);
 
@@ -56,12 +119,12 @@ const getCheckJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
-    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
   }),
   audience: `${process.env.AUTH0_AUD}`,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-  algorithms: ['RS256']
-})
+  algorithms: ["RS256"],
+});
 
 // Swagger Setup
 const swaggerOptions = {
@@ -76,6 +139,11 @@ const swaggerOptions = {
     servers: [
       {
         url: "http://localhost:3001",
+        description: "Development server(local)",
+      },
+      {
+        url: "https://parking-space-finder-backend.vercel.app",
+        description: "Production server",
       },
     ],
   },

@@ -64,6 +64,9 @@ const {
  *                  type: string
  *                  format: email
  *                  example: "Add user email here"
+ *               emailVerfied:
+ *                  type: boolean
+ *                  example: "Add true or false"
  *
  *
  *     responses:
