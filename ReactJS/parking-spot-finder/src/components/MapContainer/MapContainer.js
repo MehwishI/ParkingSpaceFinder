@@ -1,26 +1,9 @@
-<<<<<<< HEAD
-import React from "react";
-import { useMemo, useState, useEffect, useRef } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  useJsApiLoader,
-  MarkerF,
-  InfoWindow,
-  Polyline,
-  DirectionsService,
-  DirectionsRenderer,
-} from "@react-google-maps/api";
-import "./MapContainer.css";
-import { locResultForCoord } from "../../services/locationResultService";
-=======
 import React from 'react';
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer, TrafficLayer } from '@react-google-maps/api';
 import './MapContainer.css'
 import { locResultForCoord } from '../../services/locationResultService';
 import CustomMarker from '../FontIcon/FontIcon';
->>>>>>> 37393c9721dcdb92e2fd3346e55d4e44bb14faa1
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
@@ -33,14 +16,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const boundsRef = useRef(null);
   const [directResp, setDirectResp] = useState(null);
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
-<<<<<<< HEAD
-
+  
   let initialCenter = { lat: 48.1, lng: -97.39 };
   const [defaultCenter, setDefaultCenter] = useState(initialCenter);
-=======
-  const [defaultCenter, setDefaultCenter] = useState(initialCenter);
   const [getDirectionResp, setDirectionResp] = useState(null);
->>>>>>> 37393c9721dcdb92e2fd3346e55d4e44bb14faa1
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -129,13 +108,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       },
       (error) => {
         console.log(error);
-<<<<<<< HEAD
-      }
-    );
-
-    getAllLocs();
-  }, [map]);
-=======
       });
   }, [map]);
 
@@ -161,7 +133,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
     
     setDefaultCenter(currentPos);
   };
->>>>>>> 37393c9721dcdb92e2fd3346e55d4e44bb14faa1
 
   const handleMapLoad = (mapInstance) => {
     setMap(mapInstance);
@@ -215,21 +186,13 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
     if (map && aiPoints.length > 0) {
       const bounds = new window.google.maps.LatLngBounds();
 
-<<<<<<< HEAD
-      aiPoints.forEach((aiPoint) => {
-=======
       aiPoints.forEach(aiPoint => {
->>>>>>> 37393c9721dcdb92e2fd3346e55d4e44bb14faa1
         bounds.extend(new window.google.maps.LatLng(aiPoint.lat, aiPoint.lng));
       });
 
       const center = calcCenter(aiPoints);
-<<<<<<< HEAD
-      map.fitBounds(bounds);
-=======
 
       map.setZoom(10);
->>>>>>> 37393c9721dcdb92e2fd3346e55d4e44bb14faa1
 
       setTimeout(() => {
         map.panTo(center);
@@ -245,9 +208,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       // map.setZoom(zoomLev);
     }
   };
-<<<<<<< HEAD
-=======
-
+  
   const getCalcRoute = (origin, destination) => {
     const getDirectionService = new window.google.maps.DirectionsService();
 
@@ -265,7 +226,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
     }
   );
   };
->>>>>>> 37393c9721dcdb92e2fd3346e55d4e44bb14faa1
 
   if (!isLoaded) {
     return (
@@ -336,7 +296,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
             directions={directResp}
             options={{
               polylineOptions: {
-                strokeColor: "#FF0000",
+                strokeColor: '#39bb21',
                 strokeWeight: 5,
               },
             }}

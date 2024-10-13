@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getGoogleAutocomplete } from "services/searchService";
 import { getGoogleCoordinates } from "services/getCoordinatesService";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import './Search.css';
 
 import { useAsyncError } from "react-router";
 
@@ -44,40 +47,48 @@ const Search = ({ onDataChange }) => {
     const coordinates = await getGoogleCoordinates(placeid);
     setAddressCoord(coordinates);
     if (coordinates !== null) {
-        addressCoordinate.destLocAddress = inputValue;
-        addressCoordinate.lat = coordinates.lat;
-        addressCoordinate.lng = coordinates.lng;
-        
-        onDataChange(addressCoordinate);
+      addressCoordinate.destLocAddress = inputValue;
+      addressCoordinate.lat = coordinates.lat;
+      addressCoordinate.lng = coordinates.lng;
+
+      onDataChange(addressCoordinate);
     }
   }
 
   return (
     <>
-      <h3>Enter a destination address</h3>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={getHandleChange}
-        ref={autocompleteRef}
-        placeholder="Enter Destination Address"
-      />
-      <ul>
-        {predictions.map((prediction) => (
-          <li
-            key={prediction.place_id}
-            onClick={() =>
-              handlePredictionClick(prediction.description, prediction.place_id)
-            }
-          >
-            {prediction.description}
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleClickSubmit}>Submit</button>
-      {/* <button title="searchbtn" onClick={() => OnSearchClick()}>
-        Search
-      </button> */}
+      <div className="row">
+        <div className="col-md-9">
+          <div className="search-bar">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={getHandleChange}
+              ref={autocompleteRef}
+              placeholder="Enter Destination Address"
+            />
+          </div>
+          <ul className="search-results-list">
+            {predictions.map((prediction) => (
+              <li
+                key={prediction.place_id}
+                onClick={() =>
+                  handlePredictionClick(prediction.description, prediction.place_id)
+                }
+                className="search-result-item"
+              >
+                <i className="fas fa-map-marker-alt text-danger me-2 search-icon-fam" ></i>
+                <div className="search-result-text">
+                  {prediction.description}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="col-md-3">
+          <button onClick={handleClickSubmit} className="btn btn-primary hide-btn">Submit</button>
+        </div>
+      </div>
     </>
   );
 };
