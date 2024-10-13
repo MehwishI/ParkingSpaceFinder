@@ -1,11 +1,13 @@
+//get parking history from userid
+
 import axios from "axios";
 const localBaseUrl = process.env.REACT_APP_BASE_URL_API;
 
-const getUserProfileData = async (getUserId) => {
+const getUserParkingHistory = async (getUserId) => {
   const userid = getUserId;
 
   try {
-    const response = await axios.post(`${localBaseUrl}/user/profile`, {
+    const response = await axios.post(`${localBaseUrl}/user/parking`, {
       userid: userid,
     });
     console.log(response.data);
@@ -16,10 +18,12 @@ const getUserProfileData = async (getUserId) => {
   }
 };
 
-const saveUserProfileData = async (userData) => {
+//save park history
+
+const saveUserParkingHistory = async (parkData) => {
   try {
-    const response = await axios.post(`${localBaseUrl}/user/profile/save`, {
-      userData,
+    const response = await axios.post(`${localBaseUrl}/user/parking/save`, {
+      parkData,
     });
     console.log(response.result);
     return response.result;
@@ -29,4 +33,4 @@ const saveUserProfileData = async (userData) => {
   }
 };
 
-export { getUserProfileData, saveUserProfileData };
+export { getUserParkingHistory, saveUserParkingHistory };

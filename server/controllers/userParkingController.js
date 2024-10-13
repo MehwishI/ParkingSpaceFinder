@@ -2,10 +2,10 @@ const userParkingService = require("../services/userParkingService");
 
 const fetchUserParkingData = async (req, res) => {
   try {
-    console.log("request data",req.body.userid.getUserId);
-    
+    console.log("request data", req.body.userid);
+
     const parkHistory = await userParkingService.getUserParkingHistory(
-      req.body.userid.getUserId
+      req.body.userid
     );
     console.log(parkHistory);
     if (!parkHistory) {
