@@ -296,7 +296,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
             directions={directResp}
             options={{
               polylineOptions: {
-                strokeColor: '#FF0000',
+                strokeColor: '#39bb21',
                 strokeWeight: 5,
               }
             }}

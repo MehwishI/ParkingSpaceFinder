@@ -19,13 +19,11 @@ function App() {
   return (
     <Router>
       <div>
-        <h3>Smart Park Login</h3>
-
         {isAuthenticated ? (
           <div>
-            Hi {user.given_name}, Welcome to Smart Park!
+            {/* Hi {user.given_name}, Welcome to Smart Park!
             <Logout />
-            <br></br>
+            <br></br> */}
             <Home />
           </div>
         ) : (
