@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router";
 
 const Login = () => {
   const { loginWithRedirect, user } = useAuth0();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("login hello");
+    
+  });
 
   const getHandleLogin = async () => {
     console.log("before logging in...");

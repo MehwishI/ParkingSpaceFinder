@@ -8,22 +8,20 @@ import Logout from './components/Authentication/Logout';
 import LocationResult from './components/LocationResult/LocationResult';
 import Home from './components/Home/Home';
 import Register from 'components/Authentication/Register';
+import Loader from 'components/LoaderContainer/Loader';
 
 function App() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  // const { user, isAuthenticated, isLoading } = useAuth0();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <Router>
-      <div>
+      {/* <div>
         {isAuthenticated ? (
           <div>
-            {/* Hi {user.given_name}, Welcome to Smart Park!
-            <Logout />
-            <br></br> */}
             <Home />
           </div>
         ) : (
@@ -32,12 +30,14 @@ function App() {
             <>You are not logged in yet</>
           </>
         )}
-      </div>
+      </div> */}
       <Routes>
         <Route path='/profile' element={<Profile />} />
         <Route path='/locationresult' element={<LocationResult />} />
-        {/* <Route path='/' element={<Home />} /> */}
+        <Route path='/' element={<Loader />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </Router>
   );

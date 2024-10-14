@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Search from '../Search/Search'
 import MapContainer from '../MapContainer/MapContainer'
 import AISuggestion from 'components/AISuggestion/AISuggestion';
+import Footer from 'components/Footer/Footer';
 
 const Home = () => {
   const [ getCurrentLocAdd, setCurrentLocAdd ] = useState({});
@@ -28,6 +29,9 @@ const Home = () => {
       <Search onDataChange={getHandleDataChange}/>
       <MapContainer wpaResData={getWpaSearchRes} aiSugData={getAiCoordinates} onDataChange={getCurrentLocCoords} />
       <AISuggestion onDataChange={getHandleAiSuggestion} getDestLoc={getWpaSearchRes} getCurrLoc={getCurrentLocAdd}/>
+
+      {/* footer begins */}
+      <Footer />
     </>
   )
 }
