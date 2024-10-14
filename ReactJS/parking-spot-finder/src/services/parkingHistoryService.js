@@ -10,7 +10,7 @@ const getUserParkingHistory = async (getUserId) => {
     const response = await axios.post(`${localBaseUrl}/user/parking`, {
       userid: userid,
     });
-    console.log(response.data);
+    // console.log("parking response:", response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -21,6 +21,7 @@ const getUserParkingHistory = async (getUserId) => {
 //save park history
 
 const saveUserParkingHistory = async (parkData) => {
+  // console.log("ParkData received in service:", parkData);
   try {
     const response = await axios.post(`${localBaseUrl}/user/parking/save`, {
       parkData,

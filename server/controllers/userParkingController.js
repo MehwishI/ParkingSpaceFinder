@@ -23,9 +23,17 @@ const saveUserParkingData = async (req, res) => {
   const userid = req.body.userid;
 
   const parkData = {
+    paystation_number: req.body.paystation_number,
+    restriction: req.body.restriction,
+    time_limit: req.body.time_limit,
+    street: req.body.street,
+    total_space: req.body.total_space,
+    accessible_space: req.body.accessible_space,
+    hourly_rate: req.body.hourly_rate,
+    mobile_pay_zone: req.body.mobile_pay_zone,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
-    date: Date.now(),
+    parking_date: Date.now(),
   };
   try {
     const savedHistory = await userParkingService.saveUserParkingHistory(
