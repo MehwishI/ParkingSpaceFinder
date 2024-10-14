@@ -23,7 +23,7 @@ function App() {
   return (
     <Router>
       <div>
-        {typeof TopNavigationBar !== "undefined" ? <TopNavigationBar /> : ""}
+        <TopNavigationBar />
 
         <h3>Smart Park Login</h3>
 
