@@ -1,3 +1,4 @@
+import Loader from 'components/LoaderContainer/Loader';
 import logo from "./logo.svg";
 import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -12,36 +13,13 @@ import TopNavigationBar from "components/TopNavigationBar/TopNavigationBar";
 import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 
 function App() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  // console.log("Top:", TopNavigationBar);
-  //console.log("typeof topnavigation", typeof TopNavigationBar);
+  // const { user, isAuthenticated, isLoading } = useAuth0();
 
   return (
     <Router>
-      <div>
-        <TopNavigationBar />
-
-        <h3>Smart Park Login</h3>
-
-        {isAuthenticated ? (
-          <div>
-            {/* Hi {user.given_name}, Welcome to Smart Park!
-            <Logout />
-            <br></br> */}
-            <Home />
-          </div>
-        ) : (
-          <>
-            <Login />
-            <>You are not logged in yet</>
-          </>
-        )}
-      </div>
       <Routes>
+        <Route path='/' element={<Loader />} />
+        <Route path='/login' element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/locationresult" element={<LocationResult />} />
         <Route path="/" element={<Home />} />

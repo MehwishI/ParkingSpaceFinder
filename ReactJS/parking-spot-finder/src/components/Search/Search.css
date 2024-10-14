@@ -75,12 +75,17 @@
 
 @media only screen and (max-width: 760px) {
     .search-bar {
-        padding-top: 14%;
-        padding-left: 10px;
         padding-right: 10px;
-        margin-top: 10px;
-        margin-left: 10px;
+        margin-top: 50px;
+        margin-left: 40px;
         margin-right: 10px;
+        display: flex;
+        align-items: center;
+        border-radius: 30px;
+        padding: 5px;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 2px 10px rgb(0 0 0 / 82%);
     }
 
     .search-results-list {
@@ -89,7 +94,7 @@
     }
 
     .search-bar input {
-        font-size: 18px;
+        font-size: 15px;
     }
 
     .search-result-text {
