@@ -64,6 +64,30 @@ const {
  *               longitude:
  *                  type: number
  *                  example: "Add longitude here"
+ *               paystation_number:
+ *                  type: string
+ *                  example: "paystation number"
+ *               restriction:
+ *                  type: string
+ *                  example: "restriction"
+ *               time_limit:
+ *                  type: string
+ *                  example: "time limit"
+ *               street:
+ *                  type: string
+ *                  example: "street"
+ *               total_space:
+ *                  type: string
+ *                  example: "total space"
+ *               accessible_space:
+ *                  type: string
+ *                  example: "accessible_space"
+ *               hourly_rate:
+ *                  type: string
+ *                  example: "hourly rate"
+ *               mobile_pay_zone:
+ *                  type: string
+ *                  example: "mobile pay zone"
  *
  *     responses:
  *       200:

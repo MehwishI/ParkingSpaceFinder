@@ -16,7 +16,6 @@ const getWpaPayStationAll = async () => {
 };
 
 const getWpaPayStationStreet = async (getStreet) => {
-  
   try {
     const resp = await axios.get(urlBase + `street=${getStreet}`, {
       headers: {
@@ -54,7 +53,8 @@ const getWpaPayStationTimeLimit = async (getTimeLimit) => {
 
 const getWpaPayStationLocation = async (getLocation) => {
   // const getTimeLimitFull = getTimeLimit.toString() + 'HOUR PARKING';
-  
+
+  //console.log("Getlocation", getLocation);
   try {
     const resp = await axios.get(
       urlBase +
@@ -65,8 +65,9 @@ const getWpaPayStationLocation = async (getLocation) => {
         },
       }
     );
-    
+    // console.log("resp:", resp);
 
+    // console.log("resp.data", resp.data);
     return resp.data;
   } catch (error) {
     console.log("Error in ApiService:", error);
