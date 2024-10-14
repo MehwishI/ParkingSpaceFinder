@@ -11,12 +11,12 @@ const getUserParkingHistory = async (userId) => {
   //get from db
   //get user ._id from getuserdata()
   console.log(userId);
-  
+
   let userfound = {};
   try {
     userFound = await userService.getUserData(userId);
 
-    // console.log("userFound", userFound);
+    console.log("userFound in parking service", userFound);
     if (userFound.emailVerified === false) {
       console.log(
         "Email not verified, please verify your email to view parking history. "
@@ -50,20 +50,7 @@ const getUserParkingHistory = async (userId) => {
 //call encrypt data()
 const saveUserParkingHistory = async (parkData, userId) => {
   //find the user with the given userid
-  //then
 
-  // try {
-  //   const historyFound = await getUserParkingHistory(req.body.userid);
-  //   if (!historyFound) {
-  //     console.log("Parking history does not exist already! New history will be created");
-  //     //return null;
-  //   }
-  // } catch (error) {
-  //   console.log(error.message);
-  //   throw error;
-  // }
-  //save to db to the same user id
-  //find the user with g\
   let userFound = null;
 
   try {
