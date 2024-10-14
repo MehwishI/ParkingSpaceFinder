@@ -7,7 +7,7 @@ import CustomMarker from '../FontIcon/FontIcon';
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
-  let initialCenter = {}
+  // let initialCenter = {}
 
   const [getLocPoints, setLocPoints] = useState([]);
   const [getLocAiPoints, setLocAiPoints] = useState([]);
