@@ -1,13 +1,23 @@
-import React from 'react';
-import { useMemo, useState, useEffect, useRef } from 'react';
-import { GoogleMap, LoadScript, useJsApiLoader, MarkerF, InfoWindow, Polyline, DirectionsService, DirectionsRenderer, TrafficLayer } from '@react-google-maps/api';
-import './MapContainer.css'
-import { locResultForCoord } from '../../services/locationResultService';
-import CustomMarker from '../FontIcon/FontIcon';
+import React from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  useJsApiLoader,
+  MarkerF,
+  InfoWindow,
+  Polyline,
+  DirectionsService,
+  DirectionsRenderer,
+  TrafficLayer,
+} from "@react-google-maps/api";
+import "./MapContainer.css";
+import { locResultForCoord } from "../../services/locationResultService";
+import CustomMarker from "../FontIcon/FontIcon";
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
-  let initialCenter = {}
+  let initialCenter = {};
 
   const [getLocPoints, setLocPoints] = useState([]);
   const [getLocAiPoints, setLocAiPoints] = useState([]);
@@ -16,8 +26,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const boundsRef = useRef(null);
   const [directResp, setDirectResp] = useState(null);
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
-  
-  let initialCenter = { lat: 48.1, lng: -97.39 };
   const [defaultCenter, setDefaultCenter] = useState(initialCenter);
   const [getDirectionResp, setDirectionResp] = useState(null);
 
@@ -66,7 +74,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
 
   useEffect(() => {
     if (Object.keys(wpaResData).length > 0) {
-      
       getAllLocs();
     }
   }, [wpaResData]);
@@ -108,13 +115,14 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       },
       (error) => {
         console.log(error);
-      });
+      }
+    );
   }, [map]);
 
   useEffect(() => {
     if (directResp) {
-      const tesDirectn = {lat: 49.799473, lng: -97.165825}
-      getCalcRoute(defaultCenter, tesDirectn)
+      const tesDirectn = { lat: 49.799473, lng: -97.165825 };
+      getCalcRoute(defaultCenter, tesDirectn);
     }
   }, [directResp]);
 
@@ -127,10 +135,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const success = (position) => {
     const currentPos = {
       lat: position.coords.latitude,
-      lng: position.coords.longitude
+      lng: position.coords.longitude,
     };
     console.log("got position", currentPos);
-    
+
     setDefaultCenter(currentPos);
   };
 
@@ -186,7 +194,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
     if (map && aiPoints.length > 0) {
       const bounds = new window.google.maps.LatLngBounds();
 
-      aiPoints.forEach(aiPoint => {
+      aiPoints.forEach((aiPoint) => {
         bounds.extend(new window.google.maps.LatLng(aiPoint.lat, aiPoint.lng));
       });
 
@@ -208,23 +216,24 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       // map.setZoom(zoomLev);
     }
   };
-  
+
   const getCalcRoute = (origin, destination) => {
     const getDirectionService = new window.google.maps.DirectionsService();
 
-    getDirectionService.route({
-      origin: origin,
-      destination: destination,
-      travelMode: window.google.maps.TravelMode.DRIVING
-    },
-    (result, status) => {
-      if (status === window.google.maps.DirectionsStatus.OK) {
-        setDirectionResp(result);
-      } else {
-        console.error('error fetching directions result');
+    getDirectionService.route(
+      {
+        origin: origin,
+        destination: destination,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      },
+      (result, status) => {
+        if (status === window.google.maps.DirectionsStatus.OK) {
+          setDirectionResp(result);
+        } else {
+          console.error("error fetching directions result");
+        }
       }
-    }
-  );
+    );
   };
 
   if (!isLoaded) {
