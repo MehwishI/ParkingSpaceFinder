@@ -10,7 +10,7 @@ const getUserData = async (userId) => {
       })
       .exec();
 
-    console.log("UserFound returned in service", userFound);
+    // console.log("UserFound returned in service", userFound);
     if (!userFound) {
       console.log("User not found");
       return null;
@@ -25,12 +25,12 @@ const getUserData = async (userId) => {
 // post user data to db
 //call encrypt data() --sensitive data
 const saveUserData = async (userData) => {
-  console.log("userData in service:", userData);
+  // console.log("userData in service:", userData);
 
   try {
     const newUser = new userCollection(userData);
     const savedUser = await newUser.save();
-    console.log("User saved: ", savedUser);
+    // console.log("User saved: ", savedUser);
     return savedUser;
   } catch (error) {
     console.error(error);

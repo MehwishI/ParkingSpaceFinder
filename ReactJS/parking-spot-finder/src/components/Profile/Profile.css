@@ -1,0 +1,8 @@
+.profile-container {
+  display: flex;
+  padding: 10px;
+}
+.profile-container.h3 {
+  padding: 5px;
+  align-content: center;
+}

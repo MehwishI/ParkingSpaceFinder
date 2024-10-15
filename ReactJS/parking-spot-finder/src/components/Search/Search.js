@@ -6,7 +6,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './Search.css';
-
 import { useAsyncError } from "react-router";
 
 const Search = ({ onDataChange }) => {
@@ -55,7 +54,7 @@ const Search = ({ onDataChange }) => {
 
       onDataChange(addressCoordinate);
     }
-  }
+  };
 
   return (
     <>
@@ -78,11 +77,14 @@ const Search = ({ onDataChange }) => {
               <li
                 key={prediction.place_id}
                 onClick={() =>
-                  handlePredictionClick(prediction.description, prediction.place_id)
+                  handlePredictionClick(
+                    prediction.description,
+                    prediction.place_id
+                  )
                 }
                 className="search-result-item"
               >
-                <i className="fas fa-map-marker-alt text-danger me-2 search-icon-fam" ></i>
+                <i className="fas fa-map-marker-alt text-danger me-2 search-icon-fam"></i>
                 <div className="search-result-text">
                   {prediction.description}
                 </div>
@@ -91,7 +93,12 @@ const Search = ({ onDataChange }) => {
           </ul>
         </div>
         <div className="col-md-3">
-          <button onClick={handleClickSubmit} className="btn btn-primary hide-btn">Submit</button>
+          <button
+            onClick={handleClickSubmit}
+            className="btn btn-primary hide-btn"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </>
