@@ -10,9 +10,13 @@ import Home from "components/Home/Home";
 import Register from "components/Authentication/Register";
 import TopNavigationBar from "components/TopNavigationBar/TopNavigationBar";
 import ParkingHistory from "components/ParkingHistory/ParkingHistory";
+import { useState } from "react";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [isHome, setisHome] = useState(true);
+  const [isProfile, setisProfile] = useState(false);
+  const [isHistory, setisHistory] = useState(false);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -25,20 +29,10 @@ function App() {
       <div>
         <TopNavigationBar />
 
-        <h3>Smart Park Login</h3>
-
-        {isAuthenticated ? (
-          <div>
-            {/* Hi {user.given_name}, Welcome to Smart Park!
-            <Logout />
-            <br></br> */}
+        {isHome && (
+          <div className="homecontainer">
             <Home />
           </div>
-        ) : (
-          <>
-            <Login />
-            <>You are not logged in yet</>
-          </>
         )}
       </div>
       <Routes>

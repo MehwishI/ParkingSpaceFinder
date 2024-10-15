@@ -4,7 +4,7 @@ const LocationItem = ({ locationItem }) => {
   // will receive parkdata from  db
   //const { } = props;
   return (
-    <>
+    <div className="loc-container">
       <div>
         Address: {locationItem.street}, {locationItem.city}
       </div>
@@ -20,7 +20,7 @@ const LocationItem = ({ locationItem }) => {
 
         <div>Mobile Pay Zone: {locationItem.mobile_pay_zone}</div>
       </div>
-    </>
+    </div>
   );
 };
 export default LocationItem;

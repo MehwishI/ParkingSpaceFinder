@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import Search from '../Search/Search'
-import MapContainer from '../MapContainer/MapContainer'
-import AISuggestion from 'components/AISuggestion/AISuggestion';
+import React, { useEffect, useState } from "react";
+import Search from "../Search/Search";
+import MapContainer from "../MapContainer/MapContainer";
+import TopNavigationBar from "components/TopNavigationBar/TopNavigationBar";
+import AISuggestion from "components/AISuggestion/AISuggestion";
 
 const Home = () => {
-  const [ getCurrentLocAdd, setCurrentLocAdd ] = useState({});
-  const [ getWpaSearchRes, setWpaSearchRes ] = useState([]);
-  const [ getAiCoordinates, setAiCoordinates ] = useState(null);
+  const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
+  const [getWpaSearchRes, setWpaSearchRes] = useState([]);
+  const [getAiCoordinates, setAiCoordinates] = useState(null);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -18,18 +19,24 @@ const Home = () => {
   };
 
   const getHandleAiSuggestion = (aiResData) => {
-    
     setAiCoordinates(aiResData);
-    
   };
 
   return (
-    <>
-      <Search onDataChange={getHandleDataChange}/>
-      <MapContainer wpaResData={getWpaSearchRes} aiSugData={getAiCoordinates} onDataChange={getCurrentLocCoords} />
-      <AISuggestion onDataChange={getHandleAiSuggestion} getDestLoc={getWpaSearchRes} getCurrLoc={getCurrentLocAdd}/>
-    </>
-  )
-}
+    <div>
+      <Search onDataChange={getHandleDataChange} />
+      <MapContainer
+        wpaResData={getWpaSearchRes}
+        aiSugData={getAiCoordinates}
+        onDataChange={getCurrentLocCoords}
+      />
+      <AISuggestion
+        onDataChange={getHandleAiSuggestion}
+        getDestLoc={getWpaSearchRes}
+        getCurrLoc={getCurrentLocAdd}
+      />
+    </div>
+  );
+};
 
-export default Home
+export default Home;

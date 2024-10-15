@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import "./Profile.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import ParkingHistory from "../ParkingHistory/ParkingHistory.js";
 import {
@@ -44,13 +44,17 @@ const Profile = () => {
   }
 
   return (
-    <>
+    <div className="profile-container">
       <div>
         {isAuthenticated && (
           <div>
             <img src={user.picture} alt={user.given_name} />
-            <h2>Name: {user.name}</h2>
-            <h2>Last name{user.family_name}</h2>
+            <h3>{user.name}</h3>
+            <h3>
+              {""}
+              {user.family_name}
+            </h3>
+
             <p>Email: {user.email}</p>
           </div>
         )}
@@ -64,7 +68,7 @@ const Profile = () => {
           </button>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
