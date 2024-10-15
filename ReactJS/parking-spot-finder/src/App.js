@@ -34,7 +34,7 @@ function App() {
             <Home />
           </div>
         )}
-        {isHistory && (
+        {/* {isHistory && (
           <div>
             <ParkingHistory />
           </div>
@@ -43,7 +43,7 @@ function App() {
           <div>
             <Profile />
           </div>
-        )}
+        )} */}
         {/* footer begins */}
         <Footer
           isHome={isHome}

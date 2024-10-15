@@ -14,6 +14,8 @@ const Profile = () => {
 
   //save user data into db
 
+  
+
   const handleCompReg = async () => {
     const userData = {
       userid: user.sub,
@@ -38,7 +40,7 @@ const Profile = () => {
     if (user) {
       fetchUserData();
     }
-  }, [userExist]);
+  }, []);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -61,7 +63,7 @@ const Profile = () => {
       </div>
       <div>
         {userExist ? (
-          <div></div>
+          ""
         ) : (
           <button onClick={() => handleCompReg} type="Submit">
             Complete Registeration
