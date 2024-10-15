@@ -3,6 +3,8 @@ import { getGoogleAutocomplete } from "services/searchService";
 import { getGoogleCoordinates } from "services/getCoordinatesService";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './Search.css';
 
 import { useAsyncError } from "react-router";
@@ -59,6 +61,8 @@ const Search = ({ onDataChange }) => {
     <>
       <div className="row">
         <div className="col-md-9">
+          {/* <div className="inp-contain"> */}
+        {/* <FontAwesomeIcon icon={faArrowLeft} className="back-arrow" /> */}
           <div className="search-bar">
             <input
               type="text"
@@ -68,6 +72,7 @@ const Search = ({ onDataChange }) => {
               placeholder="Enter Destination Address"
             />
           </div>
+          {/* </div> */}
           <ul className="search-results-list">
             {predictions.map((prediction) => (
               <li

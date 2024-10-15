@@ -18,7 +18,7 @@ const Loader = () => {
                 navigate('/home');
                 // navigate('/login');
             }
-        }, 5000);
+        }, 3000);
     }, [navigate]);
 
     return (

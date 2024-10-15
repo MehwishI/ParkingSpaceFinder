@@ -148,7 +148,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   }, [aiSugData]);
 
   useEffect(() => {
-    console.log("halos 333");
     // when map loads, get current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -163,7 +162,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
 
         if (map) {
           map.panTo(userLocaton);
-          map.setZoom(15);
+          map.setZoom(16);
         }
       },
       (error) => {
