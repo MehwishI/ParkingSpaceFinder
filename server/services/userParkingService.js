@@ -16,7 +16,7 @@ const getUserParkingHistory = async (userId) => {
   try {
     userFound = await userService.getUserData(userId);
 
-    console.log("userFound in parking service", userFound);
+    //console.log("userFound in parking service", userFound);
     if (userFound.emailVerified === false) {
       console.log(
         "Email not verified, please verify your email to view parking history. "
@@ -59,7 +59,7 @@ const saveUserParkingHistory = async (parkData, userId) => {
         userid: userId,
       })
       .exec();
-    console.log("user found:", userFound);
+    //  console.log("user found:", userFound);
     if (!userFound) {
       console.log("User does not exist, can not save park history");
       return null;
@@ -86,8 +86,8 @@ const saveUserParkingHistory = async (parkData, userId) => {
 
     const savedItem = await newParkItem.save();
 
-    console.log("saveditem", savedItem);
-    console.log("userFound.userid", userFound.userid);
+    // console.log("saveditem", savedItem);
+    // console.log("userFound.userid", userFound.userid);
 
     // const updatedUser = await User.findOneandUpdate(
     //   { userid: userFound.userid },

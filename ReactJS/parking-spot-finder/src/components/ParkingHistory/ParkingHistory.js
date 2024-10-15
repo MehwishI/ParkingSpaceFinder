@@ -5,14 +5,17 @@ import {
   getUserParkingHistory,
   saveUserParkingHistory,
 } from "../../services/parkingHistoryService";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ParkingHistory = () => {
   const [userHistory, setUserHistory] = useState([]);
   const [historyExist, setHistoryExist] = useState(false);
 
-  const location = useLocation();
-  const { getUserId } = location.state || {};
-  // console.log("getUserId:", getUserId);
+  //const location = useLocation();
+  //const { getUserId } = location.state || {};
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const getUserId = user.sub;
 
   const getHistory = async (getUserId) => {
     try {

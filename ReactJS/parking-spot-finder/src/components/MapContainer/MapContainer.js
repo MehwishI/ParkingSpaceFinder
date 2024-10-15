@@ -34,6 +34,66 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
+  const blackAndWhiteMapStyle = [
+    {
+      elementType: 'geometry',
+      stylers: [{ color: '#f5f5f5' }],
+    },
+    {
+      elementType: 'labels.text.fill',
+      stylers: [{ color: '#616161' }],
+    },
+    {
+      elementType: 'labels.text.stroke',
+      stylers: [{ color: '#f5f5f5' }],
+    },
+    {
+      featureType: 'administrative.land_parcel',
+      elementType: 'labels.text.fill',
+      stylers: [{ color: '#bdbdbd' }],
+    },
+    {
+      featureType: 'poi',
+      elementType: 'geometry',
+      stylers: [{ color: '#eeeeee' }],
+    },
+    {
+      featureType: 'poi',
+      elementType: 'labels.text.fill',
+      stylers: [{ color: '#757575' }],
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: [{ color: '#ffffff' }],
+    },
+    {
+      featureType: 'road.arterial',
+      elementType: 'labels.text.fill',
+      stylers: [{ color: '#757575' }],
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry',
+      stylers: [{ color: '#dadada' }],
+    },
+    {
+      featureType: 'road.local',
+      elementType: 'labels.text.fill',
+      stylers: [{ color: '#9e9e9e' }],
+    },
+    {
+      featureType: 'transit.line',
+      elementType: 'geometry',
+      stylers: [{ color: '#e5e5e5' }],
+    },
+    {
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [{ color: '#c9c9c9' }],
+    },
+  ];
+
   const mapStyles = {
     height: "100%",
     width: "100%",
@@ -121,8 +181,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
 
   useEffect(() => {
     if (directResp) {
-      const tesDirectn = { lat: 49.799473, lng: -97.165825 };
-      getCalcRoute(defaultCenter, tesDirectn);
+      const tesDirectn = { lat: 49.799473, lng: -97.165825 }
+      getCalcRoute(defaultCenter, tesDirectn)
     }
   }, [directResp]);
 
@@ -137,7 +197,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     };
-    console.log("got position", currentPos);
+   // console.log("got position", currentPos);
 
     setDefaultCenter(currentPos);
   };
@@ -220,17 +280,16 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   const getCalcRoute = (origin, destination) => {
     const getDirectionService = new window.google.maps.DirectionsService();
 
-    getDirectionService.route(
-      {
-        origin: origin,
-        destination: destination,
-        travelMode: window.google.maps.TravelMode.DRIVING,
-      },
+    getDirectionService.route({
+      origin: origin,
+      destination: destination,
+      travelMode: window.google.maps.TravelMode.DRIVING
+    },
       (result, status) => {
         if (status === window.google.maps.DirectionsStatus.OK) {
           setDirectionResp(result);
         } else {
-          console.error("error fetching directions result");
+          console.error('error fetching directions result');
         }
       }
     );
@@ -251,6 +310,15 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
         zoom={10}
         center={defaultCenter}
         onLoad={handleMapLoad}
+        mapTypeId='roadmap'
+        options={{
+          disableDefaultUI: true,
+          zoomControl: true,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false,
+          styles: blackAndWhiteMapStyle,
+        }}
       >
         {getLocPoints.map((locPoints, index) => (
           <MarkerF

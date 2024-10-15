@@ -4,6 +4,8 @@ import MapContainer from "../MapContainer/MapContainer";
 import TopNavigationBar from "components/TopNavigationBar/TopNavigationBar";
 import AISuggestion from "components/AISuggestion/AISuggestion";
 
+import Footer from "components/Footer/Footer";
+
 const Home = () => {
   const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
   const [getWpaSearchRes, setWpaSearchRes] = useState([]);
@@ -23,19 +25,21 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <Search onDataChange={getHandleDataChange} />
-      <MapContainer
-        wpaResData={getWpaSearchRes}
-        aiSugData={getAiCoordinates}
-        onDataChange={getCurrentLocCoords}
-      />
-      <AISuggestion
-        onDataChange={getHandleAiSuggestion}
-        getDestLoc={getWpaSearchRes}
-        getCurrLoc={getCurrentLocAdd}
-      />
-    </div>
+    <>
+      <div>
+        <Search onDataChange={getHandleDataChange} />
+        <MapContainer
+          wpaResData={getWpaSearchRes}
+          aiSugData={getAiCoordinates}
+          onDataChange={getCurrentLocCoords}
+        />
+        <AISuggestion
+          onDataChange={getHandleAiSuggestion}
+          getDestLoc={getWpaSearchRes}
+          getCurrLoc={getCurrentLocAdd}
+        />
+      </div>
+    </>
   );
 };
 
