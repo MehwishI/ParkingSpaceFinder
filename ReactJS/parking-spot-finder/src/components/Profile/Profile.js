@@ -6,6 +6,8 @@ import {
   getUserProfileData,
   saveUserProfileData,
 } from "services/userProfileDataService";
+import Login from "components/Authentication/Login";
+import Logout from "components/Authentication/Logout";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -44,31 +46,36 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
-      <div>
-        {isAuthenticated && (
-          <div>
-            <div className="name-img-container">
-              <img src={user.picture} alt={user.given_name} />
-              <h3>{user.name}</h3>
-              <h3>
-                {""}
-                {user.family_name}
-              </h3>
+    <div className="profile-page">
+      <h3>Account</h3>
+      <div className="profile-container">
+        <div>
+          {isAuthenticated && (
+            <div>
+              <div className="name-img-container">
+                <img src={user.picture} alt={user.given_name} />
+                <h3>{user.name}</h3>
+                <h3>
+                  {""}
+                  {user.family_name}
+                </h3>
+              </div>
+              <div className="profile-details">
+                <p>Email: {user.email}</p>
+              </div>
             </div>
-
-            <p>Email: {user.email}</p>
-          </div>
-        )}
-      </div>
-      <div>
-        {userExist ? (
-          ""
-        ) : (
-          <button onClick={() => handleCompReg} type="Submit">
-            Complete Registeration
-          </button>
-        )}
+          )}
+        </div>
+        <div>
+          {userExist ? (
+            ""
+          ) : (
+            <button onClick={() => handleCompReg} type="Submit">
+              Complete Registeration
+            </button>
+          )}
+          {isAuthenticated && <Logout />}
+        </div>
       </div>
     </div>
   );
