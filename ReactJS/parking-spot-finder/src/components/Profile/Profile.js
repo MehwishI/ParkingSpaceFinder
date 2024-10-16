@@ -10,11 +10,9 @@ import {
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userExist, setUserExist] = useState(false);
-  let btnCompReg;
+  //let btnCompReg;
 
   //save user data into db
-
-  
 
   const handleCompReg = async () => {
     const userData = {
@@ -50,12 +48,14 @@ const Profile = () => {
       <div>
         {isAuthenticated && (
           <div>
-            <img src={user.picture} alt={user.given_name} />
-            <h3>{user.name}</h3>
-            <h3>
-              {""}
-              {user.family_name}
-            </h3>
+            <div className="name-img-container">
+              <img src={user.picture} alt={user.given_name} />
+              <h3>{user.name}</h3>
+              <h3>
+                {""}
+                {user.family_name}
+              </h3>
+            </div>
 
             <p>Email: {user.email}</p>
           </div>

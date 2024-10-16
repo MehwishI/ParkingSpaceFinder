@@ -17,36 +17,36 @@ const Footer = (props) => {
     setisProfile,
   } = props;
 
-  const onHistoryClick = () => {
-    setisHistory(true);
-    setisHome(false);
-    setisProfile(false);
-  };
-  const onProfileClick = () => {
-    setisHistory(false);
-    setisHome(false);
-    setisProfile(true);
-  };
-  const onHomeClick = () => {
-    setisHistory(false);
-    setisHome(true);
-    setisProfile(false);
-  };
+  //   const onHistoryClick = () => {
+  //     setisHistory(true);
+  //     setisHome(false);
+  //     setisProfile(false);
+  //   };
+  //   const onProfileClick = () => {
+  //     setisHistory(false);
+  //     setisHome(false);
+  //     setisProfile(true);
+  //   };
+  //   const onHomeClick = () => {
+  //     setisHistory(false);
+  //     setisHome(true);
+  //     setisProfile(false);
+  //   };
   return (
     <>
       <div className="footer">
         <div className="footer-item">
-          <NavLink to="/" onClick={() => onHomeClick()}>
+          <NavLink to="/">
             <FontAwesomeIcon icon={faHome} />
           </NavLink>
         </div>
         <div className="footer-item">
-          <NavLink to="/parkinghistory" onClick={() => onHistoryClick()}>
+          <NavLink to="/parkinghistory">
             <FontAwesomeIcon icon={faList} />
           </NavLink>
         </div>
         <div className="footer-item">
-          <NavLink to="/profile" onClick={() => onProfileClick()}>
+          <NavLink to="/profile">
             <FontAwesomeIcon icon={faUser} />
           </NavLink>
         </div>
