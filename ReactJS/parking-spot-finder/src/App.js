@@ -30,7 +30,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className="container">
         {isHome && (
           <div className="homecontainer">
             <Home />

@@ -1,9 +1,9 @@
 .mapcontainer {
     position: fixed;
-    top: 40%;
-    left: 3%;
+    /* top: 33%; */
+    left: 6.5%;
     right: 7%;
-    height: 17%;
+    height: 13%;
     border: none;
     overflow: hidden;
     display: flex;
@@ -14,13 +14,13 @@
   }
 
   .overlay-box {
-    position: absolute;
-    height: 32px;
+    position: relative;
+    height: 30px;
     background-color: #ccc;
-    top: 58%;
-    left: 6%;
-    right: 7%;
-    padding: 10px;
+    margin-top: 25% !important;
+    margin-left: 11px !important;
+    margin-right: 14px !important;
+    padding-top: 5px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     z-index: 100;
@@ -30,4 +30,15 @@
   .overlay-text {
     font-size: 14px;
     color: black;
+  }
+
+  .stack-style {
+    display: flex; 
+    flex-direction: column;
+  }
+
+  .park-label-style {
+    font-size: 14px;
+    margin-left: 13px;
+    margin-bottom: 13px;
   }
