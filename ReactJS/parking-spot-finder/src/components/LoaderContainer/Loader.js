@@ -6,20 +6,21 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const Loader = () => {
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { isAuthenticated } = useAuth0();
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
             if (isAuthenticated) {
-                navigate('/home');
+                // navigate('/home');
             } else {
-                navigate('/home');
+                // navigate('/home');
                 // navigate('/login');
             }
         }, 3000);
-    }, [navigate]);
+    }, []);
+// }, [navigate]);
 
     return (
         <div className='logo-load'>

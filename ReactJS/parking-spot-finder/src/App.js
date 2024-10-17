@@ -13,6 +13,8 @@ import Register from "components/Authentication/Register";
 import TopNavigationBar from "components/TopNavigationBar/TopNavigationBar";
 import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 import Footer from "components/Footer/Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -21,7 +23,7 @@ function App() {
   const [isHistory, setisHistory] = useState(false);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div><Loader /></div>;
   }
   // console.log("Top:", TopNavigationBar);
   //console.log("typeof topnavigation", typeof TopNavigationBar);
@@ -55,11 +57,11 @@ function App() {
         />
       </div>
       <Routes>
-        <Route path="/" element={<Loader />} />
+        {/* <Route path="/loader" element={<Loader />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/locationresult" element={<LocationResult />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/parkinghistory" element={<ParkingHistory />} />
       </Routes>

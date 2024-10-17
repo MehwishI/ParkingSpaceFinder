@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getGoogleAutocomplete } from "services/searchService";
 import { getGoogleCoordinates } from "services/getCoordinatesService";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './Search.css';
@@ -42,10 +42,15 @@ const Search = ({ onDataChange }) => {
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
+    getCoordinatePoints(placeid);
   };
 
   const handleClickSubmit = async () => {
-    const coordinates = await getGoogleCoordinates(placeid);
+    getCoordinatePoints(placeid);
+  };
+
+  const getCoordinatePoints = async (getPlaceForId) => {
+    const coordinates = await getGoogleCoordinates(getPlaceForId);
     setAddressCoord(coordinates);
     if (coordinates !== null) {
       addressCoordinate.destLocAddress = inputValue;
@@ -54,7 +59,7 @@ const Search = ({ onDataChange }) => {
 
       onDataChange(addressCoordinate);
     }
-  };
+  }
 
   return (
     <>
@@ -92,7 +97,7 @@ const Search = ({ onDataChange }) => {
             ))}
           </ul>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 hide-btn">
           <button
             onClick={handleClickSubmit}
             className="btn btn-primary hide-btn"

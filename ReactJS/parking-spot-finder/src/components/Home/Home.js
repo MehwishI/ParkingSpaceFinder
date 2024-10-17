@@ -3,8 +3,9 @@ import Search from "../Search/Search";
 import MapContainer from "../MapContainer/MapContainer";
 import TopNavigationBar from "components/TopNavigationBar/TopNavigationBar";
 import AISuggestion from "components/AISuggestion/AISuggestion";
-
-import Footer from "components/Footer/Footer";
+import "./Home.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
   const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
@@ -33,6 +34,14 @@ const Home = () => {
           aiSugData={getAiCoordinates}
           onDataChange={getCurrentLocCoords}
         />
+
+        <div className="row overlay-box">
+          <div className="col-sm-6 d-flex align-items-center">
+            <FontAwesomeIcon icon={faLocationArrow} size="1x" color="#000000" />
+            <span className="ms-2 overlay-text" >Polo Park Winnipeg, MB</span>
+          </div>
+        </div>
+
         <AISuggestion
           onDataChange={getHandleAiSuggestion}
           getDestLoc={getWpaSearchRes}

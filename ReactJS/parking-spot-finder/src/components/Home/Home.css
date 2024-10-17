@@ -1,0 +1,33 @@
+.mapcontainer {
+    position: fixed;
+    top: 40%;
+    left: 3%;
+    right: 7%;
+    height: 17%;
+    border: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: -1000;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .overlay-box {
+    position: absolute;
+    height: 32px;
+    background-color: #ccc;
+    top: 58%;
+    left: 6%;
+    right: 7%;
+    padding: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 100;
+    color: white;
+  }
+
+  .overlay-text {
+    font-size: 14px;
+    color: black;
+  }
