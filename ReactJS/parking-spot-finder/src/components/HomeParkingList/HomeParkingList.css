@@ -1,0 +1,35 @@
+.list-style {
+    position: relative;
+    color: black;
+    padding: 15px;
+    padding-top: 10px !important;
+    background-color: #eeeeee;
+    border-radius: 12px;
+    margin-top: 13px !important;
+    padding-left: 22px !important;
+    margin-bottom: -8px;
+}
+
+.overlay-text-top {
+    font-size: 15px;
+}
+
+.overlay-text-bottom {
+    font-size: 14px;
+}
+
+.btn-style-one {
+    background-color: #cccccc;
+    color: #000000;
+    padding: 4px 10px;
+    font-size: 13px;
+    border: none;
+    border-radius: 8px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-div-style {
+    margin-top: 6px;
+}
