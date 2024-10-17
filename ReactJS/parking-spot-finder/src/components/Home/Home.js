@@ -33,6 +33,7 @@ const Home = () => {
           aiSugData={getAiCoordinates}
           onDataChange={getCurrentLocCoords}
         />
+
         <AISuggestion
           onDataChange={getHandleAiSuggestion}
           getDestLoc={getWpaSearchRes}

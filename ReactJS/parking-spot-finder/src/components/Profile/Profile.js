@@ -8,6 +8,7 @@ import {
 } from "services/userProfileDataService";
 import Login from "components/Authentication/Login";
 import Logout from "components/Authentication/Logout";
+import { NavLink } from "react-router-dom";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -36,6 +37,9 @@ const Profile = () => {
     }
   };
 
+  const onLoginClick = () => {
+    return <Login />;
+  };
   useEffect(() => {
     if (user) {
       fetchUserData();
@@ -50,6 +54,11 @@ const Profile = () => {
       <h3>Account</h3>
       <div className="profile-container">
         <div>
+          {!isAuthenticated && (
+            <div>
+              <NavLink to="/login">Login here!</NavLink>
+            </div>
+          )}
           {isAuthenticated && (
             <div>
               <div className="name-img-container">
@@ -67,7 +76,7 @@ const Profile = () => {
           )}
         </div>
         <div>
-          {userExist ? (
+          {isAuthenticated && userExist ? (
             ""
           ) : (
             <button onClick={() => handleCompReg} type="Submit">

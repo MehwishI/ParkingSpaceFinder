@@ -7,6 +7,7 @@ import {
 } from "../../services/parkingHistoryService";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./ParkingHistory.css";
+import { NavLink } from "react-router-dom";
 
 const ParkingHistory = () => {
   const [userHistory, setUserHistory] = useState([]);
@@ -16,11 +17,17 @@ const ParkingHistory = () => {
   //const { getUserId } = location.state || {};
   const { user, isAuthenticated, isLoading } = useAuth0();
 
-  const getUserId = user.sub;
+  const getUserId = isAuthenticated ? user.sub : null;
 
   useEffect(() => {
     const getHistory = async () => {
       try {
+        if (!isAuthenticated) {
+          console.log(
+            "User not logged in. Please log in to view your parking history."
+          );
+          return null;
+        }
         const getUserHist = await getUserParkingHistory(getUserId);
         console.log("history:", getUserHist);
         //getUserHist.then((history) => {
@@ -29,6 +36,8 @@ const ParkingHistory = () => {
         //});
         if (!getUserHist) {
           console.log("No parking history available.");
+          setUserHistory(null);
+          setHistoryExist(false);
           return null;
         }
         //setHistoryExist(true);
@@ -51,7 +60,7 @@ const ParkingHistory = () => {
         {historyExist ? (
           <div>
             {userHistory.map((item) => (
-              <div>
+              <div className="location-item">
                 <LocationItem key={item._id} locationItem={item} />
               </div>
             ))}
@@ -60,6 +69,13 @@ const ParkingHistory = () => {
           <div>No Parking History available</div>
         )}
       </div>
+      {!isAuthenticated && (
+        <div>
+          <NavLink to="/login">
+            Login here to view your parking history!
+          </NavLink>
+        </div>
+      )}
     </div>
   );
 };

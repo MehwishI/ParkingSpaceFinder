@@ -22,8 +22,7 @@ function App() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  // console.log("Top:", TopNavigationBar);
-  //console.log("typeof topnavigation", typeof TopNavigationBar);
+  
 
   return (
     <Router>
