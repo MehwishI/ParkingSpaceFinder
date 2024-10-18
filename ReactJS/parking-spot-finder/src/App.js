@@ -10,7 +10,6 @@ import Logout from "components/Authentication/Logout";
 import LocationResult from "components/LocationResult/LocationResult";
 import Home from "components/Home/Home";
 import Register from "components/Authentication/Register";
-import TopNavigationBar from "components/TopNavigationBar/TopNavigationBar";
 import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 import Footer from "components/Footer/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,9 +18,9 @@ import MapDirection from "components/MapDirection/MapDirection";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [isHome, setisHome] = useState(true);
-  const [isProfile, setisProfile] = useState(false);
-  const [isHistory, setisHistory] = useState(false);
+  // const [isHome, setisHome] = useState(true);
+  // const [isProfile, setisProfile] = useState(false);
+  // const [isHistory, setisHistory] = useState(false);
 
   if (isLoading) {
     return <div><Loader /></div>;
@@ -48,19 +47,12 @@ function App() {
           </div>
         )}
         {/* footer begins */}
-        <Footer
-          isHome={isHome}
-          setisHome={setisHome}
-          isHistory={isHistory}
-          setisHistory={setisHistory}
-          isProfile={isProfile}
-          setisProfile={setisProfile}
-        />
+        <Footer />
       </div>
       <Routes>
         {/* <Route path="/loader" element={<Loader />} /> */}
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route exact path="/profile" Component={Profile} />
         <Route path="/locationresult" element={<LocationResult />} />
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
