@@ -14,6 +14,7 @@ import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 import Footer from "components/Footer/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import MapDirection from "components/MapDirection/MapDirection";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -29,7 +30,7 @@ function App() {
 
   return (
     <Router>
-      <div className="container">
+      <div>
         {isHome && (
           <div className="homecontainer">
             <Home />
@@ -55,7 +56,8 @@ function App() {
         <Route path="/locationresult" element={<LocationResult />} />
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route exact path="/parkinghistory" element={<ParkingHistory />} />
+        <Route path="/parkinghistory" element={<ParkingHistory />} />
+        <Route path="/mapdirection" element={<MapDirection />} />
       </Routes>
     </Router>
   );

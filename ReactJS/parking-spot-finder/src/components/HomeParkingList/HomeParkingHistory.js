@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./HomeParkingHistory.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHistory } from '@fortawesome/free-solid-svg-icons';
 import { getUserParkingHistory } from 'services/parkingHistoryService';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -32,7 +32,7 @@ const HomeParkingHistory = () => {
         <div className='park-hist-style'>
             <div className='row'>
                 <div className='col-sm-3 d-flex align-items-center out-gen-style'>
-                    <FontAwesomeIcon icon={faMapMarkedAlt} size="1x" color="#000000" />
+                    <FontAwesomeIcon icon={faHistory} size="1x" color="#000000" />
                     <div className='text-style'>
                         <div className='text-top'>
                             <b>Home Parking History</b>
@@ -44,7 +44,7 @@ const HomeParkingHistory = () => {
                 </div>
                 <hr className='line-style'></hr>
                 <div className='col-sm-3 d-flex align-items-center out-gen-style'>
-                    <FontAwesomeIcon icon={faMapMarkedAlt} size="1x" color="#000000" />
+                    <FontAwesomeIcon icon={faHistory} size="1x" color="#000000" />
                     <div className='text-style'>
                         <div className='text-top'>
                             <b>Home Parking History</b>

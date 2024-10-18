@@ -86,7 +86,7 @@ const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
     }, [getAudioSource]);
 
     return (
-        <div className='container'>
+        <>
             {getIsLoading && (
                 <div className='spinner'>
                     <ClipLoader size={20} color={"#000"} loading={getIsLoading} />
@@ -114,7 +114,7 @@ const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
                   </a>
                 </>
             )}
-        </div>
+        </>
     );
 }
 
