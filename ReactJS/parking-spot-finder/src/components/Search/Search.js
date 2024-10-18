@@ -4,7 +4,7 @@ import { getGoogleCoordinates } from "services/getCoordinatesService";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import './Search.css';
 import { useAsyncError } from "react-router";
 
@@ -63,11 +63,12 @@ const Search = ({ onDataChange }) => {
 
   return (
     <>
-      <div className="row">
-        <div className="col-md-9">
+      <div className="row outer-div-style">
+        <div className="col-md-9 search-bar-outer">
           {/* <div className="inp-contain"> */}
-        {/* <FontAwesomeIcon icon={faArrowLeft} className="back-arrow" /> */}
+          {/* <FontAwesomeIcon icon={faArrowLeft} className="back-arrow" /> */}
           <div className="search-bar">
+            <FontAwesomeIcon icon={faSearch} className="back-arrow" />
             <input
               type="text"
               value={inputValue}

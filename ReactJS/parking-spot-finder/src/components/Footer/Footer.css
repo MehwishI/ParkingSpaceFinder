@@ -4,11 +4,12 @@
     cursor: pointer;
     flex-direction: column;
     align-items: center;
-    font-size: 15px;
+    font-size: 10px;
   }
 
   .footer-item svg {
-    font-size: 20px;
+    font-size: 19px;
+    color: #129f4e;
   }
 
   .footer-item:hover {

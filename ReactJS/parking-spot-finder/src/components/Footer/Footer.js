@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faList, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faUser } from "@fortawesome/free-regular-svg-icons";
 import Home from "components/Home/Home";
 import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 import Profile from "components/Profile/Profile";
@@ -39,16 +40,19 @@ const Footer = (props) => {
           <NavLink to="/" onClick={() => onHomeClick()}>
             <FontAwesomeIcon icon={faHome} />
           </NavLink>
+          <span>Home</span>
         </div>
         <div className="footer-item">
           <NavLink to="/parkinghistory" onClick={() => onHistoryClick()}>
-            <FontAwesomeIcon icon={faList} />
+            <FontAwesomeIcon icon={faClock} />
           </NavLink>
+          <span>Activity</span>
         </div>
         <div className="footer-item">
           <NavLink to="/profile" onClick={() => onProfileClick()}>
             <FontAwesomeIcon icon={faUser} />
           </NavLink>
+          <span>Account</span>
         </div>
       </div>
     </>

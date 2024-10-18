@@ -1,12 +1,18 @@
 .park-hist-style {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     margin-left: 20px;
     margin-right: 20px;
+    margin-top: 21px;
 }
 
 .text-style {
     margin-left: 12px;
     line-height: 18px;
+}
+
+.text-top {
+    font-size: 14px;
+    color: #000000;
 }
 
 .out-gen-style {
@@ -21,4 +27,5 @@
     width: 90% !important;
     margin: 0 auto;
     padding-top: 10px;
+    color: #dcdcdc;
 }
