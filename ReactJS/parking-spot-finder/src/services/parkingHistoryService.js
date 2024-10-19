@@ -10,11 +10,7 @@ const getUserParkingHistory = async (getUserId) => {
     const response = await axios.post(`${localBaseUrl}/user/parking`, {
       userid: userid,
     });
-    console.log("parking response:", response.data);
-    if (!response.data) {
-      console.log("No parking history available!");
-      return null;
-    }
+    // console.log("parking response:", response.data);
     return response.data;
   } catch (error) {
     console.log(error);

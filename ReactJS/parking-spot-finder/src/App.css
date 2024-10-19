@@ -40,8 +40,3 @@
 .homecontainer {
   height: max-content;
 }
-
-.container {
-  position: relative;
-  top: 30px;
-}
