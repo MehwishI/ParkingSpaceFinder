@@ -1,0 +1,14 @@
+.location-item {
+  display: block;
+}
+.history-container {
+  text-align: center;
+  position: relative;
+  top: 30px;
+}
+
+
+.history-container h2 {
+  margin: 20px;
+  padding: 10px;
+}

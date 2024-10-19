@@ -1,3 +1,35 @@
 .loc-container {
+  align-items: center;
+}
+
+.location-item {
   display: flex;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+}
+
+
+.icon-parkname {
+  display: flex;
+}
+.parking-icon {
+  height: 50px;
+  width: 50px;
+}
+.street-date {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  padding-block: 5px;
+  justify-content: space-between;
+}
+
+.loc-details {
+  display: block;
 }

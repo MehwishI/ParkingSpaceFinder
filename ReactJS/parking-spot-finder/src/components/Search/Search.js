@@ -7,6 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import './Search.css';
 import { useAsyncError } from "react-router";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import "./Search.css";
+import { useAsyncError, useNavigate } from "react-router";
+import Suggestions from "components/Suggestions/Suggestions";
 
 const Search = ({ onDataChange }) => {
   //const [getAddress, setGetAddress] = useState("");
@@ -14,6 +18,7 @@ const Search = ({ onDataChange }) => {
   const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
   const [addressCoord, setAddressCoord] = useState(null);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const autocompleteRef = useRef(null);
 
   const addressCoordinate = {};
@@ -21,6 +26,7 @@ const Search = ({ onDataChange }) => {
   const getHandleChange = (e) => {
     setInputValue(e.target.value);
     fetchAutoCompleteSuggestion(e.target.value);
+    setShowSuggestions(true);
   };
 
   const fetchAutoCompleteSuggestion = async (getInput) => {
@@ -43,6 +49,7 @@ const Search = ({ onDataChange }) => {
     setPlaceId(place_id);
     setGglePrediction([]);
     getCoordinatePoints(placeid);
+    setShowSuggestions(false);
   };
 
   const handleClickSubmit = async () => {
@@ -59,7 +66,7 @@ const Search = ({ onDataChange }) => {
 
       onDataChange(addressCoordinate);
     }
-  }
+  };
 
   return (
     <>
@@ -78,7 +85,13 @@ const Search = ({ onDataChange }) => {
             />
           </div>
           {/* </div> */}
-          <ul className="search-results-list">
+
+          <Suggestions
+            predictions={predictions}
+            handlePredictionClick={handlePredictionClick}
+            showSuggestions={showSuggestions}
+          />
+          {/* <ul className="search-results-list">
             {predictions.map((prediction) => (
               <li
                 key={prediction.place_id}
@@ -96,7 +109,7 @@ const Search = ({ onDataChange }) => {
                 </div>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
         <div className="col-md-3 hide-btn">
           <button

@@ -12,6 +12,8 @@ import Home from "components/Home/Home";
 import Register from "components/Authentication/Register";
 import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 import Footer from "components/Footer/Footer";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import MapDirection from "components/MapDirection/MapDirection";
@@ -23,10 +25,12 @@ function App() {
   // const [isHistory, setisHistory] = useState(false);
 
   if (isLoading) {
-    return <div><Loader /></div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
-  // console.log("Top:", TopNavigationBar);
-  //console.log("typeof topnavigation", typeof TopNavigationBar);
 
   return (
     <Router>
@@ -47,6 +51,7 @@ function App() {
           </div>
         )}
         {/* footer begins */}
+
         <Footer />
       </div>
       <Routes>
@@ -55,6 +60,7 @@ function App() {
         <Route exact path="/profile" Component={Profile} />
         <Route path="/locationresult" element={<LocationResult />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/parkinghistory" element={<ParkingHistory />} />
         <Route path="/mapdirection" element={<MapDirection />} />
