@@ -16,6 +16,7 @@ import Footer from "components/Footer/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import MapDirection from "components/MapDirection/MapDirection";
+import Search from "components/Search/Search";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -32,7 +33,8 @@ function App() {
   return (
     <Router>
       <div>
-        {isHome && (
+        {/* <Search /> */}
+        {/* {isHome && (
           <div className="homecontainer">
             <Home />
           </div>
@@ -46,7 +48,7 @@ function App() {
           <div>
             <Profile />
           </div>
-        )}
+        )} */}
         {/* footer begins */}
         <Footer
           isHome={isHome}
@@ -63,6 +65,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/locationresult" element={<LocationResult />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/parkinghistory" element={<ParkingHistory />} />
         <Route path="/mapdirection" element={<MapDirection />} />
