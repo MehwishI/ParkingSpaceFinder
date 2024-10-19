@@ -1,4 +1,11 @@
 .search-results-container {
-  position: absolute;
-  z-index: 2;
+}
+.main-text {
+  font-weight: bold;
+}
+
+.line-style {
+  width: 90% !important;
+  margin: 0 auto;
+  padding-top: 10px;
 }

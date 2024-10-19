@@ -16,7 +16,7 @@ const HomeParkingHistory = () => {
 
   const fetchUserParkingHist = async () => {
     try {
-      console.log("id user", getUserId);
+      // console.log("id user", getUserId);
 
       const getData = await getUserParkingHistory(getUserId);
 

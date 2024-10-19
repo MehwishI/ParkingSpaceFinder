@@ -8,11 +8,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import HomeParkingList from "components/HomeParkingList/HomeParkingList";
 import HomeParkingHistory from "components/HomeParkingList/HomeParkingHistory";
+import Suggestions from "components/Suggestions/Suggestions";
 
 const Home = () => {
   const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
   const [getWpaSearchRes, setWpaSearchRes] = useState([]);
   const [getAiCoordinates, setAiCoordinates] = useState(null);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -29,9 +31,10 @@ const Home = () => {
 
   return (
     <>
-      <div>
+      <div className="homepage-container">
         <Search onDataChange={getHandleDataChange} />
 
+        {/* showSuggestions && <Suggestions /> */}
         <HomeParkingHistory />
 
         <label className="park-label-style">
