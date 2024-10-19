@@ -14,9 +14,7 @@ import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 import Footer from "components/Footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import MapDirection from "components/MapDirection/MapDirection";
+import Suggestions from "components/Suggestions/Suggestions";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -62,8 +60,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/parkinghistory" element={<ParkingHistory />} />
-        <Route path="/mapdirection" element={<MapDirection />} />
+        <Route exact path="/parkinghistory" element={<ParkingHistory />} />
+        <Route exact path="/suggestions" element={<Suggestions />} />
       </Routes>
     </Router>
   );
