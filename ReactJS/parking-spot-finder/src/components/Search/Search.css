@@ -149,6 +149,7 @@
 
   .search-bar input {
     font-size: 20px;
+    width: 80%;
   }
 
   .search-result-text {

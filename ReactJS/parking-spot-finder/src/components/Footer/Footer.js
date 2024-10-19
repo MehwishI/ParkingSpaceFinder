@@ -8,15 +8,8 @@ import Profile from "components/Profile/Profile";
 import { NavLink } from "react-router-dom";
 import "./Footer.css";
 
-const Footer = (props) => {
-  const {
-    isHome,
-    setisHome,
-    isHistory,
-    setisHistory,
-    isProfile,
-    setisProfile,
-  } = props;
+const Footer = () => {
+  //const {} = props;
 
   //   const onHistoryClick = () => {
   //     setisHistory(true);
@@ -43,7 +36,7 @@ const Footer = (props) => {
           <span>Home</span>
         </div>
         <div className="footer-item">
-          <NavLink to="/parkinghistory" onClick={() => onHistoryClick()}>
+          <NavLink to="/parkinghistory">
             <FontAwesomeIcon icon={faClock} />
           </NavLink>
           <span>Activity</span>
