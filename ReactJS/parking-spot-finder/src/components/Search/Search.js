@@ -3,10 +3,11 @@ import { getGoogleAutocomplete } from "services/searchService";
 import { getGoogleCoordinates } from "services/getCoordinatesService";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import '@fortawesome/fontawesome-free/css/all.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import './Search.css';
-import { useAsyncError } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import "./Search.css";
+import { useAsyncError, useNavigate } from "react-router";
+import Suggestions from "components/Suggestions/Suggestions";
 
 const Search = ({ onDataChange }) => {
   //const [getAddress, setGetAddress] = useState("");
@@ -14,6 +15,7 @@ const Search = ({ onDataChange }) => {
   const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
   const [addressCoord, setAddressCoord] = useState(null);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const autocompleteRef = useRef(null);
 
   const addressCoordinate = {};
@@ -21,6 +23,7 @@ const Search = ({ onDataChange }) => {
   const getHandleChange = (e) => {
     setInputValue(e.target.value);
     fetchAutoCompleteSuggestion(e.target.value);
+    setShowSuggestions(true);
   };
 
   const fetchAutoCompleteSuggestion = async (getInput) => {
@@ -43,6 +46,7 @@ const Search = ({ onDataChange }) => {
     setPlaceId(place_id);
     setGglePrediction([]);
     getCoordinatePoints(placeid);
+    setShowSuggestions(false);
   };
 
   const handleClickSubmit = async () => {
@@ -59,14 +63,14 @@ const Search = ({ onDataChange }) => {
 
       onDataChange(addressCoordinate);
     }
-  }
+  };
 
   return (
     <>
       <div className="row">
         <div className="col-md-9">
           {/* <div className="inp-contain"> */}
-        {/* <FontAwesomeIcon icon={faArrowLeft} className="back-arrow" /> */}
+          {/* <FontAwesomeIcon icon={faArrowLeft} className="back-arrow" /> */}
           <div className="search-bar">
             <input
               type="text"
@@ -77,7 +81,13 @@ const Search = ({ onDataChange }) => {
             />
           </div>
           {/* </div> */}
-          <ul className="search-results-list">
+
+          <Suggestions
+            predictions={predictions}
+            handlePredictionClick={handlePredictionClick}
+            showSuggestions={showSuggestions}
+          />
+          {/* <ul className="search-results-list">
             {predictions.map((prediction) => (
               <li
                 key={prediction.place_id}
@@ -95,7 +105,7 @@ const Search = ({ onDataChange }) => {
                 </div>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
         <div className="col-md-3 hide-btn">
           <button

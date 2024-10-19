@@ -53,8 +53,8 @@ const ParkingHistory = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div>
-      <h2>Parking History</h2>
+    <div className="history-container">
+      <h2>Past Parkings</h2>
       <div>
         {" "}
         {historyExist ? (

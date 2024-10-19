@@ -9,6 +9,7 @@
   padding: 10px;
 }
 
+
 .icon-parkname {
   display: flex;
 }
@@ -19,6 +20,7 @@
 .street-date {
   display: flex;
   flex-direction: column;
+  padding: 15px;
 }
 
 .icons {

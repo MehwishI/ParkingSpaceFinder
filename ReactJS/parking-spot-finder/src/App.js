@@ -12,8 +12,8 @@ import Home from "components/Home/Home";
 import Register from "components/Authentication/Register";
 import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 import Footer from "components/Footer/Footer";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -22,29 +22,18 @@ function App() {
   // const [isHistory, setisHistory] = useState(false);
 
   if (isLoading) {
-    return <div><Loader /></div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
-  
 
   return (
     <Router>
       <div className="container">
-        {isHome && (
-          <div className="homecontainer">
-            <Home />
-          </div>
-        )}
-        {isHistory && (
-          <div>
-            <ParkingHistory />
-          </div>
-        )}
-        {isProfile && (
-          <div>
-            <Profile />
-          </div>
-        )}
         {/* footer begins */}
+
         <Footer />
       </div>
       <Routes>
@@ -53,6 +42,7 @@ function App() {
         <Route exact path="/profile" Component={Profile} />
         <Route path="/locationresult" element={<LocationResult />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route exact path="/parkinghistory" element={<ParkingHistory />} />
       </Routes>
