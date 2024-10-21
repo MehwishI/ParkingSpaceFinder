@@ -120,7 +120,7 @@ const Search = ({ onDataChange }) => {
                 />
               </span>
             )}
-            &nbsp;
+            &nbsp;&nbsp;
             <input
               type="text"
               value={inputValue}

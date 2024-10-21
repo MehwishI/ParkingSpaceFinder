@@ -1,0 +1,16 @@
+.location-item {
+  display: block;
+  font-family: "Nunito Sans";
+}
+
+.history-container {
+  position: relative;
+  top: 30px;
+  font-family: "Nunito Sans";
+}
+
+.history-container h2 {
+  margin: 20px;
+  padding: 10px;
+  font-family: "Nunito Sans";
+}

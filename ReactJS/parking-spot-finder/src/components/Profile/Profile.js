@@ -6,11 +6,14 @@ import {
   getUserProfileData,
   saveUserProfileData,
 } from "services/userProfileDataService";
+import Login from "components/Authentication/Login";
+import Logout from "components/Authentication/Logout";
+import { NavLink } from "react-router-dom";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userExist, setUserExist] = useState(false);
-  let btnCompReg;
+  //let btnCompReg;
 
   //save user data into db
 
@@ -34,39 +37,54 @@ const Profile = () => {
     }
   };
 
+  const onLoginClick = () => {
+    return <Login />;
+  };
   useEffect(() => {
     if (user) {
       fetchUserData();
     }
-  }, [userExist]);
+  }, []);
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="profile-container">
-      <div>
-        {isAuthenticated && (
-          <div>
-            <img src={user.picture} alt={user.given_name} />
-            <h3>{user.name}</h3>
-            <h3>
-              {""}
-              {user.family_name}
-            </h3>
-
-            <p>Email: {user.email}</p>
-          </div>
-        )}
-      </div>
-      <div>
-        {userExist ? (
-          <div></div>
-        ) : (
-          <button onClick={() => handleCompReg} type="Submit">
-            Complete Registeration
-          </button>
-        )}
+    <div className="profile-page">
+      <h3>Account</h3>
+      <div className="profile-container">
+        <div>
+          {!isAuthenticated && (
+            <div>
+              <NavLink to="/login">Login here!</NavLink>
+            </div>
+          )}
+          {isAuthenticated && (
+            <div>
+              <div className="name-img-container">
+                <img src={user.picture} alt={user.given_name} />
+                <h3>{user.name}</h3>
+                <h3>
+                  {""}
+                  {user.family_name}
+                </h3>
+              </div>
+              <div className="profile-details">
+                <p>Email: {user.email}</p>
+              </div>
+            </div>
+          )}
+        </div>
+        <div>
+          {isAuthenticated && userExist ? (
+            ""
+          ) : (
+            <button onClick={() => handleCompReg} type="Submit">
+              Complete Registeration
+            </button>
+          )}
+          {isAuthenticated && <Logout />}
+        </div>
       </div>
     </div>
   );
