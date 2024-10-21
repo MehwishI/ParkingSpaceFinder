@@ -11,21 +11,21 @@ import "./Footer.css";
 const Footer = () => {
   //const {} = props;
 
-  //   const onHistoryClick = () => {
-  //     setisHistory(true);
-  //     setisHome(false);
-  //     setisProfile(false);
-  //   };
-  //   const onProfileClick = () => {
-  //     setisHistory(false);
-  //     setisHome(false);
-  //     setisProfile(true);
-  //   };
-  //   const onHomeClick = () => {
-  //     setisHistory(false);
-  //     setisHome(true);
-  //     setisProfile(false);
-  //   };
+  // const onHistoryClick = () => {
+  //   setisHistory(true);
+  //   setisHome(false);
+  //   setisProfile(false);
+  // };
+  // const onProfileClick = () => {
+  //   setisHistory(false);
+  //   setisHome(false);
+  //   setisProfile(true);
+  // };
+  // const onHomeClick = () => {
+  //   setisHistory(false);
+  //   setisHome(true);
+  //   setisProfile(false);
+  // };
   return (
     <>
       <div className="footer">

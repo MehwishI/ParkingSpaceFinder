@@ -1,72 +1,115 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "./HomeParkingList.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faMapMarker } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router';
 import { MdOutlineTurnRight } from "react-icons/md";
+import { locResultForCoord } from 'services/locationResultService';
 
 const HomeParkingList = () => {
+    const [wpaFetchData, setWpaData] = useState([]);
+    const [ fetchCoords, setCoords ] = useState();
     const navigate = useNavigate();
 
-    const getHandleClick = () => {
-        navigate('/mapdirection');
+    const buildCoords = {
+
+    };
+
+    useEffect(() => {
+        try {
+            getLocCoordinates();
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    const getLocCoordinates = async () => {
+        // remove before deployment
+        const test = {
+            lat: 49.8912767,
+            lng: -97.1392939
+        }
+
+        const getData = await locResultForCoord(test);
+        setWpaData(getData);
+    };
+
+    const getHandleClick = (item) => {
+        buildCoords.lat = item.latitude;
+        buildCoords.lng = item.longitude;
+
+        navigate('/mapdirection', { state: { coords: buildCoords }});
     }
 
     return (
-        <>
-            <div className='list-style'>
-                <div className='row'>
-                    <div className='col-sm-3 d-flex align-items-center'>
-                        <div>
-                            <FontAwesomeIcon icon={faMapMarkerAlt} size="1x" color="#000000" />
-                        </div>
-                        <div className='ms-2'>
-                            <div className='d-flex align-items-center'>
+        <div className='home-list-style'>
+            {wpaFetchData.length > 0 && (
+            wpaFetchData.map((item, index) => (
+                <div key={item.id} className='list-style'>
+                    <div className='row'>
+                        <div className='col-sm-3 d-flex align-items-center'>
+                            <div>
+                                <span className='list-number'>{index + 1}</span>
+                                <FontAwesomeIcon icon={faMapMarker} className='marker-style' color="#129F4E" />
+                            </div>
+                            <div className='ms-2'>
+                                <div className='d-flex align-items-center side-containers'>
                                 <div>
-                                    <div className='overlay-text-top'>
-                                        <b>Polo Park, Winnipeg. MB</b>
+                                        <div className='overlay-text-top'>
+                                            <b>{item.street}</b>
+                                        </div>
+                                        <div className='overlay-text-bottom'>
+                                            {item.time_limit}
+                                        </div>
+                                        <div className='d-flex lower-info-boxes'>
+                                            <div className='address-small'>PN: {item.paystation_number}</div>
+                                            <div className='price-small'>{item.hourly_rate}$/hr</div>
+                                            <div className='space-small'>{item.total_space} total spaces</div>
+                                        </div>
                                     </div>
-                                    <div className='overlay-text-bottom'>
-                                        HomeParkingList
+                                    <div className='btn-div-style'>
+                                        <MdOutlineTurnRight onClick={getHandleClick} />
                                     </div>
-
-                                </div>
-                                <div className='btn-div-style'>
-                                    <MdOutlineTurnRight onClick={getHandleClick}/>
-                                    {/* <button className='btn-style-one' onClick={getHandleClick}>Get Direction</button> */}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className='list-style'>
-                <div className='row'>
-                    <div className='col-sm-3 d-flex align-items-center'>
-                        <div>
-                            <FontAwesomeIcon icon={faMapMarkerAlt} size="1x" color="#000000" />
-                        </div>
-                        <div className='ms-2'>
-                            <div className='d-flex align-items-center'>
-                                <div>
-                                    <div className='overlay-text-top'>
-                                        <b>Polo Park, Winnipeg. MB</b>
-                                    </div>
-                                    <div className='overlay-text-bottom'>
-                                        HomeParkingList
-                                    </div>
+            ))
+        )}
+        </div>
 
-                                </div>
-                                <div className='btn-div-style'>
-                                    <MdOutlineTurnRight onClick={getHandleClick}/>
-                                    {/* <button className='btn-style-one' onClick={getHandleClick}>Get Direction</button> */}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
+        // <div className='home-list-style'>
+        //         <div className='list-style'>
+        //             <div className='row'>
+        //                 <div className='col-sm-3 d-flex align-items-center'>
+        //                     <div>
+        //                         <FontAwesomeIcon icon={faMapMarkerAlt} size="1x" color="#000000" />
+        //                     </div>
+        //                     <div className='ms-2'>
+        //                         <div className='d-flex align-items-center side-containers'>
+        //                             <div>
+        //                                 <div className='overlay-text-top'>
+        //                                     <b>Test Street</b>
+        //                                 </div>
+        //                                 <div className='overlay-text-bottom'>
+        //                                     HomeParkingList
+        //                                 </div>
+        //                                 <div className='d-flex lower-info-boxes'>
+        //                                     <div className='address-small'>Hours</div>
+        //                                     <div className='price-small'>15$/hr</div>
+        //                                     <div className='space-small'>Hours</div>
+        //                                 </div>
+        //                             </div>
+        //                             <div className='btn-div-style'>
+        //                                 <MdOutlineTurnRight onClick={getHandleClick} />
+        //                             </div>
+        //                         </div>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        // </div>
     )
 }
 

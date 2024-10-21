@@ -68,7 +68,24 @@ const Search = ({ onDataChange }) => {
           {/* <div className="inp-contain"> */}
           {/* <FontAwesomeIcon icon={faArrowLeft} className="back-arrow" /> */}
           <div className="search-bar">
-            <FontAwesomeIcon icon={faSearch} className="back-arrow" />
+            {showSuggestions ? (
+              <span>
+                <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  onClick={handleArrowClick}
+                  size="1.5x"
+                />
+              </span>
+            ) : (
+              <span>
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  onClick={handleArrowClick}
+                  size="1.5x"
+                />
+              </span>
+            )}
+            &nbsp;&nbsp;
             <input
               type="text"
               value={inputValue}
