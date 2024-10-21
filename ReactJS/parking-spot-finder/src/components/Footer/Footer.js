@@ -30,7 +30,7 @@ const Footer = () => {
     <>
       <div className="footer">
         <div className="footer-item">
-          <NavLink to="/" onClick={() => onHomeClick()}>
+          <NavLink to="/">
             <FontAwesomeIcon icon={faHome} />
           </NavLink>
           <span>Home</span>
@@ -42,7 +42,7 @@ const Footer = () => {
           <span>Activity</span>
         </div>
         <div className="footer-item">
-          <NavLink to="/profile" onClick={() => onProfileClick()}>
+          <NavLink to="/profile">
             <FontAwesomeIcon icon={faUser} />
           </NavLink>
           <span>Account</span>
