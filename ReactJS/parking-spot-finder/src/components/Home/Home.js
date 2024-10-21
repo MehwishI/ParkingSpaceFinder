@@ -27,6 +27,10 @@ const Home = () => {
     setAiCoordinates(aiResData);
   };
 
+  const getCurrentAddress = () => {
+
+  };
+
   return (
     <>
       <div className="container">

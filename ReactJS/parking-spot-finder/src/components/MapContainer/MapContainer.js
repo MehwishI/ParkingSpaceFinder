@@ -168,6 +168,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
         // const center = { lat: lat, lng: long };
         setDefaultCenter(userLocaton);
 
+        console.log("userLoc",userLocaton);
+        
         onDataChange(userLocaton);
 
         if (map) {
