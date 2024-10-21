@@ -117,9 +117,10 @@
         padding-left: 40px;
     }
 
-    .search-result-text {
-        font-size: 17px;
-    }
+  .search-bar input {
+    font-size: 20px;
+    width: 80%;
+  }
 
     .hide-btn {
         display: none;

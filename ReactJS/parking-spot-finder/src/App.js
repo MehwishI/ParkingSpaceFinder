@@ -32,23 +32,7 @@ function App() {
 
   return (
     <Router>
-      <div>
-        {/* <Search /> */}
-        {/* {isHome && (
-          <div className="homecontainer">
-            <Home />
-          </div>
-        )}
-        {isHistory && (
-          <div>
-            <ParkingHistory />
-          </div>
-        )}
-        {isProfile && (
-          <div>
-            <Profile />
-          </div>
-        )} */}
+      <div className="container">
         {/* footer begins */}
         <Footer
           isHome={isHome}
