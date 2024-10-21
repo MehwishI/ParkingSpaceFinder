@@ -4,17 +4,15 @@ import MapContainer from "../MapContainer/MapContainer";
 import TopNavigationBar from "components/TopNavigationBar/TopNavigationBar";
 import AISuggestion from "components/AISuggestion/AISuggestion";
 import "./Home.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import HomeParkingList from "components/HomeParkingList/HomeParkingList";
 import HomeParkingHistory from "components/HomeParkingList/HomeParkingHistory";
-import Suggestions from "components/Suggestions/Suggestions";
 
 const Home = () => {
   const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
   const [getWpaSearchRes, setWpaSearchRes] = useState([]);
   const [getAiCoordinates, setAiCoordinates] = useState(null);
-  const [showSuggestions, setShowSuggestions] = useState(false);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -31,26 +29,26 @@ const Home = () => {
 
   return (
     <>
-      <div className="homepage-container">
+      <div className="container">
         <Search onDataChange={getHandleDataChange} />
 
-        {/* showSuggestions && <Suggestions /> */}
         <HomeParkingHistory />
 
-        <label className="park-label-style">
-          <b>Parkings near you</b>
-        </label>
+        <label className="park-label-style"><b>Parkings near you</b></label>
 
-        <MapContainer
-          wpaResData={getWpaSearchRes}
-          aiSugData={getAiCoordinates}
-          onDataChange={getCurrentLocCoords}
-        />
+        <div className="map-outer-container">
 
-        <div className="row overlay-box">
-          <div className="col-sm-6 d-flex align-items-center">
-            <FontAwesomeIcon icon={faLocationArrow} size="1x" color="#000000" />
-            <span className="ms-2 overlay-text">Polo Park Winnipeg, MB</span>
+          <div className="map-second-layer">
+            <MapContainer
+              wpaResData={getWpaSearchRes}
+              aiSugData={getAiCoordinates}
+              onDataChange={getCurrentLocCoords}
+            />
+
+            <div className="col-sm-6 align-items-center overlay-box">
+              <span className="ms-2 overlay-text-up" >Polo Park Winnipeg, MB</span><br></br>
+              <span className="ms-2 overlay-text-down" >Polo Park Winnipeg, MB</span>
+            </div>
           </div>
 
           <HomeParkingList />

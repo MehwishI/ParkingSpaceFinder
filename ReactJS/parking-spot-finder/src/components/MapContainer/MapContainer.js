@@ -110,6 +110,9 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
         lng: wpaResData.lng,
       };
 
+      console.log("getCoordPoints", getCoordPoints);
+      
+
       const locServiceCoord = await locResultForCoord(getCoordPoints);
 
       const constLocData = locServiceCoord.map((item, index) => ({

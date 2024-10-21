@@ -8,7 +8,7 @@ const getUserProfileData = async (getUserId) => {
     const response = await axios.post(`${localBaseUrl}/user/profile`, {
       userid: userid,
     });
-    //console.log(response.data);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -21,7 +21,7 @@ const saveUserProfileData = async (userData) => {
     const response = await axios.post(`${localBaseUrl}/user/profile/save`, {
       userData,
     });
-    //console.log(response.result);
+    console.log(response.result);
     return response.result;
   } catch (error) {
     console.log(error);
