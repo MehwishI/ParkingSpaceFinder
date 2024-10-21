@@ -1,4 +1,8 @@
-.footer-item {
+.footer {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .footer-item {
     display: flex;
     color: #1a1a1a;
     cursor: pointer;
@@ -16,7 +20,7 @@
     color: #007bff;
   }
 
-.footer {
+  .footer {
     position: fixed;
     bottom: 2px;
     display: flex;
@@ -28,4 +32,5 @@
     border-top: 1px solid #ccc;
     padding: 10px 0;
     z-index: 1000;
+  }
 }
