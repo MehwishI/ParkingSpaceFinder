@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import MapDirection from "components/MapDirection/MapDirection";
 import Search from "components/Search/Search";
+import Suggestions from "components/Suggestions/Suggestions";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -32,17 +33,8 @@ function App() {
 
   return (
     <Router>
-      <div className="container">
         {/* footer begins */}
-        <Footer
-          isHome={isHome}
-          setisHome={setisHome}
-          isHistory={isHistory}
-          setisHistory={setisHistory}
-          isProfile={isProfile}
-          setisProfile={setisProfile}
-        />
-      </div>
+        <Footer />
       <Routes>
         {/* <Route path="/loader" element={<Loader />} /> */}
         <Route path="/login" element={<Login />} />
@@ -53,6 +45,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/parkinghistory" element={<ParkingHistory />} />
         <Route path="/mapdirection" element={<MapDirection />} />
+        <Route exact path="/suggestions" element={<Suggestions />} />
       </Routes>
     </Router>
   );
