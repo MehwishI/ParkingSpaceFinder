@@ -21,8 +21,8 @@ const saveUserProfileData = async (userData) => {
     const response = await axios.post(`${localBaseUrl}/user/profile/save`, {
       userData,
     });
-    console.log(response.result);
-    return response.result;
+    console.log("response in UserProfileDataService:", response);
+    return response;
   } catch (error) {
     console.log(error);
     return error;

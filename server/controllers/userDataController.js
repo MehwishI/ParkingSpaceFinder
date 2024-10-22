@@ -19,21 +19,13 @@ const fetchUserData = async (req, res) => {
 };
 
 const saveUserData = async (req, res) => {
-  // const userData = {
-  //   userid: req.body.userid,
-  //   userFirstName: req.body.firstname,
-  //   userLastName: req.body.lastname,
-  //   userEmail: req.body.email,
-
-  // };
   //call fetchuserdata to check if email already exitsc
 
-  //console.log("userid received in controlller:", req.body.userid);
   const userExist = await userService.getUserData(req.body.userid);
   if (!userExist) {
     try {
       const data = await userService.saveUserData(req.body.userData);
-      console.log("user data returned", data);
+      console.log("user data returned in userdatacontroller", data);
       if (data) {
         res.status(200).send("User data saved!");
       } else {

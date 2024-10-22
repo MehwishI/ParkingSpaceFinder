@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import ParkingHistory from "../ParkingHistory/ParkingHistory.js";
+//import ParkingHistory from "../ParkingHistory/ParkingHistory.js";
 import {
   getUserProfileData,
   saveUserProfileData,
@@ -20,31 +20,55 @@ const Profile = () => {
   const handleCompReg = async () => {
     const userData = {
       userid: user.sub,
-      firstname: user.given_name,
-      lastname: user.family_name,
-      email: user.email,
+      userFirstName: user.given_name ? user.given_name : user.email,
+      userLastName: user.family_name,
+      userEmail: user.email,
       emailVerified: user.email_verified,
     };
-    const response = await saveUserProfileData(userData);
-    if (response.ok) {
-      console.log("user saved Successfully!");
+
+    console.log("userData to be saved coming from auth0:", userData);
+    try {
+      const response = await saveUserProfileData(userData);
+      console.log("response", response);
+      if (response.status === 200) {
+        console.log("user saved Successfully!");
+      }
+    } catch (error) {
+      console.log("User not saved:", error);
     }
   };
-  const fetchUserData = async () => {
-    const userFound = await getUserProfileData(user.sub);
-    if (userFound) {
-      setUserExist(true);
-    }
-  };
+  // const fetchUserData = async () => {
+  //   if (user.isAuthenticated) {
+  //     const userFound = await getUserProfileData(user.sub);
+  //     //    console.log("userfound in profile service:", userFound);
+  //     if (userFound) {
+  //       return true;
+  //     }
+  //   } else return false;
+  // };
 
   const onLoginClick = () => {
     return <Login />;
   };
   useEffect(() => {
-    if (user) {
-      fetchUserData();
-    }
+    const fetchUserData = async () => {
+      try {
+        if (user.isAuthenticated) {
+          const userFound = await getUserProfileData(user.sub);
+          //  console.log("userfound in profile service:", userFound);
+          //  console.log("userExist after fetchuserdata", userExist);
+          if (userFound) {
+            setUserExist(true);
+          } else setUserExist(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserData();
   }, []);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -76,10 +100,8 @@ const Profile = () => {
           )}
         </div>
         <div>
-          {isAuthenticated && userExist ? (
-            ""
-          ) : (
-            <button onClick={() => handleCompReg} type="Submit">
+          {isAuthenticated && userExist && (
+            <button onClick={handleCompReg} type="Submit">
               Complete Registeration
             </button>
           )}
