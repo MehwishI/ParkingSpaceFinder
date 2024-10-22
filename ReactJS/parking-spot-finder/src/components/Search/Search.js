@@ -12,6 +12,8 @@ import {
 import "./Search.css";
 import { useAsyncError, useNavigate } from "react-router";
 import Suggestions from "components/Suggestions/Suggestions";
+import MapContainer from "components/MapContainer/MapContainer";
+import LocationResult from "components/LocationResult/LocationResult";
 
 const Search = ({ onDataChange }) => {
   //const [getAddress, setGetAddress] = useState("");
@@ -20,6 +22,7 @@ const Search = ({ onDataChange }) => {
   const [predictions, setGglePrediction] = useState([]);
   const [addressCoord, setAddressCoord] = useState(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showResult, setShowResult] = useState(false);
   const autocompleteRef = useRef(null);
 
   const addressCoordinate = {};
@@ -47,6 +50,7 @@ const Search = ({ onDataChange }) => {
     setGglePrediction([]);
     getCoordinatePoints(placeid);
     setShowSuggestions(false);
+    setShowResult(true);
   };
   const getHandleChange = (e) => {
     setInputValue(e.target.value);
@@ -139,6 +143,12 @@ const Search = ({ onDataChange }) => {
             </div>
           )}
 
+          {showResult && (
+            <LocationResult
+              addressCoord={addressCoord}
+              onDataChange={onDataChange}
+            />
+          )}
           {/* <ul className="search-results-list">
             {predictions.map((prediction) => (
               <li

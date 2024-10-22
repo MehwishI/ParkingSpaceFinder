@@ -2,7 +2,6 @@ const axios = require("axios");
 
 const gglBaseUrl = process.env.GOOGLE_API_BASE_URL;
 const gglApiKey = process.env.GOOGLE_MAPS_API_KEY;
-
 const getGoogSearchResult = async (getInput) => {
   try {
     // console.log("google input", getInput);
@@ -24,6 +23,8 @@ const getCoordinatesByPlaceId = async (placeid) => {
     const response = await axios.get(
       `${gglBaseUrl}/place/details/json?place_id=${placeid}&key=${gglApiKey}`
     );
+
+    console.log(response);
     return response.data.result.geometry.location; // returning cooridinates in the form for e.g: { lat: 49.88412429999999, lng: -97.1989378 }
   } catch (error) {
     console.log(error);
