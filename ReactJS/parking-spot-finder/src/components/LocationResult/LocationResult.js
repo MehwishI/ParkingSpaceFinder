@@ -5,10 +5,12 @@ import {
 } from "../../services/locationResultService";
 import { useLocation } from "react-router-dom";
 import MapContainer from "../MapContainer/MapContainer";
+import LocationList from "./LocationList";
+import "./LocationResult.css";
 //import { getCoordinatesService } from "/services/getCoordinatesService";
 
 const LocationResult = async (props) => {
-  const coordinates = props.coordinates;
+  //const coordinates = props.coordinates;
   // const getCurrentLocation = useLocation(); //getting current location
 
   // console.log("location state", getCurrentLocation.state);
@@ -20,7 +22,7 @@ const LocationResult = async (props) => {
   const addressCoord = props.addressCoord;
   const onDataChange = props.onDataChange;
 
-  const wpaLocRes = await locResultForCoord(coordinates);
+  const wpaLocRes = await locResultForCoord(addressCoord);
   console.log(wpaLocRes);
 
   //map and list
@@ -34,6 +36,8 @@ const LocationResult = async (props) => {
         addressCoord={addressCoord}
         onDataChange={onDataChange}
       />
+
+      {/* <LocationList wpaLocRes={wpaLocRes} /> */}
     </div>
   );
 };

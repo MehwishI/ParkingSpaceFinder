@@ -58,26 +58,6 @@ const Search = ({ onDataChange }) => {
     if (e.target.value !== "") {
       setShowSuggestions(true);
     } else setShowSuggestions(false);
-    // return (
-    //   <Suggestions
-    //     predictions={predictions}
-    //     handlePredictionClick={handlePredictionClick}
-    //   />
-    //);
-    // navigate("/suggestions", {
-    //   state: {
-    //     predictions: predictions,
-    //   },
-    // });
-    // return (
-    // <div className="suggestions-container">
-    //   {" "}
-    //   <Suggestions
-    //     predictions={predictions}
-    //     handlePredictionClick={handlePredictionClick}
-    //   />
-    // </div>
-    // );
   };
 
   const handleClickSubmit = async () => {

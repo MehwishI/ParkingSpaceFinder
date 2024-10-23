@@ -1,0 +1,117 @@
+.list-style {
+    position: relative;
+    color: black;
+    padding: 15px;
+    padding-top: 10px !important;
+    background: #F6F6F6;
+    border-radius: 12px;
+    margin-top: 13px !important;
+    padding-left: 12px !important;
+}
+
+.overlay-text-top {
+    font-size: 15px;
+}
+
+.overlay-text-bottom {
+    font-size: 14px;
+}
+
+.btn-style-one {
+    background-color: #cccccc;
+    color: #000000;
+    padding: 4px 10px;
+    font-size: 13px;
+    border: none;
+    border-radius: 8px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-div-style {
+    margin-bottom: 42px;
+    padding-top: 0px !important;
+    font-size: 18px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 6px;
+    color: #129F4E;
+}
+
+.home-list-style {
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+.address-small {
+    font-size: 12px;
+    border-radius: 24px;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 100px;
+    height: 100%;
+    text-align: center;
+    background-color: #FFF1B3;
+    color: #957B09;
+    margin-right: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price-small {
+    font-size: 12px;
+    border-radius: 24px;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 70px;
+    height: 100%;
+    text-align: center;
+    background-color: #E2F5FF;
+    color: #2C96D0;
+    margin-right: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.space-small {
+    font-size: 12px;
+    border-radius: 24px;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 90px;
+    height: 100%;
+    text-align: center;
+    background-color: #E1FFC8;
+    color: #459A00;
+    margin-right: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.side-containers {
+    margin-left: 9px;
+}
+
+.lower-info-boxes {
+    margin-top: 9px;
+}
+
+.list-number {
+    position: absolute;
+    top: 43px;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    left: 21px;
+    transform: translate(-50%, -50%);
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.marker-style {
+    font-size: 24px !important;
+}
