@@ -15,6 +15,7 @@ const MapDirection = () => {
                 wpaResData={{}}
                 aiSugData={{}}
                 onDataChange={getCurrentLocCoords}
+                getAllLocsData={null}
             />
             <div>MapDirection {console.log("in directions page", coords)}</div>
         </>

@@ -67,4 +67,9 @@ and (-webkit-min-device-pixel-ratio: 2) {
     .park-hist-style {
         height: 170px;
     }
+
+    .custom-icon {
+        font-size: 18px;
+        color: #000000;
+    }
   }

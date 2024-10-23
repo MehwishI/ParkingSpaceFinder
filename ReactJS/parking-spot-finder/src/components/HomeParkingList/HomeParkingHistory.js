@@ -82,11 +82,8 @@ const HomeParkingHistory = () => {
 
   const fetchUserParkingHist = async () => {
     try {
-      console.log("id user", getUserId);
 
       const getData = await getUserParkingHistory(getUserId);
-
-      console.log("get data", getData);
 
       return getData;
     } catch (error) {
@@ -125,7 +122,7 @@ const HomeParkingHistory = () => {
         parkingJson.map((item, index) => (
           <div className="row">
             <div className="col-sm-3 d-flex align-items-center out-gen-style">
-              <FontAwesomeIcon icon={faHistory} size="1x" color="#000000" />
+              <FontAwesomeIcon icon={faHistory} className="custom-icon" />
               <div className="text-style">
                 <div className="text-top">
                   <b>{item.street}</b>

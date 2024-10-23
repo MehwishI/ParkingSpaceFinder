@@ -19,8 +19,6 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
 
     useEffect(() => {
         try {
-            console.log("hjjjj", getCurrLocAdd);
-            
             getLocCoordinates();
         } catch (error) {
             console.log(error);
@@ -28,13 +26,10 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
     }, []);
 
     const getLocCoordinates = async () => {
-        console.log("is prod", isProd);
         let coords;
         
         // remove before deployment
         if (isProd === "false") {
-            console.log("yes false");
-            
             coords = {
                 lat: 49.8912767,
                 lng: -97.1392939
@@ -42,13 +37,9 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
 
             setCoords(coords);
         } else {
-            console.log("feds", getCurrLocAdd);
-            
             coords = getCurrLocAdd;
             setCoords(coords);
         };
-
-        console.log("after condition", coords);
 
         const getData = await locResultForCoord(coords);
         setWpaData(getData);
@@ -57,8 +48,8 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
     };
 
     const getHandleClick = (item) => {
-        buildCoords.lat = item.latitude;
-        buildCoords.lng = item.longitude;
+        buildCoords.lat = item.location.latitude;
+        buildCoords.lng = item.location.longitude;
 
         navigate('/mapdirection', { state: { coords: buildCoords } });
     }
@@ -90,7 +81,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                                             </div>
                                         </div>
                                         <div className='btn-div-style'>
-                                            <MdOutlineTurnRight onClick={getHandleClick} />
+                                            <MdOutlineTurnRight onClick={() => getHandleClick(item)} />
                                         </div>
                                     </div>
                                 </div>

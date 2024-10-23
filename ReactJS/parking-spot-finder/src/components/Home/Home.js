@@ -8,18 +8,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import HomeParkingList from "components/HomeParkingList/HomeParkingList";
 import HomeParkingHistory from "components/HomeParkingList/HomeParkingHistory";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Home = () => {
   const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
   const [getWpaSearchRes, setWpaSearchRes] = useState([]);
   const [getAiCoordinates, setAiCoordinates] = useState(null);
   const [getAllParkingLocs, setAllParkingLocs] = useState([]);
+  const { isAuthenticated, isLoading } = useAuth0();
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
-     setCurrentLocAdd(resData);
-    console.log("after it gets out...", getCurrentLocAdd);
-    };
+    setCurrentLocAdd(resData);
+  };
 
   const getHandleDataChange = (resData) => {
     setWpaSearchRes(resData);
@@ -42,7 +43,9 @@ const Home = () => {
       <div className="container">
         <Search onDataChange={getHandleDataChange} />
 
-        <HomeParkingHistory />
+        {isAuthenticated && (
+          <HomeParkingHistory />
+        )}
 
         <label className="park-label-style"><b>Parkings near you</b></label>
 
@@ -62,9 +65,9 @@ const Home = () => {
             </div>
           </div>
 
-          <HomeParkingList 
-          getAllParkList={getAllLocsCoord}
-          getCurrLocAdd={getCurrentLocAdd}
+          <HomeParkingList
+            getAllParkList={getAllLocsCoord}
+            getCurrLocAdd={getCurrentLocAdd}
           />
         </div>
 
