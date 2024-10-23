@@ -76,9 +76,6 @@ const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
     };
 
     useEffect(() => {
-        console.log("mmnnkk", getDestLoc);
-        console.log("get current location", getCurrLoc);
-        
         
         if (getAudioSource && audioRef.current) {
             audioRef.current.play();

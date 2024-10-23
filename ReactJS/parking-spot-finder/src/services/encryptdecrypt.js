@@ -21,28 +21,6 @@ const getEncryptedData = (getData) => {
 };
 
 const getDecryptedData = (getEncData) => {
-    
-    // const getIVRes = CryptoJS.enc.Base64.parse(getEncData.data.iv);
-    // const getEncResData = getEncData.data.encrytedData;
-
-    // // const getIVRes = CryptoJS.enc.Hex.parse(getEncData.data.iv);
-    // // const getEncResData = getEncData.data.encrytedData;
-
-    // console.log("fint",getIVRes);
-
-    // const getDecBytes = CryptoJS.AES.decrypt(getEncResData, CryptoJS.enc.Utf8.parse(encDecKey), {
-    //     iv: getIVRes
-    // });
-
-    // console.log("before final", getDecBytes);
-    
-    // const finalDecBytes = JSON.parse(getDecBytes.toString(CryptoJS.enc.Utf8));
-
-    // console.log("final byte",finalDecBytes);
-    
-
-    // return finalDecBytes;
-
     const getParsedIV = CryptoJS.enc.Hex.parse(getEncData.data.iv);
     const getParsedEncData = CryptoJS.enc.Hex.parse(getEncData.data.encrytedData);
 

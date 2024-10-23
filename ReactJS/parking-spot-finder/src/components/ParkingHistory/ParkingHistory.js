@@ -23,19 +23,14 @@ const ParkingHistory = () => {
     const getHistory = async () => {
       try {
         if (!isAuthenticated) {
-          console.log(
-            "User not logged in. Please log in to view your parking history."
-          );
           return null;
         }
         const getUserHist = await getUserParkingHistory(getUserId);
-        console.log("history:", getUserHist);
         //getUserHist.then((history) => {
         setHistoryExist(true);
         setUserHistory(getUserHist);
         //});
         if (!getUserHist) {
-          console.log("No parking history available.");
           setUserHistory(null);
           setHistoryExist(false);
           return null;

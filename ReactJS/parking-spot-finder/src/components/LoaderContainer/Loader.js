@@ -11,9 +11,12 @@ const Loader = () => {
 
     useEffect(() => {
         setTimeout(() => {
+            console.log("is authenticated",isAuthenticated);
+            
             setLoading(false);
+            
             if (isAuthenticated) {
-                // navigate('/home');
+                //navigate('/home');
             } else {
                 // navigate('/home');
                 // navigate('/login');

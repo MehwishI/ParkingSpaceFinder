@@ -16,7 +16,7 @@ import { locResultForCoord } from "../../services/locationResultService";
 import CustomMarker from "../FontIcon/FontIcon";
 
 // const MapContainer = ({ coordinates }) => {
-const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
+const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData }) => {
   let initialCenter = {};
 
   const [getLocPoints, setLocPoints] = useState([]);
@@ -110,9 +110,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
         lng: wpaResData.lng,
       };
 
-      console.log("getCoordPoints", getCoordPoints);
-      
-
       const locServiceCoord = await locResultForCoord(getCoordPoints);
 
       const constLocData = locServiceCoord.map((item, index) => ({
@@ -142,7 +139,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   }, [wpaResData]);
 
   useEffect(() => {
-    console.log("halos 222");
     if (aiSugData && map) {
       const convAiSugData = convertToObject(aiSugData);
 
@@ -167,7 +163,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
         };
         // const center = { lat: lat, lng: long };
         setDefaultCenter(userLocaton);
-
+        
         onDataChange(userLocaton);
 
         if (map) {
@@ -189,6 +185,24 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   }, [directResp]);
 
   useEffect(() => {
+    console.log("i got to useEffect in map...");
+    if (!getAllLocsData) {
+      console.log("useEffect is null...");
+      return;
+    }
+    
+    // check later
+    const constLocData = getAllLocsData.map((item, index) => ({
+      lat: Number(item.location.latitude),
+      lng: Number(item.location.longitude),
+      title: `Marker ${index + 1}`,
+      description: item.location.description,
+    }));
+
+    setLocPoints(constLocData);
+  }, [getAllLocsData])
+
+  useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success);
     }
@@ -199,7 +213,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     };
-   // console.log("got position", currentPos);
 
     setDefaultCenter(currentPos);
   };
@@ -251,7 +264,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
   };
 
   const fitBoundsWithRad = (aiPoints) => {
-    console.log("aipoint", aiPoints);
 
     if (map && aiPoints.length > 0) {
       const bounds = new window.google.maps.LatLngBounds();
@@ -297,6 +309,22 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
     );
   };
 
+  const renderCustMarkersOne = (index) => {
+    const markerIconOne = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" height="24">
+  <path fill="#129F4E" d="M384 192c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192z"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="200" fill="white">
+        ${index}
+  </text>
+</svg>
+  `;
+
+    return {
+      url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(markerIconOne),
+      scaledSize: new window.google.maps.Size(30, 30),
+    };
+  }
+
   if (!isLoaded) {
     return (
       <div>
@@ -329,6 +357,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange }) => {
             position={{ lat: locPoints.lat, lng: locPoints.lng }}
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
+            icon={renderCustMarkersOne(index + 1)}
           />
         ))}
 

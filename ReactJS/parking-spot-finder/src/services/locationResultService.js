@@ -10,8 +10,6 @@ const locResultSearch = async () => {
   try {
     const getLocRes = await axios.post(`${getBaseApi}/wpatimelimit`);
 
-    console.log(getLocRes.data);
-
     return getLocRes.data;
   } catch (error) {
     console.error("Error getting location result", error);
@@ -35,8 +33,6 @@ const locResultForCoord = async (coordPoints) => {
     latitude: String(coordPoints.lat),
     longitude: String(coordPoints.lng),
   });
-
-  //console.log("COORDINATE DATA", getLocCoRes.data); //returning all data with all fields
 
   return getLocCoRes.data;
 };
