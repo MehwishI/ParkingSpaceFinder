@@ -115,3 +115,78 @@
 .marker-style {
     font-size: 24px !important;
 }
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 896px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+    .btn-div-style {
+        margin-left: 40px;
+        font-size: 20px
+    }
+
+    .overlay-text-top {
+        font-size: 17px;
+    }
+
+    .home-list-style {
+        max-height: 300px;
+    }
+
+    .address-small {
+        font-size: 14px;
+    }
+
+    .price-small {
+        font-size: 14px;
+    }
+
+    .space-small {
+        font-size: 14px;
+    }
+
+    .list-number {
+        font-size: 13px;
+    }
+
+    .marker-style {
+        font-size: 26px !important;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 412px) 
+  and (max-device-width: 915px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+    .btn-div-style {
+        margin-left: 40px;
+        font-size: 20px
+    }
+
+    .overlay-text-top {
+        font-size: 17px;
+    }
+
+    .home-list-style {
+        max-height: 300px;
+    }
+
+    .address-small {
+        font-size: 14px;
+    }
+
+    .price-small {
+        font-size: 14px;
+    }
+
+    .space-small {
+        font-size: 14px;
+    }
+
+    .list-number {
+        font-size: 13px;
+        top: 45px;
+    }
+
+    .marker-style {
+        font-size: 26px !important;
+    }
+  }

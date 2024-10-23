@@ -13,11 +13,13 @@ const Home = () => {
   const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
   const [getWpaSearchRes, setWpaSearchRes] = useState([]);
   const [getAiCoordinates, setAiCoordinates] = useState(null);
+  const [getAllParkingLocs, setAllParkingLocs] = useState([]);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
-    setCurrentLocAdd(resData);
-  };
+     setCurrentLocAdd(resData);
+    console.log("after it gets out...", getCurrentLocAdd);
+    };
 
   const getHandleDataChange = (resData) => {
     setWpaSearchRes(resData);
@@ -29,6 +31,10 @@ const Home = () => {
 
   const getCurrentAddress = () => {
 
+  };
+
+  const getAllLocsCoord = (getAllLocs) => {
+    setAllParkingLocs(getAllLocs);
   };
 
   return (
@@ -47,6 +53,7 @@ const Home = () => {
               wpaResData={getWpaSearchRes}
               aiSugData={getAiCoordinates}
               onDataChange={getCurrentLocCoords}
+              getAllLocsData={getAllParkingLocs}
             />
 
             <div className="col-sm-6 align-items-center overlay-box">
@@ -55,7 +62,10 @@ const Home = () => {
             </div>
           </div>
 
-          <HomeParkingList />
+          <HomeParkingList 
+          getAllParkList={getAllLocsCoord}
+          getCurrLocAdd={getCurrentLocAdd}
+          />
         </div>
 
         {/* <AISuggestion
