@@ -54,17 +54,17 @@ const {
  *               userid:
  *                 type: string
  *                 example: "Add user id"
- *               firstname:
+ *               userFirstName:
  *                 type: text
  *                 example: "Add first name"
- *               lastname:
+ *               userLastName:
  *                 type: text
  *                 example: "Add last name"
- *               email:
+ *               userEmail:
  *                  type: string
  *                  format: email
  *                  example: "Add user email here"
- *               emailVerfied:
+ *               emailVerified:
  *                  type: boolean
  *                  example: "Add true or false"
  *

@@ -24,7 +24,7 @@ const saveUserData = async (req, res) => {
   const userExist = await userService.getUserData(req.body.userid);
   if (!userExist) {
     try {
-      const data = await userService.saveUserData(req.body.userData);
+      const data = await userService.saveUserData(req.body);
       console.log("user data returned in userdatacontroller", data);
       if (data) {
         res.status(200).send("User data saved!");
