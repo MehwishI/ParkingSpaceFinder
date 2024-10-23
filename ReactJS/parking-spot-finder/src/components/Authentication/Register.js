@@ -6,8 +6,6 @@ const Register = () => {
 
     useEffect(() => {
         try {
-            console.log("I got registeration...");
-
             loginWithRedirect();
 
         } catch (error) {

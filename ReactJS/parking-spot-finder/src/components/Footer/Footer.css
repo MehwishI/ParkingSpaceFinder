@@ -1,6 +1,7 @@
 .footer {
   display: none;
 }
+
 @media screen and (max-width: 768px) {
   .footer-item {
     display: flex;
@@ -34,3 +35,27 @@
     z-index: 1000;
   }
 }
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 896px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+  .footer-item svg {
+    font-size: 21px;
+  }
+
+  .footer-item {
+    font-size: 12px;
+  }
+}
+
+@media only screen 
+  and (min-device-width: 412px) 
+  and (max-device-width: 915px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+    .footer-item svg {
+      font-size: 21px;
+    }
+  
+    .footer-item {
+      font-size: 12px;
+    }
+  }

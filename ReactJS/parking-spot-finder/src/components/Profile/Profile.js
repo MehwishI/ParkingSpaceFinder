@@ -26,10 +26,8 @@ const Profile = () => {
       emailVerified: user.email_verified,
     };
 
-    console.log("userData to be saved coming from auth0:", userData);
     try {
       const response = await saveUserProfileData(userData);
-      console.log("response", response);
       if (response.status === 200) {
         console.log("user saved Successfully!");
       }
@@ -37,15 +35,6 @@ const Profile = () => {
       console.log("User not saved:", error);
     }
   };
-  // const fetchUserData = async () => {
-  //   if (user.isAuthenticated) {
-  //     const userFound = await getUserProfileData(user.sub);
-  //     //    console.log("userfound in profile service:", userFound);
-  //     if (userFound) {
-  //       return true;
-  //     }
-  //   } else return false;
-  // };
 
   const onLoginClick = () => {
     return <Login />;
@@ -55,8 +44,6 @@ const Profile = () => {
       try {
         if (user.isAuthenticated) {
           const userFound = await getUserProfileData(user.sub);
-          //  console.log("userfound in profile service:", userFound);
-          //  console.log("userExist after fetchuserdata", userExist);
           if (userFound) {
             setUserExist(true);
           } else setUserExist(false);

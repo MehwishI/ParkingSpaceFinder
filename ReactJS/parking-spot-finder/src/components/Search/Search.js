@@ -35,7 +35,6 @@ const Search = ({ onDataChange }) => {
 
     try {
       const getSearchRes = await getGoogleAutocomplete(getInput);
-      console.log("predictions:", getSearchRes.predictions);
 
       //get place ID
       await setGglePrediction(getSearchRes.predictions || []);

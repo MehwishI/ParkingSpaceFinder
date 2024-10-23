@@ -8,12 +8,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("login hello");
   });
 
   const getHandleLogin = async () => {
-    console.log("before logging in...");
-
     await loginWithRedirect();
   };
 

@@ -57,3 +57,62 @@
   .overlay-text-down {
     font-size: 11px;
   }
+
+
+@media only screen 
+and (min-device-width: 414px) 
+and (max-device-width: 896px) 
+and (orientation: portrait) 
+and (-webkit-min-device-pixel-ratio: 2) {
+  .park-label-style {
+    font-size: 20px;
+  }
+
+  .mapcontainer {
+    height: 160px;
+  }
+
+  .overlay-box {
+    height: 60px;
+    padding-top: 15px;
+    line-height: 1.1;
+  }
+
+  .overlay-text-up {
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
+  .overlay-text-down {
+    font-size: 14px;
+  }
+}
+
+@media only screen 
+  and (min-device-width: 412px) 
+  and (max-device-width: 915px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+    .park-label-style {
+      font-size: 20px;
+    }
+  
+    .mapcontainer {
+      height: 160px;
+    }
+  
+    .overlay-box {
+      height: 60px;
+      padding-top: 15px;
+      line-height: 1.1;
+    }
+  
+    .overlay-text-up {
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+  
+    .overlay-text-down {
+      font-size: 14px;
+    }
+}

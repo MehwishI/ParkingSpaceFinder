@@ -18,7 +18,7 @@ import MapDirection from "components/MapDirection/MapDirection";
 import Suggestions from "components/Suggestions/Suggestions";
 
 function App() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isLoading } = useAuth0();
 
   if (isLoading) {
     return (
@@ -27,8 +27,6 @@ function App() {
       </div>
     );
   }
-  // console.log("Top:", TopNavigationBar);
-  //console.log("typeof topnavigation", typeof TopNavigationBar);
 
   return (
     <Router>
