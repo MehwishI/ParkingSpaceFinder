@@ -16,7 +16,7 @@ import { locResultForCoord } from "../../services/locationResultService";
 import CustomMarker from "../FontIcon/FontIcon";
 
 // const MapContainer = ({ coordinates }) => {
-const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData }) => {
+const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, directionCoords, curCoords }) => {
   let initialCenter = {};
 
   const [getLocPoints, setLocPoints] = useState([]);
@@ -163,7 +163,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData }) =
         };
         // const center = { lat: lat, lng: long };
         setDefaultCenter(userLocaton);
-        
+
         onDataChange(userLocaton);
 
         if (map) {
@@ -190,7 +190,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData }) =
       console.log("useEffect is null...");
       return;
     }
-    
+
     // check later
     const constLocData = getAllLocsData.map((item, index) => ({
       lat: Number(item.location.latitude),
@@ -207,6 +207,15 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData }) =
       navigator.geolocation.getCurrentPosition(success);
     }
   }, []);
+
+  useEffect(() => {
+
+    if (curCoords) {
+      setDefaultCenter(curCoords);
+    }
+
+    getHandleDrawPoly(directionCoords);
+  }, [map, directionCoords, curCoords]);
 
   const success = (position) => {
     const currentPos = {
@@ -231,6 +240,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData }) =
 
   const getHandleDrawPoly = async (destination) => {
     if (defaultCenter && destination) {
+      console.log("I fetched directions", defaultCenter, destination);
+      
       const dirService = new window.google.maps.DirectionsService();
 
       const getRes = await dirService.route({
@@ -238,6 +249,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData }) =
         destination: destination,
         travelMode: window.google.maps.TravelMode.DRIVING,
       });
+
+      console.log("directions fetched status", getRes);
 
       if (getRes.status === "OK") {
         setDirectResp(getRes);
