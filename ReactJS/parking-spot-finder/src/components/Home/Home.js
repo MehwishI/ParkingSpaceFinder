@@ -52,16 +52,18 @@ const Home = () => {
         <div className="map-outer-container">
 
           <div className="map-second-layer">
-            <MapContainer
-              wpaResData={getWpaSearchRes}
-              aiSugData={getAiCoordinates}
-              onDataChange={getCurrentLocCoords}
-              getAllLocsData={getAllParkingLocs}
-            />
+            <div className="mapcontainer-home">
+              <MapContainer
+                wpaResData={getWpaSearchRes}
+                aiSugData={getAiCoordinates}
+                onDataChange={getCurrentLocCoords}
+                getAllLocsData={getAllParkingLocs}
+              />
+            </div>
 
             <div className="col-sm-6 align-items-center overlay-box">
-              <span className="ms-2 overlay-text-up" >Polo Park Winnipeg, MB</span><br></br>
-              <span className="ms-2 overlay-text-down" >Polo Park Winnipeg, MB</span>
+              <span className="overlay-text-up" >Polo Park Winnipeg, MB</span><br></br>
+              <span className="overlay-text-down" >Polo Park Winnipeg, MB</span>
             </div>
           </div>
 

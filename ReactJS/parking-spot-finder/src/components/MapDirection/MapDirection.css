@@ -1,3 +1,75 @@
 .map-container {
-    height: 100vh;
+    height: 65vh;
 }
+
+/* .mapcontainer {
+    height: 100%;
+} */
+
+.direction-info {
+    background-color: white;
+    height: 330px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.top-left-text {
+    margin-left: 16px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.minute-label {
+    color: #165CE9;
+}
+
+.price-div {
+    font-size: 11px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 3px;
+    background-color: #E2F5FF;
+    margin-right: 16px;
+    border-radius: 24px
+}
+
+.list-info-style {
+    margin-top: 19px;
+    margin-left: 19px;
+    margin-right: 19px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.custom-btn {
+    margin-left: 16px;
+    margin-right: 16px;
+    width: 358px;
+    border-radius: 17px;
+    height: 36px;
+    color: #ffffff;
+    font-size: 16px;
+    background: #129F4E;
+    font-weight: 700;
+    border: none;
+}
+
+.hr-style {
+    width: 45px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 3px;
+    color: #757575;
+}
+
+.btn-icon-style {
+    margin-right: 4px;
+}
+
+/* .outer-div-style {
+    background-color: transparent;
+} */

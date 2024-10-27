@@ -119,7 +119,7 @@ const Search = ({ onDataChange }) => {
                 <FontAwesomeIcon
                   icon={faMagnifyingGlass}
                   onClick={handleArrowClick}
-                  size="1.5x"
+                  className="icon-styles"
                 />
               </span>
             )}

@@ -119,7 +119,7 @@ const HomeParkingHistory = () => {
 
     <div className="park-hist-style">
       {parkingJson && (
-        parkingJson.map((item, index) => (
+        parkingJson.slice(0, 2).map((item, index) => (
           <div className="row">
             <div className="col-sm-3 d-flex align-items-center out-gen-style">
               <FontAwesomeIcon icon={faHistory} className="custom-icon" />

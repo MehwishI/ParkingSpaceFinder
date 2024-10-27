@@ -1,22 +1,25 @@
-.mapcontainer {
+/* .mapcontainer {
     height: 120px;
     border: none;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     border-radius: 20px;
-  }
+  } */
+   .mapcontainer-home {
+    height: 120px;
+   }
 
   .overlay-box {
     position: relative;
-    height: 40px;
+    height: 51px;
     margin-top: 5px;
     z-index: 100;
     background-color: #ffffff;
-    border-radius: 20px;
-    line-height: 1;
+    border-radius: 13px;
+    line-height: 1.2;
     padding-left: 11px;
-    padding-top: 4px;
+    padding-top: 8px;
   }
 
   .overlay-text {
@@ -43,19 +46,20 @@
   .map-second-layer {
     background: #F6F6F6;
     padding: 5px;
+    padding-bottom: 8px !important;
     border-radius: 20px;
     padding-right: 0 auto;
     padding-left: 0 auto;
   }
 
   .overlay-text-up {
-    font-size: 12px;
+    font-size: 16px;
     color: #000000;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .overlay-text-down {
-    font-size: 11px;
+    font-size: 13px;
   }
 
 
@@ -69,7 +73,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
   }
 
   .mapcontainer {
-    height: 160px;
+    height: 100%;
   }
 
   .overlay-box {
@@ -79,12 +83,12 @@ and (-webkit-min-device-pixel-ratio: 2) {
   }
 
   .overlay-text-up {
-    font-size: 15px;
+    font-size: 16px;
     margin-bottom: 2px;
   }
 
   .overlay-text-down {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -94,11 +98,12 @@ and (-webkit-min-device-pixel-ratio: 2) {
   and (orientation: portrait) 
   and (-webkit-min-device-pixel-ratio: 3) {
     .park-label-style {
+      margin-top: 20px;
       font-size: 20px;
     }
   
     .mapcontainer {
-      height: 160px;
+      height: 100%;
     }
   
     .overlay-box {
@@ -108,11 +113,31 @@ and (-webkit-min-device-pixel-ratio: 2) {
     }
   
     .overlay-text-up {
-      font-size: 15px;
+      font-size: 16px;
       margin-bottom: 2px;
     }
   
     .overlay-text-down {
-      font-size: 14px;
+      font-size: 13px;
     }
+}
+
+@media only screen and (min-width: 390px) and (orientation: portrait) {
+  .park-label-style {
+      margin-top: 20px;
+      font-size: 20px;
+      margin-bottom: 14px;
+  }
+
+  .mapcontainer {
+    height: 100%;
+  }
+
+  .overlay-text-up {
+    margin-left: 16px;
+  }
+
+  .overlay-text-down {
+    margin-left: 16px;
+  }
 }

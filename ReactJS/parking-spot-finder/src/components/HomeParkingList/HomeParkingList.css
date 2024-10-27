@@ -5,8 +5,9 @@
     padding-top: 10px !important;
     background: #F6F6F6;
     border-radius: 12px;
-    margin-top: 13px !important;
+    /* margin-top: 13px !important; */
     padding-left: 12px !important;
+    margin-bottom: 10px;
 }
 
 .overlay-text-top {
@@ -41,20 +42,22 @@
 
 .home-list-style {
     max-height: 160px;
-    overflow-y: auto;
+    margin-top: 24px;
 }
 
 .address-small {
     font-size: 12px;
     border-radius: 24px;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     width: 100px;
     height: 100%;
     text-align: center;
     background-color: #FFF1B3;
     color: #957B09;
-    margin-right: 3px;
+    margin-right: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -63,8 +66,10 @@
 .price-small {
     font-size: 12px;
     border-radius: 24px;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     width: 70px;
     height: 100%;
     text-align: center;
@@ -79,8 +84,10 @@
 .space-small {
     font-size: 12px;
     border-radius: 24px;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     width: 90px;
     height: 100%;
     text-align: center;
@@ -106,7 +113,7 @@
     color: white;
     border-radius: 50%;
     padding: 2px 5px;
-    left: 21px;
+    left: 23.5px;
     transform: translate(-50%, -50%);
     font-size: 11px;
     font-weight: bold;
@@ -128,6 +135,7 @@
 
     .home-list-style {
         max-height: 300px;
+        margin-top: 24px;
     }
 
     .address-small {
@@ -167,6 +175,7 @@
 
     .home-list-style {
         max-height: 300px;
+        margin-top: 24px;
     }
 
     .address-small {
