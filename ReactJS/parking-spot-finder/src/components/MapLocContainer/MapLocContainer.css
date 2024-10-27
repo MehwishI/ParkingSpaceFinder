@@ -1,0 +1,19 @@
+.maploccontainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 90%;
+  width: 100vw;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: -1000;
+}
+
+@media only screen and (max-width: 768px) {
+  .maploccontainer {
+    height: 100vh;
+  }
+}

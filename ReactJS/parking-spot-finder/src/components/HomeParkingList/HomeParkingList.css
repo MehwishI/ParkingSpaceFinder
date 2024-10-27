@@ -1,192 +1,188 @@
 .list-style {
-    position: relative;
-    color: black;
-    padding: 15px;
-    padding-top: 10px !important;
-    background: #F6F6F6;
-    border-radius: 12px;
-    margin-top: 13px !important;
-    padding-left: 12px !important;
+  position: relative;
+  color: black;
+  padding: 15px;
+  padding-top: 10px !important;
+  background: #f6f6f6;
+  border-radius: 12px;
+  margin-top: 13px;
+  padding-left: 12px;
 }
 
 .overlay-text-top {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .overlay-text-bottom {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .btn-style-one {
-    background-color: #cccccc;
-    color: #000000;
-    padding: 4px 10px;
-    font-size: 13px;
-    border: none;
-    border-radius: 8px;
-    margin-right: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #cccccc;
+  color: #000000;
+  padding: 4px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn-div-style {
-    margin-bottom: 42px;
-    padding-top: 0px !important;
-    font-size: 18px;
-    background-color: white;
-    border-radius: 50%;
-    padding: 6px;
-    color: #129F4E;
+  margin-bottom: 42px;
+  padding-top: 0px !important;
+  font-size: 18px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 6px;
+  color: #129f4e;
 }
 
 .home-list-style {
-    max-height: 160px;
-    overflow-y: auto;
+  max-height: 160px;
+  overflow-y: auto;
 }
 
 .address-small {
-    font-size: 12px;
-    border-radius: 24px;
-    padding-left: 2px;
-    padding-right: 2px;
-    width: 100px;
-    height: 100%;
-    text-align: center;
-    background-color: #FFF1B3;
-    color: #957B09;
-    margin-right: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 12px;
+  border-radius: 24px;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 100px;
+  height: 100%;
+  text-align: center;
+  background-color: #fff1b3;
+  color: #957b09;
+  margin-right: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .price-small {
-    font-size: 12px;
-    border-radius: 24px;
-    padding-left: 2px;
-    padding-right: 2px;
-    width: 70px;
-    height: 100%;
-    text-align: center;
-    background-color: #E2F5FF;
-    color: #2C96D0;
-    margin-right: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 12px;
+  border-radius: 24px;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 70px;
+  height: 100%;
+  text-align: center;
+  background-color: #e2f5ff;
+  color: #2c96d0;
+  margin-right: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .space-small {
-    font-size: 12px;
-    border-radius: 24px;
-    padding-left: 2px;
-    padding-right: 2px;
-    width: 90px;
-    height: 100%;
-    text-align: center;
-    background-color: #E1FFC8;
-    color: #459A00;
-    margin-right: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 12px;
+  border-radius: 24px;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 90px;
+  height: 100%;
+  text-align: center;
+  background-color: #e1ffc8;
+  color: #459a00;
+  margin-right: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .side-containers {
-    margin-left: 9px;
+  margin-left: 9px;
 }
 
 .lower-info-boxes {
-    margin-top: 9px;
+  margin-top: 9px;
 }
 
 .list-number {
-    position: absolute;
-    top: 43px;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 5px;
-    left: 21px;
-    transform: translate(-50%, -50%);
-    font-size: 11px;
-    font-weight: bold;
+  position: absolute;
+  top: 43px;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  left: 21px;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  font-weight: bold;
 }
 
 .marker-style {
-    font-size: 24px !important;
+  font-size: 24px !important;
 }
 
 @media only screen and (min-device-width: 414px) and (max-device-width: 896px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
-    .btn-div-style {
-        margin-left: 40px;
-        font-size: 20px
-    }
+  .btn-div-style {
+    margin-left: 40px;
+    font-size: 20px;
+  }
 
-    .overlay-text-top {
-        font-size: 17px;
-    }
+  .overlay-text-top {
+    font-size: 17px;
+  }
 
-    .home-list-style {
-        max-height: 300px;
-    }
+  .home-list-style {
+    max-height: 300px;
+  }
 
-    .address-small {
-        font-size: 14px;
-    }
+  .address-small {
+    font-size: 14px;
+  }
 
-    .price-small {
-        font-size: 14px;
-    }
+  .price-small {
+    font-size: 14px;
+  }
 
-    .space-small {
-        font-size: 14px;
-    }
+  .space-small {
+    font-size: 14px;
+  }
 
-    .list-number {
-        font-size: 13px;
-    }
+  .list-number {
+    font-size: 13px;
+  }
 
-    .marker-style {
-        font-size: 26px !important;
-    }
+  .marker-style {
+    font-size: 26px !important;
+  }
 }
 
-@media only screen 
-  and (min-device-width: 412px) 
-  and (max-device-width: 915px) 
-  and (orientation: portrait) 
-  and (-webkit-min-device-pixel-ratio: 3) {
-    .btn-div-style {
-        margin-left: 40px;
-        font-size: 20px
-    }
-
-    .overlay-text-top {
-        font-size: 17px;
-    }
-
-    .home-list-style {
-        max-height: 300px;
-    }
-
-    .address-small {
-        font-size: 14px;
-    }
-
-    .price-small {
-        font-size: 14px;
-    }
-
-    .space-small {
-        font-size: 14px;
-    }
-
-    .list-number {
-        font-size: 13px;
-        top: 45px;
-    }
-
-    .marker-style {
-        font-size: 26px !important;
-    }
+@media only screen and (min-device-width: 412px) and (max-device-width: 915px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
+  .btn-div-style {
+    margin-left: 40px;
+    font-size: 20px;
   }
+
+  .overlay-text-top {
+    font-size: 17px;
+  }
+
+  .home-list-style {
+    max-height: 300px;
+  }
+
+  .address-small {
+    font-size: 14px;
+  }
+
+  .price-small {
+    font-size: 14px;
+  }
+
+  .space-small {
+    font-size: 14px;
+  }
+
+  .list-number {
+    font-size: 13px;
+    top: 45px;
+  }
+
+  .marker-style {
+    font-size: 26px !important;
+  }
+}
