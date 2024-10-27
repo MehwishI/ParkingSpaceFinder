@@ -12,7 +12,7 @@ import {
 import "./Search.css";
 import { useAsyncError, useNavigate } from "react-router";
 import Suggestions from "components/Suggestions/Suggestions";
-import MapContainer from "components/MapContainer/MapContainer";
+import MapContainer from "components/MapLocContainer/MapLocContainer";
 import LocationResult from "components/LocationResult/LocationResult";
 
 const Search = ({ onDataChange }) => {
@@ -20,13 +20,14 @@ const Search = ({ onDataChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
-  const [addressCoord, setAddressCoord] = useState(null);
+  const [addressCoord, setAddressCoord] = useState({});
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const autocompleteRef = useRef(null);
 
   const addressCoordinate = {};
   const navigate = useNavigate();
+  let showR = false;
 
   const fetchAutoCompleteSuggestion = async (getInput) => {
     if (!getInput) {
@@ -44,43 +45,37 @@ const Search = ({ onDataChange }) => {
   };
 
   const handlePredictionClick = (description, place_id) => {
+    console.log("reached parent with:", description, place_id);
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
-    getCoordinatePoints(placeid);
+    getCoordinatePoints(place_id);
     setShowSuggestions(false);
-    setShowResult(true);
+    // setShowResult(true);
+    //showR = true;
+    // console.log("After setPlaceId in parent comp:", placeid);
   };
+  // useEffect(() => {
+  //   console.log("placeid updated:", placeid);
+
+  //   console.log("showResult updated:", showResult);
+  //   // getCoordinatePoints(placeid);
+  // }, [placeid, showResult]);
+
   const getHandleChange = (e) => {
     setInputValue(e.target.value);
     fetchAutoCompleteSuggestion(e.target.value);
     if (e.target.value !== "") {
       setShowSuggestions(true);
-    } else setShowSuggestions(false);
-    // return (
-    //   <Suggestions
-    //     predictions={predictions}
-    //     handlePredictionClick={handlePredictionClick}
-    //   />
-    //);
-    // navigate("/suggestions", {
-    //   state: {
-    //     predictions: predictions,
-    //   },
-    // });
-    // return (
-    // <div className="suggestions-container">
-    //   {" "}
-    //   <Suggestions
-    //     predictions={predictions}
-    //     handlePredictionClick={handlePredictionClick}
-    //   />
-    // </div>
-    // );
+    } else {
+      setShowSuggestions(false);
+      setShowResult(true);
+    }
   };
 
   const handleClickSubmit = async () => {
     getCoordinatePoints(placeid);
+    setShowResult(true);
   };
 
   const handleArrowClick = () => {
@@ -89,14 +84,32 @@ const Search = ({ onDataChange }) => {
     navigate("/");
   };
   const getCoordinatePoints = async (getPlaceForId) => {
-    const coordinates = await getGoogleCoordinates(getPlaceForId);
-    setAddressCoord(coordinates);
-    if (coordinates !== null) {
+    console.log("in getCooridnates, placeid:", getPlaceForId);
+    const response = await getGoogleCoordinates(getPlaceForId);
+
+    console.log("response received in getCoordinatePoints:", response);
+    // const coordinates = response.data;
+
+    // console.log("After setAddressCoord:", addressCoord);
+    if (response) {
+      // console.log("1", showResult);
+      // showR = true;
+      // await setShowResult(true);
+      // console.log("2", showR);
+
+      setAddressCoord(response);
       addressCoordinate.destLocAddress = inputValue;
-      addressCoordinate.lat = coordinates.lat;
-      addressCoordinate.lng = coordinates.lng;
+      addressCoordinate.lat = response.lat;
+      addressCoordinate.lng = response.lng;
 
       onDataChange(addressCoordinate);
+      console.log("addressCoordinate in Search:", addressCoordinate);
+      console.log("showResult:", showResult);
+      navigate("/locationresult", {
+        state: {
+          addressCoordinate: { addressCoordinate },
+        },
+      });
     }
   };
 
@@ -142,12 +155,13 @@ const Search = ({ onDataChange }) => {
             </div>
           )}
 
-          {showResult && (
-            <LocationResult
-              addressCoord={addressCoord}
-              onDataChange={onDataChange}
-            />
-          )}
+          {/* {showR && (
+            <div className="loc-container">
+              {" "}
+              <div>Hi {showR}</div>
+              <LocationResult addressCoordinate={addressCoordinate} />
+            </div>
+          )} */}
           {/* <ul className="search-results-list">
             {predictions.map((prediction) => (
               <li

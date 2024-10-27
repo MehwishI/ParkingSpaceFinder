@@ -4,23 +4,68 @@ import {
   locResultForCoord,
 } from "../../services/locationResultService";
 import { useLocation } from "react-router-dom";
-import MapContainer from "../MapContainer/MapContainer";
+import MapLocContainer from "../MapLocContainer/MapLocContainer";
+import LocationList from "./LocationList";
+import Search from "components/Search/Search";
+import "./LocationResult.css";
+import { cardActionAreaClasses } from "@mui/material";
 //import { getCoordinatesService } from "/services/getCoordinatesService";
 
-const LocationResult = async (props) => {
-  const coordinates = props.coordinates;
-  const addressCoord = props.addressCoord;
-  const onDataChange = props.onDataChange;
+const LocationResult = () => {
+  //const coordinates = props.coordinates;
+  const [locRes, setLocRes] = useState([]);
+  const location = useLocation(); //getting current location
 
-  const wpaLocRes = await locResultForCoord(coordinates);
+  // console.log("location state", getCurrentLocation.state);
+  // //const data = await getCoordinatesService(address);
+  // //console.log(data);
+  // // const addressCoord = data.geometry.location;
+
+  // //
+  //console.log("params:", params);
+  const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
+  // const onDataChange = location.state.onDataChange.onDataChange;
+
+  console.log("addressCoordinate:", addressCoordinate);
+  const coord = {
+    lat: addressCoordinate.lat,
+    lng: addressCoordinate.lng,
+  };
+  // const onDataChange = props.onDataChange;
+
+  console.log("coord:", coord);
+  useEffect(() => {
+    console.log("locRes", locRes);
+    const fetchdata = async () => {
+      try {
+        if (addressCoordinate !== {}) {
+          const wpaLocRes = await locResultForCoord(coord);
+
+          //  const wpaLocRes = await response.json();
+
+          console.log("wpaLocRes in LocationResult.js", wpaLocRes);
+          setLocRes(wpaLocRes);
+        } else {
+          console.log("coord is empty:", coord);
+        }
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    };
+    fetchdata();
+  }, []);
+
+  //map and list
+
+  //const { address, coordinates } = getCurrentLocation.state || {};
 
   return (
     <div className="loc-result-container">
-      <MapContainer
-        wpaResData={wpaLocRes}
-        addressCoord={addressCoord}
-        onDataChange={onDataChange}
-      />
+      <MapLocContainer wpaResData={locRes} />
+
+      <hr className="horizontal-rule"></hr>
+      <LocationList wpaLocRes={locRes} />
     </div>
   );
 };

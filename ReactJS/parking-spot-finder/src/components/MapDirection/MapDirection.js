@@ -6,22 +6,22 @@ import iconturnright from '../../images/turn_right.png';
 import Search from 'components/Search/Search';
 
 const MapDirection = () => {
-    const getLocation = useLocation();
-    const { coords, currCoords } = getLocation.state || {};
+  const getLocation = useLocation();
+  const { coords, currCoords } = getLocation.state || {};
 
     const destCoord = {};
     const currentCoords = {};
     const [distance, setDistance] = useState('');
 
-    useEffect(() => {
-        // build destination coordinates
-        destCoord.lat = parseFloat(coords.lat);
-        destCoord.lng = parseFloat(coords.lng);
+  useEffect(() => {
+    // build destination coordinates
+    destCoord.lat = parseFloat(coords.lat);
+    destCoord.lng = parseFloat(coords.lng);
 
-        // build current coordinates
-        currentCoords.lat = parseFloat(currCoords.lat);
-        currentCoords.lng = parseFloat(currCoords.lng);
-    }, []);
+    // build current coordinates
+    currentCoords.lat = parseFloat(currCoords.lat);
+    currentCoords.lng = parseFloat(currCoords.lng);
+  }, []);
 
     const getCurrentLocCoords = (resData) => {
         // setDistance(resData);
@@ -78,4 +78,4 @@ const MapDirection = () => {
     )
 }
 
-export default MapDirection
+export default MapDirection;
