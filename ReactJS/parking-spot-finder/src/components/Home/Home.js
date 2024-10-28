@@ -30,7 +30,7 @@ const Home = () => {
     setAiCoordinates(aiResData);
   };
 
-  const getCurrentAddress = () => {};
+  const getCurrentAddress = () => { };
 
   const getAllLocsCoord = (getAllLocs) => {
     setAllParkingLocs(getAllLocs);
@@ -39,7 +39,9 @@ const Home = () => {
   return (
     <>
       <div className="container">
-        <Search onDataChange={getHandleDataChange} />
+        <div className="serach-style">
+          <Search onDataChange={getHandleDataChange} backgroundColor={'#129F4E'} marginLeft={'2px'} isHomeScreen={true}/>
+        </div>
 
         {isAuthenticated && <HomeParkingHistory />}
 

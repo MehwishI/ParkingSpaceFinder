@@ -6,38 +6,38 @@ import iconturnright from '../../images/turn_right.png';
 import Search from 'components/Search/Search';
 
 const MapDirection = () => {
-  const getLocation = useLocation();
-  const { coords, currCoords } = getLocation.state || {};
+    const getLocation = useLocation();
+    const { coords, currCoords, allItems } = getLocation.state || {};
 
     const destCoord = {};
     const currentCoords = {};
     const [distance, setDistance] = useState('');
+    const [duration, setDuration] = useState('');
 
-  useEffect(() => {
-    // build destination coordinates
-    destCoord.lat = parseFloat(coords.lat);
-    destCoord.lng = parseFloat(coords.lng);
+    useEffect(() => {
+        console.log("coords points", allItems);
 
-    // build current coordinates
-    currentCoords.lat = parseFloat(currCoords.lat);
-    currentCoords.lng = parseFloat(currCoords.lng);
-  }, []);
+        // build destination coordinates
+        destCoord.lat = parseFloat(coords.lat);
+        destCoord.lng = parseFloat(coords.lng);
+
+        // build current coordinates
+        currentCoords.lat = parseFloat(currCoords.lat);
+        currentCoords.lng = parseFloat(currCoords.lng);
+    }, []);
 
     const getCurrentLocCoords = (resData) => {
         // setDistance(resData);
     };
 
-    const getDurationTime = (resData) => {
-        console.log("jayMike",resData);
-        
-        setDistance(resData);
+    const getDurationTime = (resDataDistance, resDataDuration) => {
+        setDistance(resDataDistance);
+        setDuration(resDataDuration);
     };
 
     return (
         <>
-            {/* <div>
-                <Search />
-            </div> */}
+            <Search backgroundColor={'none'} marginLeft={'10px'}/>
             <div className='map-container'>
                 <MapContainer
                     wpaResData={{}}
@@ -55,17 +55,19 @@ const MapDirection = () => {
                 <hr className='hr-style'></hr>
                 <div className='d-flex justify-content-between'>
                     <div className='top-left-text'>
-                        <label className='minute-label'>8 min</label> ({distance})
+                        <label className='minute-label'>{duration}</label> ({distance})
                     </div>
-                    <div className='price-div'>12/hour</div>
+                    <div className='price-div'>{allItems.hourly_rate}/hour</div>
                 </div>
 
                 <div className='list-info-style'>
                     <ul>
-                        <li>Permit-only for residents from 6:00 PM to 6:00 AM; open to public during regular hours</li>
-                        <li>2-hour maximum for all vehicles</li>
-                        <li>Accessible parking spaces near the entrance with ramp access</li>
-                        <li>Electric vehicle charging stations available</li>
+                        <li>Location: <span className='data-style'>{allItems.street}</span></li>
+                        <li>Restriction: <span className='data-style'>{allItems.restriction}</span></li>
+                        <li>Time Limit: <span className='data-style'>{allItems.time_limit}</span></li>
+                        <li>Total Spaces: <span className='data-style'>{allItems.total_space}</span></li>
+                        <li>Accessible Spaces: <span className='data-style'>{allItems.accessible_space}</span></li>
+                        <li>Payment Options: <span className='data-style'>Mobile pay available (Zone {allItems.mobile_pay_zone})</span></li>
                     </ul>
                 </div>
 

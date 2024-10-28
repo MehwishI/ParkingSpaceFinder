@@ -8,7 +8,7 @@
 
 .direction-info {
     background-color: white;
-    height: 330px;
+    height: 350px;
     position: absolute;
     bottom: 0px;
     width: 100%;
@@ -72,4 +72,12 @@
 
 /* .outer-div-style {
     background-color: transparent;
+} */
+
+.data-style {
+    font-weight: normal;
+}
+
+/* .outer-div-style {
+    background-color: #9f3812;
 } */

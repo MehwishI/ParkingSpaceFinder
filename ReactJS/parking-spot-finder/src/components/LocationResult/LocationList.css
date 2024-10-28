@@ -88,7 +88,7 @@
 }
 .home-list-style {
   max-height: 160px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .address-small {

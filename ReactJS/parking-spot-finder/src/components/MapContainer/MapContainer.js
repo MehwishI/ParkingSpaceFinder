@@ -16,6 +16,7 @@ import { locResultForCoord } from "../../services/locationResultService";
 import CustomMarker from "../FontIcon/FontIcon";
 import iconmarker from "../../images/marker-pinlet.png";
 import currentLocation from "../../images/Current Location Marker.png";
+import destLocIcon from "../../images/Spotlight Marker.png";
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, directionCoords, curCoords, onDurationTime }) => {
@@ -32,6 +33,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   const [getDirectionResp, setDirectionResp] = useState(null);
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
+
+  const isProd = process.env.REACT_APP_ISPROD;
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -82,7 +85,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   }, [wpaResData]);
 
   useEffect(() => {
-    if (aiSugData && map) {
+    if (aiSugData === null) {
+      console.log("value is null");
+    }
+    else if (Object.keys(aiSugData).length > 0 && map) {
       const convAiSugData = convertToObject(aiSugData);
 
       const getAiLocs = convAiSugData.parking.map((location) => ({
@@ -122,8 +128,19 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
 
   useEffect(() => {
     if (directResp) {
-      const tesDirectn = { lat: 49.799473, lng: -97.165825 }
-      getCalcRoute(defaultCenter, tesDirectn)
+      const directionCoordinates = {};
+
+      if (isProd === "false") {
+        directionCoordinates.lat = 49.799473;
+        directionCoordinates.lng = -97.165825;
+
+        getCalcRoute(defaultCenter, directionCoordinates)
+      } else {
+        directionCoordinates.lat = 49.799473;
+        directionCoordinates.lng = -97.165825;
+        
+        getCalcRoute(defaultCenter, directResp)
+      }
     }
   }, [directResp]);
 
@@ -196,9 +213,9 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
           if (status === window.google.maps.DirectionsStatus.OK) {
             const route = result.routes[0].legs[0];
 
-            // if (onDurationTime) {
-            //   onDurationTime(route.distance.text);
-            // };
+            if (onDurationTime) {
+              onDurationTime(route.distance.text, route.duration.text);
+            };
 
             setDistance(route.distance.text);
             setDuration(route.duration.text);
@@ -357,7 +374,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
           title="You are here!"
           animation="DROP"
           icon={{
-            url: { currentLocation },
+            url: currentLocation,
             scaledSize: new window.google.maps.Size(40, 40), // Adjust the size
           }}
           position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
@@ -379,9 +396,21 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
         )}
 
         {directResp && (
+          <MarkerF
+          position={directResp.routes[0].legs[0].end_location}
+          icon={{
+            url: destLocIcon,
+            scaledSize: new window.google.maps.Size(29, 42),
+          }}
+          title="Destination"
+          />
+        )}
+
+        {directResp && (
           <DirectionsRenderer
             directions={directResp}
             options={{
+              suppressMarkers: true,
               polylineOptions: {
                 strokeColor: '#165CE9',
                 strokeWeight: 5,

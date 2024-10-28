@@ -53,7 +53,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
         buildCoords.lat = item.location.latitude;
         buildCoords.lng = item.location.longitude;
 
-        navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd } });
+        navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd, allItems: item } });
     }
 
     return (
