@@ -5,6 +5,8 @@ import { faMapMarkerAlt, faMapMarker } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router';
 import { MdOutlineTurnRight } from "react-icons/md";
 import { locResultForCoord } from 'services/locationResultService';
+import iconmarker from "../../images/marker-pinlet.png";
+import iconturnright from "../../images/turn right.png";
 
 const isProd = process.env.REACT_APP_ISPROD;
 
@@ -51,7 +53,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
         buildCoords.lat = item.location.latitude;
         buildCoords.lng = item.location.longitude;
 
-        navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd } });
+        navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd, allItems: item } });
     }
 
     return (
@@ -63,7 +65,8 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                             <div className='col-sm-3 d-flex align-items-center'>
                                 <div>
                                     <span className='list-number'>{index + 1}</span>
-                                    <FontAwesomeIcon icon={faMapMarker} className='marker-style' color="#129F4E" />
+                                    {/* <FontAwesomeIcon icon={faMapMarker} className='marker-style' color="#129F4E" /> */}
+                                    <img src={iconmarker} alt="icon" />
                                 </div>
                                 <div className='ms-2'>
                                     <div className='d-flex align-items-center side-containers'>
@@ -77,11 +80,12 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                                             <div className='d-flex lower-info-boxes'>
                                                 <div className='address-small'>PN: {item.paystation_number}</div>
                                                 <div className='price-small'>{item.hourly_rate}$/hr</div>
-                                                <div className='space-small'>{item.total_space} total spaces</div>
+                                                <div className='space-small'>{item.total_space} spaces</div>
                                             </div>
                                         </div>
                                         <div className='btn-div-style'>
-                                            <MdOutlineTurnRight onClick={() => getHandleClick(item)} />
+                                            <img src={iconturnright} onClick={() => getHandleClick(item)}/>
+                                            {/* <MdOutlineTurnRight onClick={() => getHandleClick(item)} /> */}
                                         </div>
                                     </div>
                                 </div>

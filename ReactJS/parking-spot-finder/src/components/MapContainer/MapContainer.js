@@ -14,9 +14,12 @@ import {
 import "./MapContainer.css";
 import { locResultForCoord } from "../../services/locationResultService";
 import CustomMarker from "../FontIcon/FontIcon";
+import iconmarker from "../../images/marker-pinlet.png";
+import currentLocation from "../../images/Current Location Marker.png";
+import destLocIcon from "../../images/Spotlight Marker.png";
 
 // const MapContainer = ({ coordinates }) => {
-const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, directionCoords, curCoords }) => {
+const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, directionCoords, curCoords, onDurationTime }) => {
   let initialCenter = {};
 
   const [getLocPoints, setLocPoints] = useState([]);
@@ -28,71 +31,15 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
   const [defaultCenter, setDefaultCenter] = useState(initialCenter);
   const [getDirectionResp, setDirectionResp] = useState(null);
+  const [distance, setDistance] = useState('');
+  const [duration, setDuration] = useState('');
+
+  const isProd = process.env.REACT_APP_ISPROD;
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
-
-  const blackAndWhiteMapStyle = [
-    // {
-    //   elementType: 'geometry',
-    //   stylers: [{ color: '#f5f5f5' }],
-    // },
-    // {
-    //   elementType: 'labels.text.fill',
-    //   stylers: [{ color: '#616161' }],
-    // },
-    // {
-    //   elementType: 'labels.text.stroke',
-    //   stylers: [{ color: '#f5f5f5' }],
-    // },
-    // {
-    //   featureType: 'administrative.land_parcel',
-    //   elementType: 'labels.text.fill',
-    //   stylers: [{ color: '#bdbdbd' }],
-    // },
-    // {
-    //   featureType: 'poi',
-    //   elementType: 'geometry',
-    //   stylers: [{ color: '#eeeeee' }],
-    // },
-    // {
-    //   featureType: 'poi',
-    //   elementType: 'labels.text.fill',
-    //   stylers: [{ color: '#757575' }],
-    // },
-    // {
-    //   featureType: 'road',
-    //   elementType: 'geometry',
-    //   stylers: [{ color: '#ffffff' }],
-    // },
-    // {
-    //   featureType: 'road.arterial',
-    //   elementType: 'labels.text.fill',
-    //   stylers: [{ color: '#757575' }],
-    // },
-    // {
-    //   featureType: 'road.highway',
-    //   elementType: 'geometry',
-    //   stylers: [{ color: '#dadada' }],
-    // },
-    // {
-    //   featureType: 'road.local',
-    //   elementType: 'labels.text.fill',
-    //   stylers: [{ color: '#9e9e9e' }],
-    // },
-    // {
-    //   featureType: 'transit.line',
-    //   elementType: 'geometry',
-    //   stylers: [{ color: '#e5e5e5' }],
-    // },
-    // {
-    //   featureType: 'water',
-    //   elementType: 'geometry',
-    //   stylers: [{ color: '#c9c9c9' }],
-    // },
-  ];
 
   const mapStyles = {
     height: "100%",
@@ -100,7 +47,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
     position: "relative",
     overflow: "none",
     align: "center",
-    // justify-content: "center"
   };
 
   const getAllLocs = async () => {
@@ -139,7 +85,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   }, [wpaResData]);
 
   useEffect(() => {
-    if (aiSugData && map) {
+    if (aiSugData === null) {
+      console.log("value is null");
+    }
+    else if (Object.keys(aiSugData).length > 0 && map) {
       const convAiSugData = convertToObject(aiSugData);
 
       const getAiLocs = convAiSugData.parking.map((location) => ({
@@ -179,8 +128,19 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
 
   useEffect(() => {
     if (directResp) {
-      const tesDirectn = { lat: 49.799473, lng: -97.165825 }
-      getCalcRoute(defaultCenter, tesDirectn)
+      const directionCoordinates = {};
+
+      if (isProd === "false") {
+        directionCoordinates.lat = 49.799473;
+        directionCoordinates.lng = -97.165825;
+
+        getCalcRoute(defaultCenter, directionCoordinates)
+      } else {
+        directionCoordinates.lat = 49.799473;
+        directionCoordinates.lng = -97.165825;
+        
+        getCalcRoute(defaultCenter, directResp)
+      }
     }
   }, [directResp]);
 
@@ -241,14 +201,28 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   const getHandleDrawPoly = async (destination) => {
     if (defaultCenter && destination) {
       console.log("I fetched directions", defaultCenter, destination);
-      
+
       const dirService = new window.google.maps.DirectionsService();
 
       const getRes = await dirService.route({
         origin: defaultCenter,
         destination: destination,
         travelMode: window.google.maps.TravelMode.DRIVING,
-      });
+      },
+        (result, status) => {
+          if (status === window.google.maps.DirectionsStatus.OK) {
+            const route = result.routes[0].legs[0];
+
+            if (onDurationTime) {
+              onDurationTime(route.distance.text, route.duration.text);
+            };
+
+            setDistance(route.distance.text);
+            setDuration(route.duration.text);
+          } else {
+            console.error(`error fetching directions`);
+          }
+        });
 
       console.log("directions fetched status", getRes);
 
@@ -261,9 +235,13 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   };
 
   const convertToObject = (jsonData) => {
-    const parsedJson = JSON.parse(jsonData);
+    if (Object.keys(jsonData).length > 0) {
+      const parsedJson = JSON.parse(jsonData);
 
-    return parsedJson;
+      return parsedJson;
+    } else {
+      return;
+    }
   };
 
   const calcCenter = (aiPoint) => {
@@ -322,18 +300,18 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
     );
   };
 
-  const renderCustMarkersOne = (index) => {
-    const markerIconOne = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" height="24">
-  <path fill="#129F4E" d="M384 192c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192z"/>
-  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="200" fill="white">
-        ${index}
-  </text>
-</svg>
-  `;
+  const renderCustMarkersOne = () => {
+    //     const markerIconOne = `
+    // <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" height="24">
+    //   <path fill="#129F4E" d="M384 192c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192z"/>
+    //   <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="200" fill="white">
+    //         ${index}
+    //   </text>
+    // </svg>
+    //   `;
 
     return {
-      url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(markerIconOne),
+      url: { iconmarker },
       scaledSize: new window.google.maps.Size(30, 30),
     };
   }
@@ -359,8 +337,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
           zoomControl: true,
           streetViewControl: false,
           mapTypeControl: false,
-          fullscreenControl: false,
-          styles: blackAndWhiteMapStyle,
+          fullscreenControl: false
         }}
       >
         {getLocPoints.map((locPoints, index) => (
@@ -370,7 +347,13 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
             position={{ lat: locPoints.lat, lng: locPoints.lng }}
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
-            icon={renderCustMarkersOne(index + 1)}
+            icon={renderCustMarkersOne}
+            label={{
+              text: index.toString(),
+              color: "white",
+              fontSize: "12px",
+              fontWeight: "bold",
+            }}
           />
         ))}
 
@@ -390,10 +373,10 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
           key="current_location"
           title="You are here!"
           animation="DROP"
-          // icon={{
-          //   url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(<CustomMarker />),
-          //   scaledSize: new window.google.maps.Size(40, 40), // Adjust the size
-          // }}
+          icon={{
+            url: currentLocation,
+            scaledSize: new window.google.maps.Size(40, 40), // Adjust the size
+          }}
           position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
         />
 
@@ -413,11 +396,23 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
         )}
 
         {directResp && (
+          <MarkerF
+          position={directResp.routes[0].legs[0].end_location}
+          icon={{
+            url: destLocIcon,
+            scaledSize: new window.google.maps.Size(29, 42),
+          }}
+          title="Destination"
+          />
+        )}
+
+        {directResp && (
           <DirectionsRenderer
             directions={directResp}
             options={{
+              suppressMarkers: true,
               polylineOptions: {
-                strokeColor: '#39bb21',
+                strokeColor: '#165CE9',
                 strokeWeight: 5,
               },
             }}

@@ -15,7 +15,7 @@ import Suggestions from "components/Suggestions/Suggestions";
 import MapContainer from "components/MapLocContainer/MapLocContainer";
 import LocationResult from "components/LocationResult/LocationResult";
 
-const Search = ({ onDataChange }) => {
+const Search = ({ onDataChange, backgroundColor, marginLeft, isHomeScreen }) => {
   //const [getAddress, setGetAddress] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [placeid, setPlaceId] = useState("");
@@ -24,6 +24,7 @@ const Search = ({ onDataChange }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const autocompleteRef = useRef(null);
+  const [ changeBackgroundColor, setBackgrundColor] = useState(backgroundColor);
 
   const addressCoordinate = {};
   const navigate = useNavigate();
@@ -62,7 +63,12 @@ const Search = ({ onDataChange }) => {
   //   // getCoordinatePoints(placeid);
   // }, [placeid, showResult]);
 
+  // useEffect(() => {
+  //   setBackgrundColor(changeBackgroundColor);
+  // }, [changeBackgroundColor]);
+
   const getHandleChange = (e) => {
+    setBackgrundColor("none");
     setInputValue(e.target.value);
     fetchAutoCompleteSuggestion(e.target.value);
     if (e.target.value !== "") {
@@ -115,11 +121,38 @@ const Search = ({ onDataChange }) => {
 
   return (
     <>
-      <div className="row outer-div-style">
+      <div className="row outer-div-style" style={{ backgroundColor: changeBackgroundColor }}>
         <div className="col-md-9 search-bar-outer">
           {/* <div className="inp-contain"> */}
-          <div className="search-bar">
+          <div className="search-bar" style={{ marginLeft: marginLeft }}>
             {showSuggestions ? (
+              <span>
+                <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  onClick={handleArrowClick}
+                  className="icon-styles"
+                />
+              </span>
+            ) : isHomeScreen ? (
+              <span>
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  onClick={handleArrowClick}
+                  size="1.5x"
+                />
+              </span>
+
+            ) : (
+              <span>
+                <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  onClick={handleArrowClick}
+                  size="1.5x"
+                />
+              </span>
+
+            )}
+            {/* {showSuggestions ? (
               <span>
                 <FontAwesomeIcon
                   icon={faChevronLeft}
@@ -132,10 +165,10 @@ const Search = ({ onDataChange }) => {
                 <FontAwesomeIcon
                   icon={faMagnifyingGlass}
                   onClick={handleArrowClick}
-                  size="1.5x"
+                  className="icon-styles"
                 />
               </span>
-            )}
+            )} */}
             &nbsp;
             <input
               type="text"
