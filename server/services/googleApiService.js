@@ -27,13 +27,13 @@ const getCoordinatesByPlaceId = async (placeid) => {
     );
 
     console.log(response);
-    const result = {
-      location: response.data.result.geometry.location,
-      photo_ref: response.data.result.photos.photo_reference
-        ? response.data.result.photos.photo_reference
-        : "",
-    };
-    return result; // returning cooridinates in the form for e.g: { lat: 49.88412429999999, lng: -97.1989378 }
+    // const result = {
+    //   location: response.data.result.geometry.location,
+    //   photo_ref: response.data.result.photos.photo_reference
+    //     ? response.data.result.photos.photo_reference
+    //     : "",
+    // };
+    return response.data.result.geometry.location; // returning cooridinates in the form for e.g: { lat: 49.88412429999999, lng: -97.1989378 }
   } catch (error) {
     console.log(error);
     throw error;
