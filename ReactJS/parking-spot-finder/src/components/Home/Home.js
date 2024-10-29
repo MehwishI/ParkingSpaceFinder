@@ -43,7 +43,7 @@ const Home = () => {
           <Search onDataChange={getHandleDataChange} backgroundColor={'#129F4E'} marginLeft={'2px'} isHomeScreen={true}/>
         </div>
 
-        {isAuthenticated && <HomeParkingHistory />}
+        <HomeParkingHistory />
 
         <label className="park-label-style">
           <b>Parkings near you</b>
