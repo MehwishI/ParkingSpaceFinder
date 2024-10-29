@@ -3,7 +3,7 @@
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 45%;
-    height: 100px;
+    /* height: 100px; */
     position: relative;
 }
 
@@ -30,6 +30,11 @@
     margin: 0 auto;
     padding-top: 10px;
     color: #dcdcdc;
+}
+
+.login-text-style {
+    place-self: center;
+    margin-top: 41%;
 }
 
 @media only screen and (min-device-width: 414px) and (max-device-width: 896px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {

@@ -123,6 +123,23 @@
   font-size: 24px !important;
 }
 
+.custom-btn-two {
+  margin-right: 16px;
+  width: 358px;
+  border-radius: 17px;
+  height: 36px;
+  color: #ffffff;
+  font-size: 16px;
+  background: #129F4E;
+  font-weight: 700;
+  border: none;
+}
+
+.ai-section-style {
+  place-self: center;
+  margin-bottom: 10px
+}
+
 @media only screen and (min-device-width: 414px) and (max-device-width: 896px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
   .btn-div-style {
     margin-left: 40px;
