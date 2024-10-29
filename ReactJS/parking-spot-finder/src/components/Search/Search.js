@@ -27,7 +27,7 @@ const Search = ({ onDataChange }) => {
 
   const addressCoordinate = {};
   const navigate = useNavigate();
-  let showR = false;
+  //let showR = false;
 
   const fetchAutoCompleteSuggestion = async (getInput) => {
     if (!getInput) {
@@ -104,7 +104,7 @@ const Search = ({ onDataChange }) => {
 
       onDataChange(addressCoordinate);
       console.log("addressCoordinate in Search:", addressCoordinate);
-      console.log("showResult:", showResult);
+      // console.log("showResult:", showResult);
       navigate("/locationresult", {
         state: {
           addressCoordinate: { addressCoordinate },

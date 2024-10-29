@@ -12,16 +12,23 @@
 .horizontal-rule {
   width: 45px;
   height: 3px;
-  background: rgba(117, 117, 117, 1);
-  opacity: 1;
+  background: rgba(117, 117, 117, 1) !important;
+  opacity: 100% !important;
   position: absolute;
-  top: 455px;
+  top: 0px;
   left: 173px;
   border-top-left-radius: 13px;
   border-top-right-radius: 13px;
   border-bottom-left-radius: 13px;
   border-bottom-right-radius: 13px;
   overflow: hidden;
+  height: 4px;
+  color: rgba(117, 117, 117, 1) !important;
+  position: absolute;
+
+  margin-top: 5px;
+  right: 150px;
+  text-align: center;
 }
 .overlay-text-top {
   font-size: 15px;
@@ -58,7 +65,7 @@
   color: white;
   display: flex;
   flex-direction: row;
- 
+
   width: 112px;
   height: 32px;
   background: rgba(18, 159, 78, 1);
@@ -197,6 +204,17 @@
   border-radius: 50%;
   padding: 6px;
   color: #129f4e;
+}
+.label {
+  height: 36vh;
+  width: 100%;
+  background: white;
+  padding-left: 64px;
+  padding-right: 30px;
+  display: flex;
+  align-items: flex-start;
+  width: 100vw;
+  overflow: hidden;
 }
 @media only screen and (max-width: 768px) {
   .loc-list {

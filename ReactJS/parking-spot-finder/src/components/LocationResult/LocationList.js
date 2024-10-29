@@ -34,7 +34,7 @@ const LocationList = ({ wpaLocRes }) => {
   return (
     <div className="loc-list">
       <hr className="horizontal-rule"></hr>
-      {wpaLocRes.length > 0 &&
+      {wpaLocRes.length > 0 ? (
         wpaLocRes.map((item, index) => (
           <div key={item.id} className="list-style-box">
             <div className="row">
@@ -83,11 +83,11 @@ const LocationList = ({ wpaLocRes }) => {
                       <span>Directions</span>
                     </div>
                   </div>
-                  <div className="btn-dir-style">
-                    <div
-                      onClick={() => getHandleClick(item)}
-                      className="arrow-dir"
-                    >
+                  <div
+                    className="btn-dir-style"
+                    onClick={() => getHandleClick(item)}
+                  >
+                    <div className="arrow-dir">
                       <MdOutlineTurnRight />
                     </div>
                     &nbsp;
@@ -97,7 +97,10 @@ const LocationList = ({ wpaLocRes }) => {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <div className="label">No parking locations found. </div>
+      )}
     </div>
   );
 };

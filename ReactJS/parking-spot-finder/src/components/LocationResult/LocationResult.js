@@ -44,6 +44,9 @@ const LocationResult = () => {
           //  const wpaLocRes = await response.json();
 
           console.log("wpaLocRes in LocationResult.js", wpaLocRes);
+          if (wpaLocRes.length === 0) {
+            console.log("No Parking locations found around this address");
+          }
           setLocRes(wpaLocRes);
         } else {
           console.log("coord is empty:", coord);
@@ -64,7 +67,6 @@ const LocationResult = () => {
     <div className="loc-result-container">
       <MapLocContainer wpaResData={locRes} />
 
-      <hr className="horizontal-rule"></hr>
       <LocationList wpaLocRes={locRes} />
     </div>
   );
