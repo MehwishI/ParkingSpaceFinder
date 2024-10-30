@@ -61,10 +61,19 @@ const LocationResult = () => {
 
   //map and list
 
+  const getHandleDataChange = (resData) => {
+    setLocRes(resData);
+  };
+
   //const { address, coordinates } = getCurrentLocation.state || {};
 
   return (
     <div className="loc-result-container">
+      <Search
+        onDataChange={getHandleDataChange}
+        backgroundColor={"none"}
+        marginLeft={"10px"}
+      />
       <MapLocContainer wpaResData={locRes} />
 
       <LocationList wpaLocRes={locRes} />

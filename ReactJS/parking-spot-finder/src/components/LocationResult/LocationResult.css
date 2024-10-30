@@ -2,6 +2,8 @@
   height: 100vh;
   width: 50%;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 @media only screen and (max-width: 768px) {
   .loc-result-container {
@@ -53,7 +55,7 @@
 
 .home-list-style {
   max-height: 160px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .address-small {

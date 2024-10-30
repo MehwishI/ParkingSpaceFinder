@@ -24,15 +24,18 @@
   border-radius: 35px;
   margin-bottom: 20px;
 }
+
 .search-bar input {
   font-size: 20px;
   border: none;
   height: 100%;
 }
+
 .search-bar input:focus {
   border: none;
   outline: none;
 }
+
 /* .icon-input {
     border: none;
     border: solid 2px rgb(151, 151, 151);
@@ -63,7 +66,7 @@
   padding-right: 5px;
   margin-left: 5%;
   margin-right: 5%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #fff;
 }
 
 .search-result-item {
@@ -108,26 +111,28 @@
 .icon-input {
   display: flex;
 }
+
 @media only screen and (max-width: 760px) {
   .search-bar {
     padding-right: 10px;
     margin-right: 10px;
     align-items: center;
-    height: 50px;
+    height: 54px;
     border-radius: 30px;
     padding: 5px;
     max-width: 400px;
     position: relative;
     align-content: center;
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    /* margin: auto; */
+    margin-top: 66px;
+    margin-bottom: 23px;
   }
 
   .search-results-list {
-    width: 90%;
+    width: 100%;
     margin-left: 0px;
     margin-top: 4%;
+    /* padding-bottom: 100%; */
   }
 
   .inp-contain {
@@ -153,8 +158,18 @@
   }
 
   .outer-div-style {
-    background-color: green;
+    /* background-color: #129F4E; */
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 1000;
+  }
+
+  .icon-styles {
+    color: #757575;
+    width: 24px;
+    height: 24px;
   }
 }

@@ -9,7 +9,7 @@
 
   padding-left: 12px !important;
 }
-.horizontal-rule {
+/* .horizontal-rule {
   width: 45px;
   height: 3px;
   background: rgba(117, 117, 117, 1) !important;
@@ -29,7 +29,7 @@
   margin-top: 5px;
   right: 150px;
   text-align: center;
-}
+} */
 .overlay-text-top {
   font-size: 15px;
 }
@@ -95,7 +95,7 @@
 }
 .home-list-style {
   max-height: 160px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .address-small {
@@ -169,12 +169,35 @@
 .marker-style {
   font-size: 24px !important;
 }
+.hr-style {
+  width: 45px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: 3px;
+  color: #757575;
+  background-color: white;
+  opacity: 100%;
+}
 .loc-list {
   max-height: 50%;
   overflow-y: auto;
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 100vw;
+  background-color: white;
+}
+.loc-list-closed {
+  height: 10%;
+  bottom: 0;
+  background-color: white;
+
+  overflow-y: auto;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  background-color: white;
+  bottom: 60px;
 }
 .btn-direction {
   width: 112px;
@@ -216,11 +239,27 @@
   width: 100vw;
   overflow: hidden;
 }
+.div-filter-box {
+  display: flex;
+  align-items: flex-start;
+}
 @media only screen and (max-width: 768px) {
   .loc-list {
-    max-height: 396px;
+    max-height: 45%;
     overflow-y: auto;
     position: absolute;
     bottom: 0;
+  }
+  .loc-list-closed {
+    height: 10%;
+    bottom: 0;
+    background-color: white;
+
+    overflow-y: auto;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    background-color: white;
+    bottom: 60px;
   }
 }

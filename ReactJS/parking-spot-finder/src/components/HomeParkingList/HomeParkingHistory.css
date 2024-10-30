@@ -2,10 +2,9 @@
     margin-bottom: 3px;
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 21px;
+    margin-top: 45%;
     height: 100px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    position: relative;
 }
 
 .text-style {
@@ -33,11 +32,7 @@
     color: #dcdcdc;
 }
 
-@media only screen 
-and (min-device-width: 414px) 
-and (max-device-width: 896px) 
-and (orientation: portrait) 
-and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen and (min-device-width: 414px) and (max-device-width: 896px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
     .text-top {
         font-size: 16px;
     }
@@ -51,11 +46,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     }
 }
 
-@media only screen 
-  and (min-device-width: 412px) 
-  and (max-device-width: 915px) 
-  and (orientation: portrait) 
-  and (-webkit-min-device-pixel-ratio: 3) {
+@media only screen and (min-device-width: 412px) and (max-device-width: 915px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
     .text-top {
         font-size: 16px;
     }
@@ -69,7 +60,30 @@ and (-webkit-min-device-pixel-ratio: 2) {
     }
 
     .custom-icon {
-        font-size: 18px;
+        font-size: 19px;
         color: #000000;
     }
-  }
+}
+
+@media only screen and (min-device-width: 412px) and (max-device-width: 915px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
+    .text-top {
+        font-size: 16px;
+    }
+
+    .text-bottom {
+        font-size: 15px;
+    }
+
+    .park-hist-style {
+        height: 170px;
+    }
+
+    .custom-icon {
+        font-size: 19px;
+        color: #000000;
+    }
+}
+
+@media only screen and (max-width: 390px) and (orientation: portrait) {
+    
+}

@@ -11,8 +11,9 @@ import "./LocationList.css";
 
 const LocationList = ({ wpaLocRes }) => {
   // const [fetchCoords, setCoords] = useState();
-  console.log(wpaLocRes);
+  // console.log(wpaLocRes);
   const [getcurrCoords, setCurrCoords] = useState({});
+  const [toggleListOpen, setToggleListOpen] = useState(true);
   const navigate = useNavigate();
 
   const buildCoords = {};
@@ -28,12 +29,28 @@ const LocationList = ({ wpaLocRes }) => {
     });
 
     navigate("/mapdirection", {
-      state: { coords: buildCoords, currCoords: getcurrCoords },
+      state: { coords: buildCoords, currCoords: getcurrCoords, allItems: item },
     });
   };
+  const getHideClick = () => {
+    toggleListOpen ? setToggleListOpen(false) : setToggleListOpen(true);
+  };
   return (
-    <div className="loc-list">
-      <hr className="horizontal-rule"></hr>
+    <div className={toggleListOpen ? "loc-list" : "loc-list-closed"}>
+      <hr
+        className="hr-style"
+        onClick={() => {
+          getHideClick();
+        }}
+      />
+      <div className="div-filter-box">
+        <div>
+          <FontAwesomeIcon icon={["fas", "bars-filter"]} />
+        </div>
+        <div>b</div>
+        <div>c</div>
+      </div>
+
       {wpaLocRes.length > 0 ? (
         wpaLocRes.map((item, index) => (
           <div key={item.id} className="list-style-box">
@@ -66,32 +83,23 @@ const LocationList = ({ wpaLocRes }) => {
                           PN: {item.paystation_number}
                         </div>
                         <div className="price-small">
-                          ${item.hourly_rate}/hour
+                          ${item.hourly_rate}/hr
                         </div>
                         <div className="space-small">
                           {item.total_space} spaces
                         </div>
                       </div>
                     </div>
-                    <div className="btn-dir-style">
-                      <div
-                        onClick={() => getHandleClick(item)}
-                        className="arrow-dir"
-                      >
+                    <div
+                      className="btn-dir-style"
+                      onClick={() => getHandleClick(item)}
+                    >
+                      <div className="arrow-dir">
                         <MdOutlineTurnRight />
                       </div>
+                      &nbsp;
                       <span>Directions</span>
                     </div>
-                  </div>
-                  <div
-                    className="btn-dir-style"
-                    onClick={() => getHandleClick(item)}
-                  >
-                    <div className="arrow-dir">
-                      <MdOutlineTurnRight />
-                    </div>
-                    &nbsp;
-                    <span>Directions</span>
                   </div>
                 </div>
               </div>
@@ -99,7 +107,9 @@ const LocationList = ({ wpaLocRes }) => {
           </div>
         ))
       ) : (
-        <div className="label">No parking locations found. </div>
+        <div className="label">
+          No parking locations found around this address.
+        </div>
       )}
     </div>
   );

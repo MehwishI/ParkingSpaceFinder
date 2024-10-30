@@ -19,8 +19,6 @@ const getGoogSearchResult = async (getInput) => {
 };
 
 const getCoordinatesByPlaceId = async (placeid) => {
-  console.log("placeid:", placeid);
-
   try {
     const response = await axios.get(
       `${gglBaseUrl}/place/details/json?place_id=${placeid}&key=${gglApiKey}`
