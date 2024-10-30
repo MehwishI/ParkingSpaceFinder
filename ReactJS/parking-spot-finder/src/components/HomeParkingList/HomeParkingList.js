@@ -16,9 +16,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
     const [fetchCoords, setCoords] = useState();
     const navigate = useNavigate();
 
-    const buildCoords = {
-
-    };
+    const buildCoords = {};
 
     useEffect(() => {
         try {
@@ -31,13 +29,12 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
     const getLocCoordinates = async () => {
         let coords;
 
-        // remove before deployment
+        // Remove before deployment
         if (isProd === "false" || false) {
             coords = {
                 lat: 49.8912767,
                 lng: -97.1392939
             };
-
             setCoords(coords);
         } else {
             coords = getCurrLocAdd;
@@ -46,7 +43,6 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
 
         const getData = await locResultForCoord(coords);
         setWpaData(getData);
-
         getAllParkList(getData);
     };
 
@@ -57,9 +53,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
         navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd, allItems: item } });
     };
 
-    const getAiSuggest = () => {
-
-    };
+    const getAiSuggest = () => {};
 
     return (
         <div className='home-list-style'>
@@ -88,7 +82,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                                             </div>
                                         </div>
                                         <div className='btn-div-style'>
-                                            <img src={iconturnright} onClick={() => getHandleClick(item)} />
+                                            <img src={iconturnright} onClick={() => getHandleClick(item)} alt="Turn icon" />
                                         </div>
                                     </div>
                                 </div>
@@ -100,12 +94,13 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                 <div>
                     <div className='ai-section-style'>No Data Available</div>
                     <button className='custom-btn-two' onClick={getAiSuggest}>
-                        <img src={iconAiSuggest} className='btn-ai-style' />AI Suggest
+                        <img src={iconAiSuggest} className='btn-ai-style' alt="AI Suggest" />
+                        AI Suggest
                     </button>
                 </div>
             )}
         </div>
-    )
+    );
 }
 
-export default HomeParkingList
+export default HomeParkingList;
