@@ -17,7 +17,7 @@ const Home = () => {
   const [getAllParkingLocs, setAllParkingLocs] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
   const [mapHeight, setMapHeight] = useState('120px');
-  const [labelPark, setLabelPark] = useState(false);
+  const [labelPark, setLabelPark] = useState(true);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -43,7 +43,7 @@ const Home = () => {
       setMapHeight("120px");
     } else {
       setMapHeight("450px");
-      setLabelPark(true);
+      setLabelPark(false);
     }
   }, [getAllParkingLocs])
 

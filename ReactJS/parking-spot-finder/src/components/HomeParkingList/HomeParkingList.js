@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import "./HomeParkingList.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt, faMapMarker } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faMapMarker } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router';
 import { MdOutlineTurnRight } from "react-icons/md";
-import { locResultForCoord } from "services/locationResultService";
+import { locResultForCoord } from 'services/locationResultService';
 import iconmarker from "../../images/marker-pinlet.png";
-import iconturnright from "../../images/turn right.png";
+import iconturnright from "../../images/turnright.png";
 import iconAiSuggest from "../../images/ant-design_sound-filled.png";
 
 const isProd = process.env.REACT_APP_ISPROD;
@@ -16,9 +16,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
     const [fetchCoords, setCoords] = useState();
     const navigate = useNavigate();
 
-    const buildCoords = {
-
-    };
+    const buildCoords = {};
 
     useEffect(() => {
         try {
@@ -31,13 +29,12 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
     const getLocCoordinates = async () => {
         let coords;
 
-        // remove before deployment
+        // Remove before deployment
         if (isProd === "false" || false) {
             coords = {
                 lat: 49.8912767,
                 lng: -97.1392939
             };
-
             setCoords(coords);
         } else {
             coords = getCurrLocAdd;
@@ -46,7 +43,6 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
 
         const getData = await locResultForCoord(coords);
         setWpaData(getData);
-
         getAllParkList(getData);
     };
 
@@ -57,9 +53,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
         navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd, allItems: item } });
     };
 
-    const getAiSuggest = () => {
-
-    };
+    const getAiSuggest = () => {};
 
     return (
         <div className='home-list-style'>
@@ -88,32 +82,25 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                                             </div>
                                         </div>
                                         <div className='btn-div-style'>
-                                            <img src={iconturnright} onClick={() => getHandleClick(item)} />
+                                            <img src={iconturnright} onClick={() => getHandleClick(item)} alt="Turn icon" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                      </div>
                     </div>
                 ))
             ) : (
                 <div>
                     <div className='ai-section-style'>No Data Available</div>
                     <button className='custom-btn-two' onClick={getAiSuggest}>
-                        <img src={iconAiSuggest} className='btn-ai-style' />AI Suggest
+                        <img src={iconAiSuggest} className='btn-ai-style' alt="AI Suggest" />
+                        AI Suggest
                     </button>
                 </div>
-              </div>
-            </div>
-          </div>
-        ))
-      ) : (
-        <div>
-          <div className="ai-section-style">No Data Available</div>
-          <button className="custom-btn-two">Use AI Suggestion</button>
+            )}
         </div>
-    )
+    );
 }
 
-export default HomeParkingList
+export default HomeParkingList;
