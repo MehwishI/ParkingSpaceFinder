@@ -16,6 +16,7 @@ const Home = () => {
   const [getAiCoordinates, setAiCoordinates] = useState(null);
   const [getAllParkingLocs, setAllParkingLocs] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
+  const [mapHeight, setMapHeight] = useState('120px');
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -36,6 +37,14 @@ const Home = () => {
     setAllParkingLocs(getAllLocs);
   };
 
+  useEffect(() => {
+    if (getAllParkingLocs.length > 0) {
+      setMapHeight("120px");
+    } else {
+      setMapHeight("400px");
+    }
+  }, [getAllParkingLocs])
+
   return (
     <>
       <div className="container">
@@ -43,7 +52,7 @@ const Home = () => {
           <Search onDataChange={getHandleDataChange} backgroundColor={'#129F4E'} marginLeft={'2px'} isHomeScreen={true}/>
         </div>
 
-        {isAuthenticated && <HomeParkingHistory />}
+        <HomeParkingHistory />
 
         <label className="park-label-style">
           <b>Parkings near you</b>
@@ -51,7 +60,7 @@ const Home = () => {
 
         <div className="map-outer-container">
           <div className="map-second-layer">
-            <div className="mapcontainer-home">
+            <div className="mapcontainer-home" style={{height: mapHeight}}>
               <MapContainer
                 wpaResData={getWpaSearchRes}
                 aiSugData={getAiCoordinates}

@@ -58,7 +58,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
 
   return (
     <div className="home-list-style">
-      {wpaFetchData.length > 0 &&
+      {wpaFetchData.length > 0 ? (
         wpaFetchData.map((item, index) => (
           <div key={item.id} className="list-style">
             <div className="row">
@@ -101,7 +101,13 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <div>
+          <div className="ai-section-style">No Data Available</div>
+          <button className="custom-btn-two">Use AI Suggestion</button>
+        </div>
+      )}
     </div>
 
     // <div className='home-list-style'>
