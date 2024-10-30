@@ -67,7 +67,7 @@ const getWpaPayStationLocation = async (getLocation) => {
     );
     //console.log("resp:", resp);
 
-   // console.log("resp.data", resp.data);
+    //console.log("resp.data", resp.data);
     return resp.data;
   } catch (error) {
     console.log("Error in ApiService:", error);

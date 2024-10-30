@@ -15,11 +15,19 @@ import "./MapContainer.css";
 import { locResultForCoord } from "../../services/locationResultService";
 import CustomMarker from "../FontIcon/FontIcon";
 import iconmarker from "../../images/marker-pinlet.png";
-import currentLocation from "../../images/Current Location Marker.png";
-import destLocIcon from "../../images/Spotlight Marker.png";
+import currentLocation from "../../images/CurrentLocationMarker.png";
+import destLocIcon from "../../images/SpotlightMarker.png";
 
 // const MapContainer = ({ coordinates }) => {
-const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, directionCoords, curCoords, onDurationTime }) => {
+const MapContainer = ({
+  wpaResData,
+  aiSugData,
+  onDataChange,
+  getAllLocsData,
+  directionCoords,
+  curCoords,
+  onDurationTime,
+}) => {
   let initialCenter = {};
 
   const [getLocPoints, setLocPoints] = useState([]);
@@ -31,8 +39,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
   const [defaultCenter, setDefaultCenter] = useState(initialCenter);
   const [getDirectionResp, setDirectionResp] = useState(null);
-  const [distance, setDistance] = useState('');
-  const [duration, setDuration] = useState('');
+  const [distance, setDistance] = useState("");
+  const [duration, setDuration] = useState("");
 
   const isProd = process.env.REACT_APP_ISPROD;
 
@@ -59,8 +67,8 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
       const locServiceCoord = await locResultForCoord(getCoordPoints);
 
       const constLocData = locServiceCoord.map((item, index) => ({
-        lat: Number(item.location.latitude),
-        lng: Number(item.location.longitude),
+        lat: parseFloat(item.location.latitude),
+        lng: parseFloat(item.location.longitude),
         title: `Marker ${index + 1}`,
         description: item.location.description,
       }));
@@ -87,8 +95,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   useEffect(() => {
     if (aiSugData === null) {
       console.log("value is null");
-    }
-    else if (Object.keys(aiSugData).length > 0 && map) {
+    } else if (Object.keys(aiSugData).length > 0 && map) {
       const convAiSugData = convertToObject(aiSugData);
 
       const getAiLocs = convAiSugData.parking.map((location) => ({
@@ -134,12 +141,12 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
         directionCoordinates.lat = 49.799473;
         directionCoordinates.lng = -97.165825;
 
-        getCalcRoute(defaultCenter, directionCoordinates)
+        getCalcRoute(defaultCenter, directionCoordinates);
       } else {
         directionCoordinates.lat = 49.799473;
         directionCoordinates.lng = -97.165825;
-        
-        getCalcRoute(defaultCenter, directResp)
+
+        getCalcRoute(defaultCenter, directResp);
       }
     }
   }, [directResp]);
@@ -160,7 +167,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
     }));
 
     setLocPoints(constLocData);
-  }, [getAllLocsData])
+  }, [getAllLocsData]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -169,7 +176,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   }, []);
 
   useEffect(() => {
-
     if (curCoords) {
       setDefaultCenter(curCoords);
     }
@@ -204,25 +210,27 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
 
       const dirService = new window.google.maps.DirectionsService();
 
-      const getRes = await dirService.route({
-        origin: defaultCenter,
-        destination: destination,
-        travelMode: window.google.maps.TravelMode.DRIVING,
-      },
+      const getRes = await dirService.route(
+        {
+          origin: defaultCenter,
+          destination: destination,
+          travelMode: window.google.maps.TravelMode.DRIVING,
+        },
         (result, status) => {
           if (status === window.google.maps.DirectionsStatus.OK) {
             const route = result.routes[0].legs[0];
 
             if (onDurationTime) {
               onDurationTime(route.distance.text, route.duration.text);
-            };
+            }
 
             setDistance(route.distance.text);
             setDuration(route.duration.text);
           } else {
             console.error(`error fetching directions`);
           }
-        });
+        }
+      );
 
       console.log("directions fetched status", getRes);
 
@@ -255,7 +263,6 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   };
 
   const fitBoundsWithRad = (aiPoints) => {
-
     if (map && aiPoints.length > 0) {
       const bounds = new window.google.maps.LatLngBounds();
 
@@ -285,16 +292,17 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
   const getCalcRoute = (origin, destination) => {
     const getDirectionService = new window.google.maps.DirectionsService();
 
-    getDirectionService.route({
-      origin: origin,
-      destination: destination,
-      travelMode: window.google.maps.TravelMode.DRIVING
-    },
+    getDirectionService.route(
+      {
+        origin: origin,
+        destination: destination,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      },
       (result, status) => {
         if (status === window.google.maps.DirectionsStatus.OK) {
           setDirectionResp(result);
         } else {
-          console.error('error fetching directions result');
+          console.error("error fetching directions result");
         }
       }
     );
@@ -314,7 +322,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
       url: { iconmarker },
       scaledSize: new window.google.maps.Size(30, 30),
     };
-  }
+  };
 
   if (!isLoaded) {
     return (
@@ -331,20 +339,23 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
         zoom={10}
         center={defaultCenter}
         onLoad={handleMapLoad}
-        mapTypeId='roadmap'
+        mapTypeId="roadmap"
         options={{
           disableDefaultUI: true,
           zoomControl: true,
           streetViewControl: false,
           mapTypeControl: false,
-          fullscreenControl: false
+          fullscreenControl: false,
         }}
       >
         {getLocPoints.map((locPoints, index) => (
           <MarkerF
             key={index}
             title={locPoints.title}
-            position={{ lat: locPoints.lat, lng: locPoints.lng }}
+            position={{
+              lat: parseFloat(locPoints.lat),
+              lng: parseFloat(locPoints.lng),
+            }}
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
             icon={renderCustMarkersOne}
@@ -377,12 +388,18 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
             url: currentLocation,
             scaledSize: new window.google.maps.Size(40, 40), // Adjust the size
           }}
-          position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
+          position={{
+            lat: parseFloat(defaultCenter.lat),
+            lng: parseFloat(defaultCenter.lng),
+          }}
         />
 
         {activeMarker && (
           <InfoWindow
-            position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
+            position={{
+              lat: parseFloat(activeMarker.lat),
+              lng: parseFloat(activeMarker.lng),
+            }}
             onCloseClick={() => setActiveMarker(null)}
           >
             <div>
@@ -397,12 +414,12 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
 
         {directResp && (
           <MarkerF
-          position={directResp.routes[0].legs[0].end_location}
-          icon={{
-            url: destLocIcon,
-            scaledSize: new window.google.maps.Size(29, 42),
-          }}
-          title="Destination"
+            position={directResp.routes[0].legs[0].end_location}
+            icon={{
+              url: destLocIcon,
+              scaledSize: new window.google.maps.Size(29, 42),
+            }}
+            title="Destination"
           />
         )}
 
@@ -412,7 +429,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
             options={{
               suppressMarkers: true,
               polylineOptions: {
-                strokeColor: '#165CE9',
+                strokeColor: "#165CE9",
                 strokeWeight: 5,
               },
             }}

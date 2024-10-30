@@ -15,20 +15,26 @@ import Suggestions from "components/Suggestions/Suggestions";
 import MapContainer from "components/MapLocContainer/MapLocContainer";
 import LocationResult from "components/LocationResult/LocationResult";
 
-const Search = ({ onDataChange, backgroundColor, marginLeft, isHomeScreen }) => {
+const Search = ({
+  onDataChange,
+  backgroundColor,
+  marginLeft,
+  isHomeScreen,
+  searchInput,
+}) => {
   //const [getAddress, setGetAddress] = useState("");
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(searchInput);
   const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
   const [addressCoord, setAddressCoord] = useState({});
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const autocompleteRef = useRef(null);
-  const [ changeBackgroundColor, setBackgrundColor] = useState(backgroundColor);
+  const [changeBackgroundColor, setBackgrundColor] = useState(backgroundColor);
 
   const addressCoordinate = {};
   const navigate = useNavigate();
-  let showR = false;
+  //let showR = false;
 
   const fetchAutoCompleteSuggestion = async (getInput) => {
     if (!getInput) {
@@ -46,7 +52,7 @@ const Search = ({ onDataChange, backgroundColor, marginLeft, isHomeScreen }) => 
   };
 
   const handlePredictionClick = (description, place_id) => {
-    console.log("reached parent with:", description, place_id);
+    // console.log("reached parent with:", description, place_id);
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
@@ -90,10 +96,10 @@ const Search = ({ onDataChange, backgroundColor, marginLeft, isHomeScreen }) => 
     navigate("/");
   };
   const getCoordinatePoints = async (getPlaceForId) => {
-    console.log("in getCooridnates, placeid:", getPlaceForId);
+    // console.log("in getCooridnates, placeid:", getPlaceForId);
     const response = await getGoogleCoordinates(getPlaceForId);
 
-    console.log("response received in getCoordinatePoints:", response);
+    // console.log("response received in getCoordinatePoints:", response);
     // const coordinates = response.data;
 
     // console.log("After setAddressCoord:", addressCoord);
@@ -108,12 +114,13 @@ const Search = ({ onDataChange, backgroundColor, marginLeft, isHomeScreen }) => 
       addressCoordinate.lat = response.lat;
       addressCoordinate.lng = response.lng;
 
-      onDataChange(addressCoordinate);
+      //  onDataChange(addressCoordinate);
       console.log("addressCoordinate in Search:", addressCoordinate);
-      console.log("showResult:", showResult);
+      // console.log("showResult:", showResult);
       navigate("/locationresult", {
         state: {
           addressCoordinate: { addressCoordinate },
+          searchInput: { inputValue },
         },
       });
     }
@@ -121,7 +128,10 @@ const Search = ({ onDataChange, backgroundColor, marginLeft, isHomeScreen }) => 
 
   return (
     <>
-      <div className="row outer-div-style" style={{ backgroundColor: changeBackgroundColor }}>
+      <div
+        className="row outer-div-style"
+        style={{ backgroundColor: changeBackgroundColor }}
+      >
         <div className="col-md-9 search-bar-outer">
           {/* <div className="inp-contain"> */}
           <div className="search-bar" style={{ marginLeft: marginLeft }}>
@@ -141,7 +151,6 @@ const Search = ({ onDataChange, backgroundColor, marginLeft, isHomeScreen }) => 
                   size="1.5x"
                 />
               </span>
-
             ) : (
               <span>
                 <FontAwesomeIcon
@@ -150,7 +159,6 @@ const Search = ({ onDataChange, backgroundColor, marginLeft, isHomeScreen }) => 
                   size="1.5x"
                 />
               </span>
-
             )}
             {/* {showSuggestions ? (
               <span>

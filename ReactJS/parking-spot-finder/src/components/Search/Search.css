@@ -111,6 +111,9 @@
 .icon-input {
   display: flex;
 }
+.outer-div-style {
+  background-color: none;
+}
 
 @media only screen and (max-width: 760px) {
   .search-bar {
