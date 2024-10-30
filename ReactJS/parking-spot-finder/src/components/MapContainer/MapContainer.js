@@ -130,7 +130,7 @@ const MapContainer = ({ wpaResData, aiSugData, onDataChange, getAllLocsData, dir
     if (directResp) {
       const directionCoordinates = {};
 
-      if (isProd === "false") {
+      if (isProd === "false" || false) {
         directionCoordinates.lat = 49.799473;
         directionCoordinates.lng = -97.165825;
 

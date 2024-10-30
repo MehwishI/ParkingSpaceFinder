@@ -32,7 +32,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
         let coords;
 
         // remove before deployment
-        if (isProd === "false") {
+        if (isProd === "false" || false) {
             coords = {
                 lat: 49.8912767,
                 lng: -97.1392939
@@ -70,7 +70,6 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                             <div className='col-sm-3 d-flex align-items-center'>
                                 <div>
                                     <span className='list-number'>{index + 1}</span>
-                                    {/* <FontAwesomeIcon icon={faMapMarker} className='marker-style' color="#129F4E" /> */}
                                     <img src={iconmarker} alt="icon" />
                                 </div>
                                 <div className='ms-2'>
@@ -90,7 +89,6 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                                         </div>
                                         <div className='btn-div-style'>
                                             <img src={iconturnright} onClick={() => getHandleClick(item)} />
-                                            {/* <MdOutlineTurnRight onClick={() => getHandleClick(item)} /> */}
                                         </div>
                                     </div>
                                 </div>
@@ -102,43 +100,11 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                 <div>
                     <div className='ai-section-style'>No Data Available</div>
                     <button className='custom-btn-two' onClick={getAiSuggest}>
-                        <img src={iconAiSuggest} className='btn-ai-style'/>AI Suggest
+                        <img src={iconAiSuggest} className='btn-ai-style' />AI Suggest
                     </button>
                 </div>
             )}
         </div>
-
-        // <div className='home-list-style'>
-        //         <div className='list-style'>
-        //             <div className='row'>
-        //                 <div className='col-sm-3 d-flex align-items-center'>
-        //                     <div>
-        //                         <FontAwesomeIcon icon={faMapMarkerAlt} size="1x" color="#000000" />
-        //                     </div>
-        //                     <div className='ms-2'>
-        //                         <div className='d-flex align-items-center side-containers'>
-        //                             <div>
-        //                                 <div className='overlay-text-top'>
-        //                                     <b>Test Street</b>
-        //                                 </div>
-        //                                 <div className='overlay-text-bottom'>
-        //                                     HomeParkingList
-        //                                 </div>
-        //                                 <div className='d-flex lower-info-boxes'>
-        //                                     <div className='address-small'>Hours</div>
-        //                                     <div className='price-small'>15$/hr</div>
-        //                                     <div className='space-small'>Hours</div>
-        //                                 </div>
-        //                             </div>
-        //                             <div className='btn-div-style'>
-        //                                 <MdOutlineTurnRight onClick={getHandleClick} />
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-        // </div>
     )
 }
 
