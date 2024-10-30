@@ -2,6 +2,8 @@
   height: 100vh;
   width: 50%;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 @media only screen and (max-width: 768px) {
   .loc-result-container {

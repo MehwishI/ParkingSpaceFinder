@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import "./HomeParkingList.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faMapMarker } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt, faMapMarker } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
 import { MdOutlineTurnRight } from "react-icons/md";
-import { locResultForCoord } from 'services/locationResultService';
+import { locResultForCoord } from "services/locationResultService";
 import iconmarker from "../../images/marker-pinlet.png";
 import iconturnright from "../../images/turn right.png";
 import iconAiSuggest from "../../images/ant-design_sound-filled.png";
@@ -94,6 +94,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                                 </div>
                             </div>
                         </div>
+                      </div>
                     </div>
                 ))
             ) : (
@@ -103,7 +104,14 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
                         <img src={iconAiSuggest} className='btn-ai-style' />AI Suggest
                     </button>
                 </div>
-            )}
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div>
+          <div className="ai-section-style">No Data Available</div>
+          <button className="custom-btn-two">Use AI Suggestion</button>
         </div>
     )
 }
