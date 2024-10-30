@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import { MdOutlineTurnRight } from "react-icons/md";
 import { locResultForCoord } from 'services/locationResultService';
 import iconmarker from "../../images/marker-pinlet.png";
-import iconturnright from "../../images/turn right.png";
+import iconturnright from "../../images/turnright.png";
 import iconAiSuggest from "../../images/ant-design_sound-filled.png";
 
 const isProd = process.env.REACT_APP_ISPROD;
