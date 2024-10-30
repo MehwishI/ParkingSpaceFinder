@@ -20,9 +20,10 @@ const Search = ({
   backgroundColor,
   marginLeft,
   isHomeScreen,
+  searchInput,
 }) => {
   //const [getAddress, setGetAddress] = useState("");
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(searchInput);
   const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
   const [addressCoord, setAddressCoord] = useState({});
@@ -51,7 +52,7 @@ const Search = ({
   };
 
   const handlePredictionClick = (description, place_id) => {
-    console.log("reached parent with:", description, place_id);
+    // console.log("reached parent with:", description, place_id);
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
@@ -95,10 +96,10 @@ const Search = ({
     navigate("/");
   };
   const getCoordinatePoints = async (getPlaceForId) => {
-    console.log("in getCooridnates, placeid:", getPlaceForId);
+    // console.log("in getCooridnates, placeid:", getPlaceForId);
     const response = await getGoogleCoordinates(getPlaceForId);
 
-    console.log("response received in getCoordinatePoints:", response);
+    // console.log("response received in getCoordinatePoints:", response);
     // const coordinates = response.data;
 
     // console.log("After setAddressCoord:", addressCoord);
@@ -119,6 +120,7 @@ const Search = ({
       navigate("/locationresult", {
         state: {
           addressCoordinate: { addressCoordinate },
+          searchInput: { inputValue },
         },
       });
     }

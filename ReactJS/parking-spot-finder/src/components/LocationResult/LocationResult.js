@@ -14,6 +14,8 @@ import { cardActionAreaClasses } from "@mui/material";
 const LocationResult = () => {
   //const coordinates = props.coordinates;
   const [locRes, setLocRes] = useState([]);
+  const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
+  const [destCoord, setDestCoord] = useState({});
   const location = useLocation(); //getting current location
 
   // console.log("location state", getCurrentLocation.state);
@@ -25,12 +27,20 @@ const LocationResult = () => {
   //console.log("params:", params);
   const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
   // const onDataChange = location.state.onDataChange.onDataChange;
+  const searchInput = location.state.searchInput.inputValue;
+  console.log(searchInput);
 
-  console.log("addressCoordinate:", addressCoordinate);
+  // get current location when page loads
+  const getCurrentLocCoords = (resData) => {
+    setCurrentLocAdd(resData);
+  };
+
+  // console.log("addressCoordinate:", addressCoordinate);
   const coord = {
     lat: addressCoordinate.lat,
     lng: addressCoordinate.lng,
   };
+
   // const onDataChange = props.onDataChange;
 
   console.log("coord:", coord);
@@ -39,6 +49,7 @@ const LocationResult = () => {
     const fetchdata = async () => {
       try {
         if (addressCoordinate !== {}) {
+          setDestCoord(coord); //setting destCoord
           const wpaLocRes = await locResultForCoord(coord);
 
           //  const wpaLocRes = await response.json();
@@ -73,8 +84,13 @@ const LocationResult = () => {
         onDataChange={getHandleDataChange}
         backgroundColor={"none"}
         marginLeft={"10px"}
+        searchInput={searchInput}
       />
-      <MapLocContainer wpaResData={locRes} />
+      <MapLocContainer
+        wpaResData={locRes}
+        onDataChange={getCurrentLocCoords}
+        destCoord={destCoord}
+      />
 
       <LocationList wpaLocRes={locRes} />
     </div>

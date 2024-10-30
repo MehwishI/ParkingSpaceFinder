@@ -23,6 +23,7 @@ const MapLocContainer = ({
   getAllLocsData,
   directionCoords,
   curCoords,
+  destCoord
 }) => {
   let initialCenter = {};
 
@@ -171,7 +172,7 @@ const MapLocContainer = ({
         // const center = { lat: lat, lng: long };
         setDefaultCenter(userLocaton);
 
-        // onDataChange(userLocaton);
+        onDataChange(userLocaton);
 
         if (map) {
           map.panTo(userLocaton);
@@ -356,7 +357,7 @@ const MapLocContainer = ({
     <div className="maploccontainer">
       <GoogleMap
         mapContainerStyle={mapStyles}
-        zoom={10}
+        zoom={15}
         center={defaultCenter}
         onLoad={handleMapLoad}
         mapTypeId="roadmap"
@@ -402,6 +403,9 @@ const MapLocContainer = ({
           // }}
           position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
         />
+        <MarkerF
+          key="Destination"
+        title=""/>
 
         {activeMarker && (
           <InfoWindow
