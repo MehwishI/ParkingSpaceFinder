@@ -7,6 +7,7 @@ import { MdOutlineTurnRight } from "react-icons/md";
 import { locResultForCoord } from 'services/locationResultService';
 import iconmarker from "../../images/marker-pinlet.png";
 import iconturnright from "../../images/turn right.png";
+import iconAiSuggest from "../../images/ant-design_sound-filled.png";
 
 const isProd = process.env.REACT_APP_ISPROD;
 
@@ -54,7 +55,11 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
         buildCoords.lng = item.location.longitude;
 
         navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd, allItems: item } });
-    }
+    };
+
+    const getAiSuggest = () => {
+
+    };
 
     return (
         <div className='home-list-style'>
@@ -96,8 +101,8 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
             ) : (
                 <div>
                     <div className='ai-section-style'>No Data Available</div>
-                    <button className='custom-btn-two'>
-                        Use AI Suggestion
+                    <button className='custom-btn-two' onClick={getAiSuggest}>
+                        <img src={iconAiSuggest} className='btn-ai-style'/>AI Suggest
                     </button>
                 </div>
             )}

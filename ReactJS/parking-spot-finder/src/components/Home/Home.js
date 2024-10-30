@@ -17,6 +17,7 @@ const Home = () => {
   const [getAllParkingLocs, setAllParkingLocs] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
   const [mapHeight, setMapHeight] = useState('120px');
+  const [labelPark, setLabelPark] = useState(false);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -41,7 +42,8 @@ const Home = () => {
     if (getAllParkingLocs.length > 0) {
       setMapHeight("120px");
     } else {
-      setMapHeight("400px");
+      setMapHeight("450px");
+      setLabelPark(true);
     }
   }, [getAllParkingLocs])
 
@@ -49,18 +51,20 @@ const Home = () => {
     <>
       <div className="container">
         <div className="serach-style">
-          <Search onDataChange={getHandleDataChange} backgroundColor={'#129F4E'} marginLeft={'2px'} isHomeScreen={true}/>
+          <Search onDataChange={getHandleDataChange} backgroundColor={'#129F4E'} marginLeft={'2px'} isHomeScreen={true} />
         </div>
 
         <HomeParkingHistory />
 
-        <label className="park-label-style">
-          <b>Parkings near you</b>
-        </label>
+        {labelPark === false && (
+          <label className="park-label-style">
+            <b>Parkings near you</b>
+          </label>
+        )}
 
         <div className="map-outer-container">
           <div className="map-second-layer">
-            <div className="mapcontainer-home" style={{height: mapHeight}}>
+            <div className="mapcontainer-home" style={{ height: mapHeight }}>
               <MapContainer
                 wpaResData={getWpaSearchRes}
                 aiSugData={getAiCoordinates}
