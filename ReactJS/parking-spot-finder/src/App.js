@@ -16,11 +16,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import MapDirection from "components/MapDirection/MapDirection";
 import Suggestions from "components/Suggestions/Suggestions";
+import { useEffect, useState } from "react";
 
 function App() {
-  const { isLoading } = useAuth0();
+  // const { isLoading } = useAuth0();
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (isLoading) {
+  useEffect(() => {
+    const getTimer = setTimeout(() => {
+      setIsLoading(true);
+    }, 3000);
+
+    return () => clearTimeout(getTimer);
+  }, []);
+
+  if (!isLoading) {
     return (
       <div>
         <Loader />

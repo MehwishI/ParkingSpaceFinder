@@ -6,7 +6,8 @@ import { useNavigate } from "react-router";
 import { MdOutlineTurnRight } from "react-icons/md";
 import { locResultForCoord } from "services/locationResultService";
 import iconmarker from "../../images/marker-pinlet.png";
-import iconturnright from "../../images/turnright.png";
+import iconturnright from "../../images/turn right.png";
+import iconAiSuggest from "../../images/ant-design_sound-filled.png";
 
 const isProd = process.env.REACT_APP_ISPROD;
 
@@ -56,47 +57,57 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
     });
   };
 
-  return (
-    <div className="home-list-style">
-      {wpaFetchData.length > 0 ? (
-        wpaFetchData.map((item, index) => (
-          <div key={item.id} className="list-style">
-            <div className="row">
-              <div className="col-sm-3 d-flex align-items-center">
+        navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd, allItems: item } });
+    };
+
+    const getAiSuggest = () => {
+
+    };
+
+    return (
+        <div className='home-list-style'>
+            {wpaFetchData.length > 0 ? (
+                wpaFetchData.map((item, index) => (
+                    <div key={item.id} className='list-style'>
+                        <div className='row'>
+                            <div className='col-sm-3 d-flex align-items-center'>
+                                <div>
+                                    <span className='list-number'>{index + 1}</span>
+                                    {/* <FontAwesomeIcon icon={faMapMarker} className='marker-style' color="#129F4E" /> */}
+                                    <img src={iconmarker} alt="icon" />
+                                </div>
+                                <div className='ms-2'>
+                                    <div className='d-flex align-items-center side-containers'>
+                                        <div>
+                                            <div className='overlay-text-top'>
+                                                <b>{item.street}</b>
+                                            </div>
+                                            <div className='overlay-text-bottom'>
+                                                {item.time_limit}
+                                            </div>
+                                            <div className='d-flex lower-info-boxes'>
+                                                <div className='address-small'>PN: {item.paystation_number}</div>
+                                                <div className='price-small'>{item.hourly_rate}$/hr</div>
+                                                <div className='space-small'>{item.total_space} spaces</div>
+                                            </div>
+                                        </div>
+                                        <div className='btn-div-style'>
+                                            <img src={iconturnright} onClick={() => getHandleClick(item)} />
+                                            {/* <MdOutlineTurnRight onClick={() => getHandleClick(item)} /> */}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                ))
+            ) : (
                 <div>
-                  <span className="list-number">{index + 1}</span>
-                  {/* <FontAwesomeIcon icon={faMapMarker} className='marker-style' color="#129F4E" /> */}
-                  <img src={iconmarker} alt="icon" />
-                </div>
-                <div className="ms-2">
-                  <div className="d-flex align-items-center side-containers">
-                    <div>
-                      <div className="overlay-text-top">
-                        <b>{item.street}</b>
-                      </div>
-                      <div className="overlay-text-bottom">
-                        {item.time_limit}
-                      </div>
-                      <div className="d-flex lower-info-boxes">
-                        <div className="address-small">
-                          PN: {item.paystation_number}
-                        </div>
-                        <div className="price-small">
-                          {item.hourly_rate}$/hr
-                        </div>
-                        <div className="space-small">
-                          {item.total_space} spaces
-                        </div>
-                      </div>
-                    </div>
-                    <div className="btn-div-style">
-                      <img
-                        src={iconturnright}
-                        onClick={() => getHandleClick(item)}
-                      />
-                      {/* <MdOutlineTurnRight onClick={() => getHandleClick(item)} /> */}
-                    </div>
-                  </div>
+                    <div className='ai-section-style'>No Data Available</div>
+                    <button className='custom-btn-two' onClick={getAiSuggest}>
+                        <img src={iconAiSuggest} className='btn-ai-style'/>AI Suggest
+                    </button>
                 </div>
               </div>
             </div>

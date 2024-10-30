@@ -1,13 +1,13 @@
 .list-style {
-    position: relative;
-    color: black;
-    padding: 15px;
-    padding-top: 10px !important;
-    background: #F6F6F6;
-    border-radius: 12px;
-    /* margin-top: 13px !important; */
-    padding-left: 12px !important;
-    margin-bottom: 10px;
+  position: relative;
+  color: black;
+  padding: 15px;
+  padding-top: 10px !important;
+  background: #F6F6F6;
+  border-radius: 12px;
+  /* margin-top: 13px !important; */
+  padding-left: 12px !important;
+  margin-bottom: 10px;
 }
 
 .overlay-text-top {
@@ -41,62 +41,62 @@
 }
 
 .home-list-style {
-    max-height: 160px;
-    margin-top: 24px;
+  max-height: 160px;
+  margin-top: 24px;
 }
 
 .address-small {
-    font-size: 12px;
-    border-radius: 24px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    width: 100px;
-    height: 100%;
-    text-align: center;
-    background-color: #FFF1B3;
-    color: #957B09;
-    margin-right: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 12px;
+  border-radius: 24px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  width: 100px;
+  height: 100%;
+  text-align: center;
+  background-color: #FFF1B3;
+  color: #957B09;
+  margin-right: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .price-small {
-    font-size: 12px;
-    border-radius: 24px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    width: 70px;
-    height: 100%;
-    text-align: center;
-    background-color: #E2F5FF;
-    color: #2C96D0;
-    margin-right: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 12px;
+  border-radius: 24px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  width: 70px;
+  height: 100%;
+  text-align: center;
+  background-color: #E2F5FF;
+  color: #2C96D0;
+  margin-right: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .space-small {
-    font-size: 12px;
-    border-radius: 24px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    width: 90px;
-    height: 100%;
-    text-align: center;
-    background-color: #E1FFC8;
-    color: #459A00;
-    margin-right: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 12px;
+  border-radius: 24px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  width: 90px;
+  height: 100%;
+  text-align: center;
+  background-color: #E1FFC8;
+  color: #459A00;
+  margin-right: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .side-containers {
@@ -108,15 +108,15 @@
 }
 
 .list-number {
-    position: absolute;
-    top: 43px;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 5px;
-    left: 23.5px;
-    transform: translate(-50%, -50%);
-    font-size: 11px;
-    font-weight: bold;
+  position: absolute;
+  top: 43px;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  left: 23.5px;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  font-weight: bold;
 }
 
 .marker-style {
@@ -130,7 +130,7 @@
   height: 36px;
   color: #ffffff;
   font-size: 16px;
-  background: #129F4E;
+  background: #165CE9;
   font-weight: 700;
   border: none;
 }
@@ -138,6 +138,11 @@
 .ai-section-style {
   place-self: center;
   margin-bottom: 10px
+}
+
+.btn-ai-style {
+  width: 21px;
+  margin-right: 8px;
 }
 
 @media only screen and (min-device-width: 414px) and (max-device-width: 896px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
@@ -150,10 +155,10 @@
     font-size: 17px;
   }
 
-    .home-list-style {
-        max-height: 300px;
-        margin-top: 24px;
-    }
+  .home-list-style {
+    max-height: 300px;
+    margin-top: 24px;
+  }
 
   .address-small {
     font-size: 14px;
@@ -186,10 +191,10 @@
     font-size: 17px;
   }
 
-    .home-list-style {
-        max-height: 300px;
-        margin-top: 24px;
-    }
+  .home-list-style {
+    max-height: 300px;
+    margin-top: 24px;
+  }
 
   .address-small {
     font-size: 14px;
