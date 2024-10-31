@@ -48,7 +48,7 @@ const LocationResult = () => {
     console.log("locRes", locRes);
     const fetchdata = async () => {
       try {
-        if (addressCoordinate !== {}) {
+        if (Object.keys(addressCoordinate).length > 0) {
           setDestCoord(coord); //setting destCoord
           const wpaLocRes = await locResultForCoord(coord);
 

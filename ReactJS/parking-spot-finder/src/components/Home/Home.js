@@ -41,9 +41,10 @@ const Home = () => {
   useEffect(() => {
     if (getAllParkingLocs.length > 0) {
       setMapHeight("120px");
+      setLabelPark(false);
     } else {
       setMapHeight("450px");
-      setLabelPark(false);
+      setLabelPark(true);
     }
   }, [getAllParkingLocs])
 
@@ -56,7 +57,7 @@ const Home = () => {
 
         <HomeParkingHistory />
 
-        {labelPark === false && (
+        {getAllParkingLocs.length > 0 && (
           <label className="park-label-style">
             <b>Parkings near you</b>
           </label>

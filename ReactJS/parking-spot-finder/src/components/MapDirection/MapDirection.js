@@ -4,6 +4,7 @@ import MapContainer from 'components/MapContainer/MapContainer';
 import "./MapDirection.css";
 import iconturnright from '../../images/turn_right.png';
 import Search from 'components/Search/Search';
+import { useNavigate } from 'react-router';
 
 const MapDirection = () => {
     const getLocation = useLocation();
@@ -13,6 +14,7 @@ const MapDirection = () => {
     const currentCoords = {};
     const [distance, setDistance] = useState('');
     const [duration, setDuration] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("coords points", allItems);
@@ -33,6 +35,10 @@ const MapDirection = () => {
     const getDurationTime = (resDataDistance, resDataDuration) => {
         setDistance(resDataDistance);
         setDuration(resDataDuration);
+    };
+
+    const clickToMapNav = () => {
+        navigate('/mapnavigation');
     };
 
     return (
@@ -71,7 +77,7 @@ const MapDirection = () => {
                     </ul>
                 </div>
 
-                <button className='custom-btn'>
+                <button className='custom-btn' onClick={clickToMapNav}>
                     <img src={iconturnright} className='btn-icon-style'></img>
                     Start
                 </button>
