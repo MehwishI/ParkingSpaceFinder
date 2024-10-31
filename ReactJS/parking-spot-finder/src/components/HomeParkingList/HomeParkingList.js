@@ -53,7 +53,14 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
         navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd, allItems: item } });
     };
 
-    const getAiSuggest = () => {};
+    const getAiSuggest = () => {
+        navigate('/locationresult', {
+            state: {
+              addressCoordinate: { getCurrLocAdd },
+              searchInput: { },
+            },
+          });
+    };
 
     return (
         <div className='home-list-style'>

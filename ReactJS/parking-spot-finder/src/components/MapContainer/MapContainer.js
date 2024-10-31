@@ -113,10 +113,17 @@ const MapContainer = ({
     // when map loads, get current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
+
         const userLocaton = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
+        }
+
+        if (isProd === 'false' || false) {
+          userLocaton.lat = 49.891270;
+          userLocaton.lng = -97.139283;
         };
+
         // const center = { lat: lat, lng: long };
         setDefaultCenter(userLocaton);
 
@@ -124,7 +131,8 @@ const MapContainer = ({
 
         if (map) {
           map.panTo(userLocaton);
-          map.setZoom(16);
+          map.setZoom(17);
+          // map.setZoom(16);
         }
       },
       (error) => {
@@ -138,13 +146,16 @@ const MapContainer = ({
       const directionCoordinates = {};
 
       if (isProd === "false" || false) {
-        directionCoordinates.lat = 49.799473;
-        directionCoordinates.lng = -97.165825;
+        console.log("I got yees u");
+        
+        directionCoordinates.lat = 49.89163903407668;
+        directionCoordinates.lng = -97.13962168666052;
 
         getCalcRoute(defaultCenter, directionCoordinates);
       } else {
-        directionCoordinates.lat = 49.799473;
-        directionCoordinates.lng = -97.165825;
+        // directionCoordinates.lat = 49.89163903407668;
+        // directionCoordinates.lng = -97.13962168666052;
+        console.log("I got yees u two");
 
         getCalcRoute(defaultCenter, directResp);
       }
@@ -358,7 +369,10 @@ const MapContainer = ({
             }}
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
-            icon={renderCustMarkersOne}
+            icon={{
+              url: iconmarker,
+              labelOrigin: new window.google.maps.Point(12, 10)
+            }}
             label={{
               text: index.toString(),
               color: "white",
@@ -386,7 +400,7 @@ const MapContainer = ({
           animation="DROP"
           icon={{
             url: currentLocation,
-            scaledSize: new window.google.maps.Size(40, 40), // Adjust the size
+            scaledSize: new window.google.maps.Size(30, 30), // Adjust the size
           }}
           position={{
             lat: parseFloat(defaultCenter.lat),

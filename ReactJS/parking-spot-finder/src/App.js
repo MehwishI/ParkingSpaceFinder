@@ -17,6 +17,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import MapDirection from "components/MapDirection/MapDirection";
 import Suggestions from "components/Suggestions/Suggestions";
 import { useEffect, useState } from "react";
+import MapNavigation from "components/MapNavigation/MapNavigation";
 
 function App() {
   // const { isLoading } = useAuth0();
@@ -56,6 +57,7 @@ function App() {
         <Route path="/parkinghistory" element={<ParkingHistory />} />
         <Route path="/mapdirection" element={<MapDirection />} />
         <Route exact path="/suggestions" element={<Suggestions />} />
+        <Route exact path="/mapnavigation" element={<MapNavigation />} />
       </Routes>
     </Router>
   );
