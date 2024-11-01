@@ -58,7 +58,7 @@ const getWpaPayStationLocation = async (getLocation) => {
   try {
     const resp = await axios.get(
       urlBase +
-        `$where=within_circle(location, ${getLocation.lat}, ${getLocation.lng}, 600)`,
+        `$where=within_circle(location, ${getLocation.lat}, ${getLocation.lng}, 300)`,
       {
         headers: {
           "X-App-Token": appToken,
