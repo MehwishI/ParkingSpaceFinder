@@ -274,7 +274,6 @@
   top: 20px;
   left: 196px;
   gap: 0px;
-  opacity: 0px;
 }
 .sort-option {
   font-size: 10px;
@@ -291,11 +290,15 @@
   gap: 3px;
   border-radius: 34px 34px 34px 34px;
   border: 1px 0px 0px 0px;
-  opacity: 0px;
+
   display: flex;
   flex-direction: row;
   width: fit-content;
   align-items: center;
+}
+.div-cross-icon {
+  width: 18px;
+ 
 }
 @media only screen and (max-width: 768px) {
   .loc-list {

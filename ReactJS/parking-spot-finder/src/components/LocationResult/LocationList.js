@@ -58,6 +58,10 @@ const LocationList = ({ wpaLocRes }) => {
       };
       let sorted = [...data];
       console.log("sortby", type);
+      if (type === "") {
+        setSortBy(null);
+        setField(null);
+      }
       if (type)
         switch (type) {
           case "hr-dec":
@@ -85,7 +89,10 @@ const LocationList = ({ wpaLocRes }) => {
               (a, b) => parseFloat(a.total_space) - parseFloat(b.total_space)
             );
             setField("Capacity");
+            break;
           default:
+            setSortBy(null);
+            setField(null);
             break;
         }
       console.log("sorted:", sorted);
@@ -151,7 +158,9 @@ const LocationList = ({ wpaLocRes }) => {
         {field && (
           <div className="sort-type-field">
             {field}
-            <img src={crossicon} onClick={() => setSortBy(null)} />
+            <div className="div-cross-icon" onClick={() => setSortBy("")}>
+              <img src={crossicon} alt="close" />
+            </div>
           </div>
         )}
       </div>
