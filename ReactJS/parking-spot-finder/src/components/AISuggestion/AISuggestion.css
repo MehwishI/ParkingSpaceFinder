@@ -9,7 +9,15 @@
 }
 
 .button-gen {
-    margin-top: 20px;
+    height: 42px;
+    width: 146px;
+    bottom: 45%;
+    position: absolute;
+    border-radius: 77px;
+    margin-left: 228px;
+    background-color: #165CE9;
+    color: #ffffff;
+    border: none;
 }
 
 @keyframes spin {

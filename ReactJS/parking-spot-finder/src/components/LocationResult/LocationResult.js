@@ -9,7 +9,9 @@ import LocationList from "./LocationList";
 import Search from "components/Search/Search";
 import "./LocationResult.css";
 import { cardActionAreaClasses } from "@mui/material";
+import AISuggestion from "components/AISuggestion/AISuggestion";
 //import { getCoordinatesService } from "/services/getCoordinatesService";
+import { getRealAddress } from "../../services/getCoordinatesService";
 
 const LocationResult = () => {
   //const coordinates = props.coordinates;
@@ -25,10 +27,11 @@ const LocationResult = () => {
 
   // //
   //console.log("params:", params);
-  const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
+  // const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
+  const { addressCoordinate } = location.state || {};
   // const onDataChange = location.state.onDataChange.onDataChange;
   const searchInput = location.state.searchInput.inputValue;
-  console.log(searchInput);
+  console.log("location result", addressCoordinate);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -45,7 +48,7 @@ const LocationResult = () => {
 
   console.log("coord:", coord);
   useEffect(() => {
-    console.log("locRes", locRes);
+    console.log("locRes", destCoord);
     const fetchdata = async () => {
       try {
         if (Object.keys(addressCoordinate).length > 0) {
@@ -91,7 +94,7 @@ const LocationResult = () => {
         onDataChange={getCurrentLocCoords}
         destCoord={destCoord}
       />
-
+      <AISuggestion getCurrLoc={addressCoordinate} destCoord={destCoord}/>
       <LocationList wpaLocRes={locRes} />
     </div>
   );

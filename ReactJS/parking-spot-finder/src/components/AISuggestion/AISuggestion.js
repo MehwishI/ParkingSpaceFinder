@@ -5,6 +5,8 @@ import './AISuggestion.css';
 import VoiceIndicator from './VoiceIndicator';
 import { getEncryptedData, getDecryptedData } from '../../services/encryptdecrypt';
 import { useAuth0 } from '@auth0/auth0-react';
+import speakIcon from "../../images/ant-design_sound-filled.png";
+import { useLocation } from 'react-router';
 
 const getBaseApi = process.env.REACT_APP_BASE_URL_API;
 
@@ -17,12 +19,14 @@ const getBaseApi = process.env.REACT_APP_BASE_URL_API;
 
 const jsonData = {}
 
-const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
+const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc, destCoord }) => {
     const [getAudioSource, setAudioSource] = useState(null);
     const [getIsLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const audioRef = useRef(null);
     const [getAiText, setAiText] = useState('');
+    const [coordsAddState, setCoordsState] = useState(null);
+    const [destiCoord, setDestCoord] = useState(null);
 
     const { getAccessTokenSilently } = useAuth0();
 
@@ -36,7 +40,12 @@ const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
             // };
 
             // append current location before sending to api
-            
+            console.log("is it true",coordsAddState);
+            if (coordsAddState !== null) {
+                getCurrLoc.lat = coordsAddState.getCurrLocAdd.lat;
+                getCurrLoc.lng = coordsAddState.getCurrLocAdd.lng;
+            };
+
             jsonData.currentAddress = "";
             jsonData.currentCoordinates = `Lat: ${getCurrLoc.lat}, Long: ${getCurrLoc.lng}`;
             jsonData.destLocAddress = getDestLoc.destLocAddress;
@@ -45,7 +54,7 @@ const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
             // return;
             // get auth token
             const getAuth0Tok = await getAccessTokenSilently();
-
+            
             // encrypt data before sending it to the database
             const encryptData = getEncryptedData(jsonData);
 
@@ -61,9 +70,9 @@ const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
             setAiText(text);
 
             onDataChange(txtJson);
-            
+
             const getAudioBlob = new Blob([new Uint8Array(atob(audio).split("").map(c => c.charCodeAt(0)))], { type: 'audio/mpeg' });
-            
+
             const getUrl = URL.createObjectURL(getAudioBlob);
 
             setAudioSource(getUrl);
@@ -76,7 +85,17 @@ const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
     };
 
     useEffect(() => {
+        setCoordsState(getCurrLoc);
+    },[getCurrLoc]);
+
+    useEffect(() => {
+        console.log("ffddss", destCoord);
         
+        setDestCoord(destCoord);
+    },[destCoord]);
+
+    useEffect(() => {
+
         if (getAudioSource && audioRef.current) {
             audioRef.current.play();
         }
@@ -101,14 +120,15 @@ const AISuggestion = ({ onDataChange, getDestLoc, getCurrLoc }) => {
             )}
 
             <button onClick={getHandleGenVoice} disabled={getIsLoading} className='button-gen'>
-                {getIsLoading ? 'Generating AI Suggestion...' : 'Generate AI Suggestion'}
+                <img src={speakIcon} style={{ marginRight: '5px' }} />
+                {getIsLoading ? 'Please wait...' : 'AI Suggest'}
             </button>
 
             {getAiText && (
                 <>
-                  <a>
-                    {String(getAiText)}
-                  </a>
+                    <a>
+                        {String(getAiText)}
+                    </a>
                 </>
             )}
         </>

@@ -26,7 +26,6 @@ const getRealAddress = async (getCoords) => {
   try {
     const getRealAddress = await axios.post(`${getBaseApi}/googleaddress`, payload);
 
-    console.log("real address", getRealAddress.data);
     return getRealAddress.data;
     
   } catch (error) {
