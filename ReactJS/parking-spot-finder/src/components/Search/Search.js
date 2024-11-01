@@ -12,8 +12,8 @@ import {
 import "./Search.css";
 import { useAsyncError, useNavigate } from "react-router";
 import Suggestions from "components/Suggestions/Suggestions";
-import MapContainer from "components/MapLocContainer/MapLocContainer";
-import LocationResult from "components/LocationResult/LocationResult";
+//import MapContainer from "components/MapLocContainer/MapLocContainer";
+//import LocationResult from "components/LocationResult/LocationResult";
 
 const Search = ({
   onDataChange,

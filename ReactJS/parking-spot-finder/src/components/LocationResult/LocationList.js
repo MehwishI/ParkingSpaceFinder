@@ -4,11 +4,14 @@ import {
   faMapMarkerAlt,
   faMapMarker,
   faMapLocationDot,
+  faHandFist,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
 import { MdOutlineTurnRight } from "react-icons/md";
 //import parkingicon from "../../images/Line 23.png/";
 import parkingicon from "../../images/Line 23.png";
+import filtericon from "../../images/ion_filter.png";
+import crossicon from "../../images/basil_cross-outline.png";
 import "./LocationList.css";
 
 const LocationList = ({ wpaLocRes }) => {
@@ -16,6 +19,9 @@ const LocationList = ({ wpaLocRes }) => {
   // console.log(wpaLocRes);
   const [getcurrCoords, setCurrCoords] = useState({});
   const [toggleListOpen, setToggleListOpen] = useState(true);
+  const [sortby, setSortBy] = useState(null);
+  const [data, setData] = useState(wpaLocRes);
+  const [field, setField] = useState(null);
   const navigate = useNavigate();
 
   const buildCoords = {};
@@ -37,6 +43,72 @@ const LocationList = ({ wpaLocRes }) => {
   const getHideClick = () => {
     toggleListOpen ? setToggleListOpen(false) : setToggleListOpen(true);
   };
+  useEffect(() => {
+    // Update data when wpaLocRes changes
+    setData(wpaLocRes);
+  }, [wpaLocRes]);
+
+  useEffect(() => {
+    const sortData = (type) => {
+      // console.log(e.target.value);
+      console.log("before sort:", data);
+      // setSortBy(e.target.value);
+      const types = {
+        //  hr- dec: "hourly_rate",
+      };
+      let sorted = [...data];
+      console.log("sortby", type);
+      if (type === "") {
+        setSortBy(null);
+        setField(null);
+      }
+      if (type)
+        switch (type) {
+          case "hr-dec":
+            sorted.sort(
+              (a, b) => parseFloat(b.hourly_rate) - parseFloat(a.hourly_rate)
+            );
+            setField("Price");
+            break;
+
+          case "hr-inc":
+            sorted.sort(
+              (a, b) => parseFloat(a.hourly_rate) - parseFloat(b.hourly_rate)
+            );
+            setField("Price");
+
+            break;
+          case "sp-dec":
+            sorted.sort(
+              (a, b) => parseFloat(b.total_space) - parseFloat(a.total_space)
+            );
+            setField("Capacity");
+            break;
+          case "sp-inc":
+            sorted.sort(
+              (a, b) => parseFloat(a.total_space) - parseFloat(b.total_space)
+            );
+            setField("Capacity");
+            break;
+          default:
+            setSortBy(null);
+            setField(null);
+            break;
+        }
+      console.log("sorted:", sorted);
+      setData(sorted);
+      console.log(data);
+    };
+    sortData(sortby);
+  }, [sortby]);
+
+  //console.log("after sorting:", wpaLocRes);
+
+  // useEffect(() => {}, sortby);
+  const handleCloseClick = (e) => {
+    setSortBy(null);
+  };
+
   return (
     <div className={toggleListOpen ? "loc-list" : "loc-list-closed"}>
       <hr
@@ -46,15 +118,55 @@ const LocationList = ({ wpaLocRes }) => {
         }}
       />
       <div className="div-filter-box">
-        <div>
-          <FontAwesomeIcon icon={["fas", "bars-filter"]} />
+        <div className="drop-filter">
+          <img src={filtericon}>
+            {/* <select>
+              <option className="sort-option" value="hourly_rate">
+                Price
+              </option>
+
+              <option className="sort-option" value="spaces">
+                Capacity
+              </option>
+            </select> */}
+          </img>
         </div>
-        <div>b</div>
-        <div>c</div>
+        &nbsp;&nbsp;
+        <div>
+          <div className="sort-dropdown">
+            <select value={sortby} onChange={(e) => setSortBy(e.target.value)}>
+              <option className="sort-option" value="">
+                Sort by
+              </option>
+              <option className="sort-option" value="hr-dec">
+                Price - Highest to Lowest
+              </option>
+              <option className="sort-option" value="hr-inc">
+                Price - Lowest to Highest
+              </option>
+              <option className="sort-option" value="sp-dec">
+                Capacity - Highest to Lowest
+              </option>
+              <option className="sort-option" value="sp-inc">
+                Capacity - Lowest to Highest
+              </option>
+            </select>
+          </div>
+          &nbsp;&nbsp;
+        </div>
+        &nbsp;&nbsp;
+        {field && (
+          <div className="sort-type-field">
+            {field}
+            <div className="div-cross-icon" onClick={() => setSortBy("")}>
+              <img src={crossicon} alt="close" />
+            </div>
+          </div>
+        )}
       </div>
       <div className="list-box">
-        {wpaLocRes.length > 0 ? (
-          wpaLocRes.map((item, index) => (
+        {data.length > 0 ? (
+          data.map((item, index) => (
             <div>
               <div key={item.id} className="list-style-box">
                 <div className="row">

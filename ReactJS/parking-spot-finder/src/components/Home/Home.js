@@ -17,7 +17,7 @@ const Home = () => {
   const [getAiCoordinates, setAiCoordinates] = useState(null);
   const [getAllParkingLocs, setAllParkingLocs] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
-  const [mapHeight, setMapHeight] = useState('120px');
+  const [mapHeight, setMapHeight] = useState("120px");
   const [labelPark, setLabelPark] = useState(true);
   const [realAddress, setRealAddress] = useState(null);
 
@@ -34,7 +34,7 @@ const Home = () => {
     setAiCoordinates(aiResData);
   };
 
-  const getCurrentAddress = () => { };
+  const getCurrentAddress = () => {};
 
   const getAllLocsCoord = (getAllLocs) => {
     setAllParkingLocs(getAllLocs);
@@ -50,6 +50,11 @@ const Home = () => {
     }
   }, [getAllParkingLocs]);
 
+  const getRealAddressFunc = async () => {
+    const getAddressService = await getRealAddress(getCurrentLocAdd);
+
+    setRealAddress(getAddressService);
+  };
   useEffect(() => {
     try {
       getRealAddressFunc();
@@ -58,18 +63,16 @@ const Home = () => {
     }
   }, [getCurrentLocAdd]);
 
-  const getRealAddressFunc = async () => {
-
-    const getAddressService = await getRealAddress(getCurrentLocAdd);
-
-    setRealAddress(getAddressService);
-  }
-
   return (
     <>
       <div className="container">
         <div className="serach-style">
-          <Search onDataChange={getHandleDataChange} backgroundColor={'#129F4E'} marginLeft={'2px'} isHomeScreen={true} />
+          <Search
+            onDataChange={getHandleDataChange}
+            backgroundColor={"#129F4E"}
+            marginLeft={"2px"}
+            isHomeScreen={true}
+          />
         </div>
 
         <HomeParkingHistory />
@@ -93,8 +96,13 @@ const Home = () => {
 
             {realAddress && (
               <div className="col-sm-6 align-items-center overlay-box">
-                <span className="overlay-text-up" >{realAddress.longAddress}</span><br></br>
-                <span className="overlay-text-down" >{realAddress.formattedAddress}</span>
+                <span className="overlay-text-up">
+                  {realAddress.longAddress}
+                </span>
+                <br></br>
+                <span className="overlay-text-down">
+                  {realAddress.formattedAddress}
+                </span>
               </div>
             )}
           </div>

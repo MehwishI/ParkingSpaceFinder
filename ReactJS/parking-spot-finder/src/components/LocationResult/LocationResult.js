@@ -88,6 +88,7 @@ const LocationResult = () => {
         backgroundColor={"none"}
         marginLeft={"10px"}
         searchInput={searchInput}
+        isHomeScreen={false}
       />
       <MapLocContainer
         wpaResData={locRes}

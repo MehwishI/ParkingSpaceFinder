@@ -244,21 +244,78 @@
   align-items: flex-start;
 }
 .list-box {
-  overflow-y: scroll;
+  overflow: auto;
+}
+.drop-filter select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.drop-filter {
+  background-image: url("../../images/ion_filter.png");
+}
+.drop-filter select::-ms-expand {
+  display: none;
 }
 
+.sort-dropdown {
+  font-family: Nunito Sans;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  letter-spacing: -0.011em;
+  text-align: left;
+
+  /* width: 181px;
+  height: 84px; */
+  width: fit-content;
+  height: 100%;
+
+  top: 20px;
+  left: 196px;
+  gap: 0px;
+}
+.sort-option {
+  font-size: 10px;
+}
+
+.sort-type-field {
+  background: rgba(228, 255, 239, 1);
+  border: 1px solid rgba(217, 255, 232, 1);
+
+  height: 29px;
+  top: 473px;
+  left: 215px;
+  padding: 4px 10px 4px 10px;
+  gap: 3px;
+  border-radius: 34px 34px 34px 34px;
+  border: 1px 0px 0px 0px;
+
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  align-items: center;
+}
+.div-cross-icon {
+  width: 18px;
+ 
+}
 @media only screen and (max-width: 768px) {
   .loc-list {
     max-height: 45%;
-    overflow-y: auto;
+
     position: absolute;
     bottom: 0;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   .loc-list-closed {
     height: 10%;
     bottom: 0;
     background-color: white;
 
+    padding-left: 10px;
+    padding-right: 10px;
     overflow-y: auto;
     position: absolute;
     bottom: 0;
