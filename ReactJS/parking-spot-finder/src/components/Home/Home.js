@@ -9,6 +9,7 @@ import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import HomeParkingList from "components/HomeParkingList/HomeParkingList";
 import HomeParkingHistory from "components/HomeParkingList/HomeParkingHistory";
 import { useAuth0 } from "@auth0/auth0-react";
+import { getRealAddress } from "../../services/getCoordinatesService";
 
 const Home = () => {
   const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
@@ -18,6 +19,7 @@ const Home = () => {
   const { isAuthenticated, isLoading } = useAuth0();
   const [mapHeight, setMapHeight] = useState('120px');
   const [labelPark, setLabelPark] = useState(true);
+  const [realAddress, setRealAddress] = useState(null);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -46,7 +48,22 @@ const Home = () => {
       setMapHeight("450px");
       setLabelPark(true);
     }
-  }, [getAllParkingLocs])
+  }, [getAllParkingLocs]);
+
+  useEffect(() => {
+    try {
+      getRealAddressFunc();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [getCurrentLocAdd]);
+
+  const getRealAddressFunc = async () => {
+
+    const getAddressService = await getRealAddress(getCurrentLocAdd);
+
+    setRealAddress(getAddressService);
+  }
 
   return (
     <>
@@ -74,10 +91,12 @@ const Home = () => {
               />
             </div>
 
-            <div className="col-sm-6 align-items-center overlay-box">
-              <span className="overlay-text-up" >Polo Park Winnipeg, MB</span><br></br>
-              <span className="overlay-text-down" >Polo Park Winnipeg, MB</span>
-            </div>
+            {realAddress && (
+              <div className="col-sm-6 align-items-center overlay-box">
+                <span className="overlay-text-up" >{realAddress.longAddress}</span><br></br>
+                <span className="overlay-text-down" >{realAddress.formattedAddress}</span>
+              </div>
+            )}
           </div>
 
           <HomeParkingList
