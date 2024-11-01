@@ -1,0 +1,7 @@
+.lower-third-style {
+    bottom: 9%;
+    position: absolute;
+    background-color: white;
+    place-items: center;
+    padding: 20px;
+}

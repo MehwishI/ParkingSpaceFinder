@@ -38,7 +38,38 @@ const getCoordinatesByPlaceId = async (placeid) => {
   }
 };
 
+const getAddressTextByCoord = async (coords) => {
+  try {
+    const addressTextRes = {};
+
+    const response = await axios.get(
+      `${gglBaseUrl}/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=${gglApiKey}`
+    );
+
+    if (response.data.status === 'OK') {
+      const results = response.data.results;
+
+      addressTextRes.formattedAddress = results[0].formatted_address;
+
+      const addressComponents = results[0].address_components;
+
+      for (const component of addressComponents) {
+        if (component.types.includes('route')) {
+          addressTextRes.longAddress = component.long_name;
+          break;
+        }
+      }
+    };
+    
+    return addressTextRes;
+
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getGoogSearchResult,
   getCoordinatesByPlaceId,
+  getAddressTextByCoord
 };

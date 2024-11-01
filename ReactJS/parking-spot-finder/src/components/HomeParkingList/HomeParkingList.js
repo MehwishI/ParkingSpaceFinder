@@ -27,7 +27,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
     }, []);
 
     const getLocCoordinates = async () => {
-        let coords;
+        let coords = {};
 
         // Remove before deployment
         if (isProd === "false" || false) {
@@ -41,9 +41,11 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
             setCoords(coords);
         };
 
-        const getData = await locResultForCoord(coords);
-        setWpaData(getData);
-        getAllParkList(getData);
+        if (Object.keys(coords).length !== 0) {
+            const getData = await locResultForCoord(coords);
+            setWpaData(getData);
+            getAllParkList(getData);
+        }
     };
 
     const getHandleClick = (item) => {
@@ -53,7 +55,14 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
         navigate('/mapdirection', { state: { coords: buildCoords, currCoords: getCurrLocAdd, allItems: item } });
     };
 
-    const getAiSuggest = () => {};
+    const getAiSuggest = () => {
+        navigate('/locationresult', {
+            state: {
+                addressCoordinate: { getCurrLocAdd },
+                searchInput: {},
+            },
+        });
+    };
 
     return (
         <div className='home-list-style'>
