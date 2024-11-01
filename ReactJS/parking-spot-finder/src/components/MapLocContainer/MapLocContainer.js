@@ -14,6 +14,7 @@ import {
 import "./MapLocContainer.css";
 import { locResultForCoord } from "../../services/locationResultService";
 import CustomMarker from "../FontIcon/FontIcon";
+import parkLocIcon from "../../images/SpotlightMarker.png";
 
 // const MapContainer = ({ coordinates }) => {
 const MapLocContainer = ({
@@ -23,7 +24,7 @@ const MapLocContainer = ({
   getAllLocsData,
   directionCoords,
   curCoords,
-  destCoord
+  destCoord,
 }) => {
   let initialCenter = {};
 
@@ -377,7 +378,11 @@ const MapLocContainer = ({
             position={{ lat: locPoints.lat, lng: locPoints.lng }}
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
-            icon={renderCustMarkersOne(index + 1)}
+            // icon={renderCustMarkersOne(index + 1)}
+            icon={{
+              url: parkLocIcon,
+              scaledSize: new window.google.maps.Size(29, 42),
+            }}
           />
         ))}
 
@@ -403,9 +408,7 @@ const MapLocContainer = ({
           // }}
           position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
         />
-        <MarkerF
-          key="Destination"
-        title=""/>
+        <MarkerF key="Destination" title="" />
 
         {activeMarker && (
           <InfoWindow
