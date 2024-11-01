@@ -31,7 +31,28 @@ const fetchCoordinatesbyPlaceId = async (req, res) => {
   }
 };
 
+const fetchAddressText = async (req, res) => {
+  try {
+
+    const getAddressData = await getGglService.getAddressTextByCoord(
+      req.body
+    );
+
+    res.json(getAddressData);
+
+  } catch (error) {
+    console.error(
+      "Error in googleApiController (When fetching address):",
+      error
+    );
+    res.status(500).json({
+      message: "Failed to fetch address data from google api",
+    });
+  }
+};
+
 module.exports = {
   fetchAutocompleteGgl,
   fetchCoordinatesbyPlaceId,
+  fetchAddressText
 };

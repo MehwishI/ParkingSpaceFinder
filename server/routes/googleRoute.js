@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   fetchAutocompleteGgl,
   fetchCoordinatesbyPlaceId,
+  fetchAddressText
 } = require("../controllers/googleApiController");
 
 /**
@@ -67,7 +68,41 @@ const {
  *                   type: string
  *                   example: google coordinates data!
  */
+/**
+ *@swagger
+ * /api/googleaddress:
+ *   post:
+ *     tags:
+ *       - Google Api
+ *     summary: Returns address from google api.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               latitude:
+ *                 type: text
+ *                 example: "Add Latitude"
+ *               longitude:
+ *                 type: text
+ *                 example: "Add Longitude"
+ *
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: google address data!
+ */
 router.post("/googleautocomplete", fetchAutocompleteGgl);
 router.post("/googlecoordinates", fetchCoordinatesbyPlaceId);
+router.post("/googleaddress", fetchAddressText);
 
 module.exports = router;

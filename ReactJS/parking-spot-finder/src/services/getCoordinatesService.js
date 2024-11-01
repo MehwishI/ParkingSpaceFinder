@@ -17,4 +17,21 @@ const getGoogleCoordinates = async (getplaceid) => {
   }
 };
 
-export { getGoogleCoordinates };
+const getRealAddress = async (getCoords) => {
+  const payload = {
+      latitude: getCoords.lat,
+      longitude: getCoords.lng
+  }
+
+  try {
+    const getRealAddress = await axios.post(`${getBaseApi}/googleaddress`, payload);
+
+    console.log("real address", getRealAddress.data);
+    return getRealAddress.data;
+    
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { getGoogleCoordinates, getRealAddress };
