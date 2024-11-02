@@ -24,15 +24,15 @@ const getCreateText = async (reqText) => {
                 {
                     role: 'user',
                     content: `Given the following details, suggest the best parking options and provide nearby alternatives if available:
-          - Destination Coordinates: ${reqText.destCoordinates}
-          - Current Coordination: ${reqText.currentCoordinates}
-          - User's Destination: ${reqText.destLocAddress}
+          - Coordinates: ${reqText.destCoordinates}
+          - Address: ${reqText.destLocAddress}
     
           Based on the information provided, recommend the most optimal parking spot and suggest alternatives if the initial one is less ideal. Suggest if the parking area is safe. If there is street parking nearby. Provide any additional suggestions regarding nearby amenities, traffic conditions based on past knowledge, or relevant insights to help the user make an informed decision.
           Please don't include anything like "Based on the information provided" in your response. Also, don't recommend any app.
           
           Additionally, please provide the recommended parking spots with the structure below just after the detailed sugestion you have already provided for the request above (separate this from the detailed suggestion with a space. Do not include any headers or titles. Do not include any additional formatting or surrounding code block markers). The format should look like the following:
-           aiSugJsonStruct {
+           
+          aiSugJsonStruct {
                 "parking": [
                     {
                         "name": "Parking Lot A",

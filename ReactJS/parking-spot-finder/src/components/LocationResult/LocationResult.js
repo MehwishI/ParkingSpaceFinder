@@ -25,13 +25,28 @@ const LocationResult = () => {
   // //console.log(data);
   // // const addressCoord = data.geometry.location;
 
+  const getCoordPointsForMap = (resJsonData) => {
+    console.log("res Json Data", resJsonData);
+
+    processJsonData(resJsonData);
+  };
+
+  const processJsonData = (splitJsonData) => {
+    const splitText = splitJsonData.replace("Json Data", "").trim();
+
+    const splittedJson = JSON.parse(splitText);
+
+    // const splittedCoords = splittedJson.parking.map(parkingSpot => parkingSpot.coordinates);
+
+    setDestCoord(splittedJson);
+  };
+
   // //
   //console.log("params:", params);
   // const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
-  const { addressCoordinate } = location.state || {};
+  const { addressCoordinate, getRealAddress } = location.state || {};
   // const onDataChange = location.state.onDataChange.onDataChange;
   const searchInput = location.state.searchInput.inputValue;
-  console.log("location result", addressCoordinate);
 
   // get current location when page loads
   const getCurrentLocCoords = (resData) => {
@@ -48,20 +63,33 @@ const LocationResult = () => {
 
   console.log("coord:", coord);
   useEffect(() => {
-    console.log("locRes", destCoord);
+    // console.log("locRes", destCoord);
+
+    console.log("location result", addressCoordinate);
     const fetchdata = async () => {
       try {
         if (Object.keys(addressCoordinate).length > 0) {
+          console.log("wpa hello", addressCoordinate);
+
           setDestCoord(coord); //setting destCoord
-          const wpaLocRes = await locResultForCoord(coord);
+
+          if (coord.lat != null && coord.lng != null && typeof coord.lat === 'number' && typeof coord.lng === 'number') {
+            console.log("terry flex");
+            
+            const wpaLocRes = await locResultForCoord(coord);
+
+            console.log("wpaLocRes in LocationResult.js", wpaLocRes);
+            if (wpaLocRes.length === 0) {
+              console.log("No Parking locations found around this address");
+            }
+            setLocRes(wpaLocRes);
+          } else {
+            console.log("No coordinates available");
+          }
 
           //  const wpaLocRes = await response.json();
 
-          console.log("wpaLocRes in LocationResult.js", wpaLocRes);
-          if (wpaLocRes.length === 0) {
-            console.log("No Parking locations found around this address");
-          }
-          setLocRes(wpaLocRes);
+
         } else {
           console.log("coord is empty:", coord);
         }
@@ -90,12 +118,14 @@ const LocationResult = () => {
         searchInput={searchInput}
         isHomeScreen={false}
       />
-      <MapLocContainer
-        wpaResData={locRes}
-        onDataChange={getCurrentLocCoords}
-        destCoord={destCoord}
-      />
-      <AISuggestion getCurrLoc={addressCoordinate} destCoord={destCoord}/>
+      <div className='map-container'>
+        <MapLocContainer
+          wpaResData={locRes}
+          onDataChange={getCurrentLocCoords}
+          destCoord={destCoord}
+        />
+      </div>
+      <AISuggestion onDataChange={getCoordPointsForMap} getCurrLoc={addressCoordinate} locRealAdd={getRealAddress} />
       <LocationList wpaLocRes={locRes} />
     </div>
   );

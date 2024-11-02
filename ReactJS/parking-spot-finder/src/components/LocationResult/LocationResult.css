@@ -129,3 +129,7 @@
 .marker-style {
   font-size: 24px !important;
 }
+
+.map-container {
+  position: fixed;
+}
