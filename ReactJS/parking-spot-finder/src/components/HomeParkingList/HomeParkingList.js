@@ -72,7 +72,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd, getCurrRealAddress }) 
                     <div key={item.id} className='list-style'>
                         <div className='row'>
                             <div className='col-sm-3 d-flex align-items-center'>
-                                <div>
+                                <div style={{marginBottom: '40px'}}>
                                     <span className='list-number'>{index + 1}</span>
                                     <img src={iconmarker} alt="icon" />
                                 </div>
