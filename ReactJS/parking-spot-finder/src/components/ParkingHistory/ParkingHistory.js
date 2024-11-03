@@ -41,8 +41,8 @@ const ParkingHistory = () => {
         getUserHist.map((item) => {
           console.log("history coords:", item.locLatitude, item.locLongitude);
           const coords = {
-            latitude: item.locLatitude.$numberDecimal,
-            longitude: item.locLongitude.$numberDecimal,
+            lat: item.locLatitude.$numberDecimal,
+            lng: item.locLongitude.$numberDecimal,
           };
           const res = getRealParkAddress(coords);
           const add = res.data;

@@ -18,10 +18,10 @@ const getGoogleCoordinates = async (getplaceid) => {
 };
 
 const getRealAddress = async (getCoords) => {
- // console.log("getCoords in service:", getCoords);
+  // console.log("getCoords in service:", getCoords);
   const payload = {
-    latitude: parseFloat(getCoords.latitude),
-    longitude: parseFloat(getCoords.longitude),
+    latitude: parseFloat(getCoords.lat),
+    longitude: parseFloat(getCoords.lng),
   };
 
   console.log(payload);
