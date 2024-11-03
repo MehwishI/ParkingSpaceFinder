@@ -18,13 +18,13 @@ const getGoogleCoordinates = async (getplaceid) => {
 };
 
 const getRealAddress = async (getCoords) => {
+ // console.log("getCoords in service:", getCoords);
   const payload = {
-    latitude: getCoords.lat,
-    longitude: getCoords.lng,
-    
+    latitude: parseFloat(getCoords.latitude),
+    longitude: parseFloat(getCoords.longitude),
   };
 
-  console.log(payload)
+  console.log(payload);
   try {
     const getRealAddress = await axios.post(
       `${getBaseApi}/googleaddress`,
