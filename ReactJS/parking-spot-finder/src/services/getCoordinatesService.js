@@ -31,7 +31,6 @@ const getRealAddress = async (getCoords) => {
       payload
     );
 
-    console.log("real address", getRealAddress.data);
     return getRealAddress.data;
   } catch (error) {
     throw error;

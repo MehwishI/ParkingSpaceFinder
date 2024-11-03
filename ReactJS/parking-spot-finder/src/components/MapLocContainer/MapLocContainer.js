@@ -15,6 +15,7 @@ import "./MapLocContainer.css";
 import { locResultForCoord } from "../../services/locationResultService";
 import CustomMarker from "../FontIcon/FontIcon";
 import parkLocIcon from "../../images/SpotlightMarker.png";
+import iconmarker from "../../images/marker-pinlet.png";
 
 // const MapContainer = ({ coordinates }) => {
 const MapLocContainer = ({
@@ -214,6 +215,35 @@ const MapLocContainer = ({
   }, [getAllLocsData]);
 
   useEffect(() => {
+    // destCoord = [
+    //   {
+    //     "name": "Polo Park Shopping Centre Parking Lot",
+    //     "coordinates": { "lat": 49.8825, "lng": -97.2083 }
+    //   },
+    //   {
+    //     "name": "St. Vital Centre Parking Garage",
+    //     "coordinates": { "lat": 49.8299, "lng": -97.1274 }
+    //   }
+    // ]
+    console.log("ffsv", destCoord);
+
+    console.log("wwwwssseee", destCoord.parking);
+
+    if (destCoord?.parking?.length > 0) {
+      const locData = destCoord.parking.map((location, index) => ({
+        lat: location.coordinates.lat,
+        lng: location.coordinates.lng,
+        title: `Marker ${index + 1}`,
+      }));
+
+      console.log("lov loc", getLocPoints);
+
+      setLocAiPoints(locData);
+    }
+  }, [destCoord]);
+  // }, []);
+
+  useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success);
     }
@@ -375,16 +405,37 @@ const MapLocContainer = ({
         }}
       >
         {getLocPoints.map((locPoints, index) => (
+          <>
+            <MarkerF
+              key={index}
+              title={locPoints.title}
+              position={{ lat: locPoints.lat, lng: locPoints.lng }}
+              animation="DROP"
+              onClick={() => handleMarkerClick(locPoints)}
+              icon={renderCustMarkersOne(index + 1)}
+            />
+          </>
+        ))}
+
+        {getLocAiPoints.map((locPoints, index) => (
           <MarkerF
             key={index}
             title={locPoints.title}
-            position={{ lat: locPoints.lat, lng: locPoints.lng }}
+            position={{
+              lat: parseFloat(locPoints.lat),
+              lng: parseFloat(locPoints.lng),
+            }}
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
-            // icon={renderCustMarkersOne(index + 1)}
             icon={{
-              url: parkLocIcon,
-              scaledSize: new window.google.maps.Size(29, 42),
+              url: iconmarker,
+              labelOrigin: new window.google.maps.Point(12, 10)
+            }}
+            label={{
+              text: index.toString() + 1,
+              color: "white",
+              fontSize: "12px",
+              fontWeight: "bold",
             }}
           />
         ))}
