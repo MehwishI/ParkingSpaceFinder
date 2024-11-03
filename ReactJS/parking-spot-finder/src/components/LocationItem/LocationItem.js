@@ -17,18 +17,26 @@ const LocationItem = ({ locationItem }) => {
   //const { } = props;
   return (
     <div className="park-loc-container">
-      <div>{Date(locationItem.parking_date)}</div>
+      <div>
+        {new Date(locationItem.parking_date).toLocaleString("default", {
+          month: "long",
+        })}{" "}
+        {new Date(locationItem.parking_date).toLocaleString("default", {
+          day: "numeric",
+        })}
+      </div>
       <div className="icon-parkname">
         <div className="icons">
-          <img className="eclipse-icon" src={eclipse} />
+          <img className="eclipse-icon" src={eclipse} />{" "}
           <img className="verticalicon" src={verticalicon} />
           <img src={locIcon} />
         </div>
 
         <div className="street-date">
           <div>
-            {locationItem.street}, {locationItem.city}
+            {locationItem.street ? locationItem.street : "Portage Avenue"}{" "}
           </div>
+          <div>{locationItem.city}, MB, Canada</div>
         </div>
       </div>
       {/* <div className="loc-details">
