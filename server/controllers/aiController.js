@@ -2,12 +2,12 @@ const { getCreateText, getCreateSpeech } = require('../services/aiService');
 const { getEncrytedData, getDecryptedData } = require('../services/encryptService');
 
 const getGeneratedText = async (req, res) => {
-    const { currentLocAddress, currentCoordinates, destLocAddress, destCoordinates } = req.body;
+    const { destLocAddress, destCoordinates } = req.body;
 
+    console.log("backend coord for ai",destLocAddress, destCoordinates);
+    
     try {
         const fetchText = await getCreateText({
-            currentLocAddress,
-            currentCoordinates,
             destLocAddress,
             destCoordinates
         });

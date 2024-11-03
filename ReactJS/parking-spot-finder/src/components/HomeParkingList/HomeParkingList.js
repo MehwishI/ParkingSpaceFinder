@@ -11,7 +11,7 @@ import iconAiSuggest from "../../images/ant-design_sound-filled.png";
 
 const isProd = process.env.REACT_APP_ISPROD;
 
-const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
+const HomeParkingList = ({ getAllParkList, getCurrLocAdd, getCurrRealAddress }) => {
     const [wpaFetchData, setWpaData] = useState([]);
     const [fetchCoords, setCoords] = useState();
     const navigate = useNavigate();
@@ -60,6 +60,7 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd }) => {
             state: {
                 addressCoordinate: { getCurrLocAdd },
                 searchInput: {},
+                getRealAddress: { getCurrRealAddress }
             },
         });
     };

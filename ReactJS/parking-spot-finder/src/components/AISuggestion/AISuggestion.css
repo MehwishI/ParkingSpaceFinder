@@ -9,7 +9,61 @@
 }
 
 .button-gen {
-    margin-top: 20px;
+    height: 42px;
+    width: 146px;
+    bottom: 45%;
+    position: absolute;
+    border-radius: 77px;
+    margin-left: 228px;
+    background-color: #165CE9;
+    color: #ffffff;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.text-style {
+    margin-left: 12px;
+    line-height: 18px;
+    height: 48px;
+    width: 249px;
+    padding-left: 8px;
+    padding-right: 8px;
+    bottom: 46%;
+    background-color: white;
+    overflow: auto;
+    position: absolute;
+    color: #165CE9;
+    font-weight: 600;
+    border-radius: 7px;
+    border: 1px solid;
+    padding-top: 6px;
+}
+
+.audio {
+    width: 100%;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+.play-button {
+    height: 42px;
+    width: 99px;
+    bottom: 45%;
+    position: absolute;
+    border-radius: 77px;
+    margin-left: 278px;
+    background-color: #165CE9;
+    color: #ffffff;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.text-scroll {
+    white-space: nowrap;
+    font-size: 24px;
+    width: 100%;
+    position: relative;
 }
 
 @keyframes spin {

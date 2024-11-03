@@ -45,16 +45,19 @@ const Home = () => {
       setMapHeight("120px");
       setLabelPark(false);
     } else {
-      setMapHeight("450px");
+      setMapHeight("470px");
       setLabelPark(true);
     }
   }, [getAllParkingLocs]);
 
   const getRealAddressFunc = async () => {
-    const getAddressService = await getRealAddress(getCurrentLocAdd);
-
-    setRealAddress(getAddressService);
+    if (Object.keys(getCurrentLocAdd).length > 0) {
+      const getAddressService = await getRealAddress(getCurrentLocAdd);
+  
+      setRealAddress(getAddressService);
+    }
   };
+
   useEffect(() => {
     try {
       getRealAddressFunc();
@@ -110,6 +113,7 @@ const Home = () => {
           <HomeParkingList
             getAllParkList={getAllLocsCoord}
             getCurrLocAdd={getCurrentLocAdd}
+            getCurrRealAddress={realAddress}
           />
         </div>
 

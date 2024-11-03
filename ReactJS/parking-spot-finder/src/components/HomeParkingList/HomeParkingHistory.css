@@ -2,14 +2,9 @@
     margin-bottom: 3px;
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 35%;
+    margin-top: 31%;
     /* height: 100px; */
     position: relative;
-}
-
-.text-style {
-    margin-left: 12px;
-    line-height: 18px;
 }
 
 .text-top {
@@ -34,7 +29,7 @@
 
 .login-text-style {
     place-self: center;
-    margin-top: 41%;
+    margin-top: 34%;
 }
 
 @media only screen and (min-device-width: 414px) and (max-device-width: 896px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
