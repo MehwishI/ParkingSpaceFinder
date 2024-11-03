@@ -44,7 +44,7 @@ const MapDirection = () => {
     return (
         <>
             <Search backgroundColor={'none'} marginLeft={'10px'}/>
-            <div className='map-container'>
+            <div className='map-container' style={{position: 'relative'}}>
                 <MapContainer
                     wpaResData={{}}
                     aiSugData={{}}
