@@ -26,6 +26,7 @@ const Search = ({
   const [inputValue, setInputValue] = useState(searchInput);
   const [placeid, setPlaceId] = useState("");
   const [predictions, setGglePrediction] = useState([]);
+  const [selectedPred, setSelectedPred] = useState("");
   const [addressCoord, setAddressCoord] = useState({});
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -52,12 +53,13 @@ const Search = ({
   };
 
   const handlePredictionClick = (description, place_id) => {
-    // console.log("reached parent with:", description, place_id);
+    console.log("reached pred click with:", description, place_id);
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
     getCoordinatePoints(place_id);
     setShowSuggestions(false);
+    setSelectedPred(description);
     // setShowResult(true);
     //showR = true;
     // console.log("After setPlaceId in parent comp:", placeid);
@@ -75,6 +77,9 @@ const Search = ({
 
   const getHandleChange = (e) => {
     setBackgrundColor("none");
+    console.log("inputValue:", inputValue);
+    console.log("selectedPred:", selectedPred);
+
     setInputValue(e.target.value);
     fetchAutoCompleteSuggestion(e.target.value);
     if (e.target.value !== "") {
@@ -117,6 +122,7 @@ const Search = ({
       //  onDataChange(addressCoordinate);
       console.log("addressCoordinate in Search:", addressCoordinate);
       // console.log("showResult:", showResult);
+
       navigate("/locationresult", {
         state: {
           addressCoordinate: { addressCoordinate },
@@ -125,6 +131,7 @@ const Search = ({
       });
     }
   };
+  // useEffect(() => {}, [inputValue]);
 
   return (
     <>

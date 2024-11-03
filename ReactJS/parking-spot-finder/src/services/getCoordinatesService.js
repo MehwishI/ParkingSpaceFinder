@@ -10,7 +10,7 @@ const getGoogleCoordinates = async (getplaceid) => {
     });
     // console.log("getcoordinates:", getCoordinates.data);
     //const getCoordinates = await response.json();
-    console.log(getCoordinates.data);
+    console.log("getCoordinates.data:", getCoordinates.data);
     return getCoordinates.data;
   } catch (error) {
     return error;
@@ -19,19 +19,23 @@ const getGoogleCoordinates = async (getplaceid) => {
 
 const getRealAddress = async (getCoords) => {
   const payload = {
-      latitude: getCoords.lat,
-      longitude: getCoords.lng
-  }
+    latitude: getCoords.lat,
+    longitude: getCoords.lng,
+    
+  };
 
+  console.log(payload)
   try {
-    const getRealAddress = await axios.post(`${getBaseApi}/googleaddress`, payload);
+    const getRealAddress = await axios.post(
+      `${getBaseApi}/googleaddress`,
+      payload
+    );
 
     console.log("real address", getRealAddress.data);
     return getRealAddress.data;
-    
   } catch (error) {
     throw error;
   }
-}
+};
 
 export { getGoogleCoordinates, getRealAddress };

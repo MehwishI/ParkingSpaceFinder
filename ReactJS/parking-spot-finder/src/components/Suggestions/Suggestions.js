@@ -1,5 +1,5 @@
-import Search from "components/Search/Search";
-import React, { useEffect, useState } from "react";
+//import Search from "components/Search/Search";
+import React, { useState } from "react";
 //import { useLocation } from "react-router";
 import "./Suggestions.css";
 import "components/Search/Search.css";
@@ -10,8 +10,9 @@ const Suggestions = (props) => {
   //const predictions = location.state.predictions;
   const predictions = props.predictions;
   const handlePredictionClick = props.handlePredictionClick;
-  const placeid = props.placeid;
-  const setPlaceId = props.setPlaceId;
+  //const placeid = props.placeid;
+  // const setPlaceId = props.setPlaceId;
+  // const setInputValue = props.setInputValue;
   //const [placeid, setPlaceId] = useState("");
   //const handlePredictionClick = location.state.handlePredictionClick;
   // const showSuggestions = props.showSuggestions;
@@ -19,6 +20,7 @@ const Suggestions = (props) => {
     console.log("prediction.description:", description);
     console.log("prediction.place_id:", place_id);
 
+    // setInputValue(description);
     // setPlaceId(place_id);
     handlePredictionClick(description, place_id);
     // console.log("After setPlaceId:", placeid);

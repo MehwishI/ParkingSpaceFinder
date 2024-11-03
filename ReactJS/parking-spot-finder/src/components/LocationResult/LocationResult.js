@@ -9,7 +9,8 @@ import LocationList from "./LocationList";
 import Search from "components/Search/Search";
 import "./LocationResult.css";
 import { cardActionAreaClasses } from "@mui/material";
-//import { getCoordinatesService } from "/services/getCoordinatesService";
+
+//import { getCoordinatesService } from "/services / getCoordinatesService";
 
 const LocationResult = () => {
   //const coordinates = props.coordinates;
@@ -34,6 +35,8 @@ const LocationResult = () => {
   const getCurrentLocCoords = (resData) => {
     setCurrentLocAdd(resData);
   };
+
+  
 
   // console.log("addressCoordinate:", addressCoordinate);
   const coord = {
@@ -81,7 +84,7 @@ const LocationResult = () => {
   return (
     <div className="loc-result-container">
       <Search
-        onDataChange={getHandleDataChange}
+        // onDataChange={getHandleDataChange}
         backgroundColor={"none"}
         marginLeft={"10px"}
         searchInput={searchInput}

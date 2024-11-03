@@ -57,7 +57,7 @@ const Home = () => {
   };
   useEffect(() => {
     try {
-      getRealAddressFunc();
+      //getRealAddressFunc();
     } catch (error) {
       console.error(error);
     }

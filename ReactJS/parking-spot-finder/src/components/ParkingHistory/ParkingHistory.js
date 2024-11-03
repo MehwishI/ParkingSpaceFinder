@@ -8,6 +8,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import "./ParkingHistory.css";
 import { NavLink } from "react-router-dom";
+import { getRealAddress } from "services/getCoordinatesService.js";
 
 const ParkingHistory = () => {
   const [userHistory, setUserHistory] = useState([]);
@@ -18,17 +19,38 @@ const ParkingHistory = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const getUserId = isAuthenticated ? user.sub : null;
+  const getRealParkAddress = async (coords) => {
+    const address = await getRealAddress(coords);
+
+    return address;
+  };
 
   useEffect(() => {
     const getHistory = async () => {
+      let parkAddr = [];
       try {
         if (!isAuthenticated) {
           return null;
         }
         const getUserHist = await getUserParkingHistory(getUserId);
         //getUserHist.then((history) => {
+        console.log("history", getUserHist);
         setHistoryExist(true);
         setUserHistory(getUserHist);
+        //getreal address from history
+        getUserHist.map((item) => {
+          console.log("history coords:", item.locLatitude, item.locLongitude);
+          const coords = {
+            latitude: item.locLatitude,
+            longitude: item.locLongitude,
+          };
+          const res = getRealParkAddress(coords);
+          const add = res.data;
+          console.log("res.data", res.data);
+          parkAddr.push(add.formattedAddress);
+        });
+        console.log("parkAddr:", parkAddr);
+        // })
         //});
         if (!getUserHist) {
           setUserHistory(null);
