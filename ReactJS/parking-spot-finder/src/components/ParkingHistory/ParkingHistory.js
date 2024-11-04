@@ -23,7 +23,7 @@ const ParkingHistory = () => {
   const getUserId = isAuthenticated ? user.sub : null;
   let parkAddr = [];
   let coordArr = [];
-  let temp = [];
+  // let temp = [];
   const getRealParkAddress = async (coordArr) => {
     console.log("here");
     console.log("coordArr:", coordArr);
@@ -83,15 +83,15 @@ const ParkingHistory = () => {
         console.log("history", getUserHist);
 
         //getreal address from history
-        getUserHist.map((item) => {
-          console.log("history coords:", item.locLatitude, item.locLongitude);
-          const coords = {
-            lat: item.locLatitude.$numberDecimal,
-            lng: item.locLongitude.$numberDecimal,
-          };
-          coordArr.push(coords);
-        });
-        console.log(coordArr);
+        // getUserHist.map((item) => {
+        //   console.log("history coords:", item.locLatitude, item.locLongitude);
+        //   const coords = {
+        //     lat: item.locLatitude.$numberDecimal,
+        //     lng: item.locLongitude.$numberDecimal,
+        //   };
+        //   coordArr.push(coords);
+        // });
+        // console.log(coordArr);
         setHistoryExist(true);
         setUserHistory(getUserHist);
         // setCoordArr(temp1);
@@ -124,17 +124,16 @@ const ParkingHistory = () => {
     getHistory();
     // getRealParkAddress();
   }, []);
-  useEffect(() => {
-    //const temp = [];
+  // useEffect(() => {
+  //   //const temp = [];
 
-    getRealParkAddress(coordArr);
-    //console.log(a);
-    // setAddArray(a);
-    //console.log("parkAddr", parkAddr);
+  //   getRealParkAddress(coordArr);
+  //   //console.log(a);
+  //   // setAddArray(a);
+  //   //console.log("parkAddr", parkAddr);
 
-    console.log("addArray in useEffect:", addArray);
-  }, [historyExist]);
-
+  //   console.log("addArray in useEffect:", addArray);
+  // }, [historyExist]);
 
   // const groupItems = (items) => {
   //   const grouped = {};
