@@ -135,6 +135,20 @@ const ParkingHistory = () => {
     console.log("addArray in useEffect:", addArray);
   }, [historyExist]);
 
+
+  // const groupItems = (items) => {
+  //   const grouped = {};
+
+  //   items.forEach((item) => {
+  //     if (!grouped[item.category]) {
+  //       grouped[item.category] = [];
+  //     }
+  //     grouped[item.category].push(item);
+  //   });
+
+  //   return grouped;
+  // };
+  // const groupedItems = groupItems(items);
   // useEffect(() => {
   //   // setAddArray(parkAddr);
   //   console.log("addArray:", addArray);
