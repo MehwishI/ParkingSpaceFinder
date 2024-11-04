@@ -43,8 +43,8 @@ const LocationResult = () => {
 
   // //
   //console.log("params:", params);
-  const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
-  //const { addressCoordinate, getRealAddress } = location.state || {};
+  // const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
+  const { addressCoordinate, getRealAddress } = location.state || {};
   // const onDataChange = location.state.onDataChange.onDataChange;
   const searchInput = location.state.searchInput.inputValue;
 
