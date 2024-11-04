@@ -32,14 +32,11 @@ const fetchCoordinatesbyPlaceId = async (req, res) => {
 };
 
 const fetchAddressText = async (req, res) => {
+  console.log("aaa:", req.body);
   try {
-
-    const getAddressData = await getGglService.getAddressTextByCoord(
-      req.body
-    );
+    const getAddressData = await getGglService.getAddressTextByCoord(req.body);
 
     res.json(getAddressData);
-
   } catch (error) {
     console.error(
       "Error in googleApiController (When fetching address):",
@@ -54,5 +51,5 @@ const fetchAddressText = async (req, res) => {
 module.exports = {
   fetchAutocompleteGgl,
   fetchCoordinatesbyPlaceId,
-  fetchAddressText
+  fetchAddressText,
 };

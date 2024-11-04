@@ -51,7 +51,6 @@ const Home = () => {
   }, [getAllParkingLocs]);
 
   const getRealAddressFunc = async () => {
-    console.log(getCurrentLocAdd)
     if (Object.keys(getCurrentLocAdd).length > 0) {
       const getAddressService = await getRealAddress(getCurrentLocAdd);
 

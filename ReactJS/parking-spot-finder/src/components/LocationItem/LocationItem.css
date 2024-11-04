@@ -26,15 +26,25 @@
   display: flex;
   flex-direction: column;
   padding-block: 5px;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+}
+.loc {
+  display: flex;
+  align-items: end;
+  padding-right: 0px;
+  /* justify-content: center; */
+  justify-content: space-between;
+}
+.diricon{
+  padding:14px
 }
 
 .loc-details {
   display: block;
 }
 .verticalicon {
-  height: 44px;
+  height: 57px;
   width: 2px;
 }
 .eclipse-icon {

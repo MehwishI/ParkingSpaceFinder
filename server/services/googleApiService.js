@@ -39,6 +39,7 @@ const getCoordinatesByPlaceId = async (placeid) => {
 };
 
 const getAddressTextByCoord = async (coords) => {
+  console.log("bbb:", coords);
   try {
     const addressTextRes = {};
 
@@ -46,7 +47,7 @@ const getAddressTextByCoord = async (coords) => {
       `${gglBaseUrl}/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=${gglApiKey}`
     );
 
-    if (response.data.status === 'OK') {
+    if (response.data.status === "OK") {
       const results = response.data.results;
 
       addressTextRes.formattedAddress = results[0].formatted_address;
@@ -54,15 +55,14 @@ const getAddressTextByCoord = async (coords) => {
       const addressComponents = results[0].address_components;
 
       for (const component of addressComponents) {
-        if (component.types.includes('route')) {
+        if (component.types.includes("route")) {
           addressTextRes.longAddress = component.long_name;
           break;
         }
       }
-    };
-    
-    return addressTextRes;
+    }
 
+    return addressTextRes;
   } catch (error) {
     throw error;
   }
@@ -71,5 +71,5 @@ const getAddressTextByCoord = async (coords) => {
 module.exports = {
   getGoogSearchResult,
   getCoordinatesByPlaceId,
-  getAddressTextByCoord
+  getAddressTextByCoord,
 };

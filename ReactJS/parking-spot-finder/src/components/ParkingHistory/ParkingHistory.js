@@ -13,21 +13,67 @@ import { getRealAddress } from "services/getCoordinatesService.js";
 const ParkingHistory = () => {
   const [userHistory, setUserHistory] = useState([]);
   const [historyExist, setHistoryExist] = useState(false);
+  const [addArray, setAddArray] = useState([]);
+  //const [coordArr, setCoordArr] = useState([]);
 
   //const location = useLocation();
   //const { getUserId } = location.state || {};
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const getUserId = isAuthenticated ? user.sub : null;
-  const getRealParkAddress = async (coords) => {
-    const address = await getRealAddress(coords);
+  let parkAddr = [];
+  let coordArr = [];
+  // let temp = [];
+  const getRealParkAddress = async (coordArr) => {
+    console.log("here");
+    console.log("coordArr:", coordArr);
+    for (const item of coordArr) {
+      // coordArr.forEach(async (item) => {
+      console.log(1);
+      console.log("history coords:", item.locLatitude, item.locLongitude);
 
-    return address;
+      try {
+        const address = await getRealAddress(item);
+        console.log("address:", address.formattedAddress);
+        //const add = await address.formattedAddress;
+        if (address.formattedAddress) {
+          temp.push(address.formattedAddress);
+          console.log("temp", temp);
+          //  setAddArray(parkAddr);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      // return temp;
+    }
+    //   map(async (item) => {
+    //   console.log("history coords:", item.locLatitude, item.locLongitude);
+
+    //   const address = await getRealAddress(item);
+    //   console.log("address:", address.formattedAddress);
+    //   //const add = await address.formattedAddress;
+    //   if (address.formattedAddress) {
+    //     temp.push(address.formattedAddress);
+    //     console.log("temp", temp);
+    //     //  setAddArray(parkAddr);
+    //   }
+    //   return temp;
+    // });
+    if (temp) {
+      parkAddr = temp;
+      console.log("parkAddr after", parkAddr);
+      // return address;
+      setAddArray(parkAddr);
+      console.log("addArray:", addArray);
+      return parkAddr;
+    }
   };
 
   useEffect(() => {
+    coordArr = [];
     const getHistory = async () => {
-      let parkAddr = [];
+      let temp1 = [];
       try {
         if (!isAuthenticated) {
           return null;
@@ -35,21 +81,33 @@ const ParkingHistory = () => {
         const getUserHist = await getUserParkingHistory(getUserId);
         //getUserHist.then((history) => {
         console.log("history", getUserHist);
+
+        //getreal address from history
+        // getUserHist.map((item) => {
+        //   console.log("history coords:", item.locLatitude, item.locLongitude);
+        //   const coords = {
+        //     lat: item.locLatitude.$numberDecimal,
+        //     lng: item.locLongitude.$numberDecimal,
+        //   };
+        //   coordArr.push(coords);
+        // });
+        // console.log(coordArr);
         setHistoryExist(true);
         setUserHistory(getUserHist);
-        //getreal address from history
-        getUserHist.map((item) => {
-          console.log("history coords:", item.locLatitude, item.locLongitude);
-          const coords = {
-            lat: item.locLatitude.$numberDecimal,
-            lng: item.locLongitude.$numberDecimal,
-          };
-          const res = getRealParkAddress(coords);
-          const add = res.data;
-          console.log("res.data", res.data);
-          parkAddr.push(add.formattedAddress);
-        });
-        console.log("parkAddr:", parkAddr);
+        // setCoordArr(temp1);
+        // try {
+        //   const promises = getRealParkAddress(getUserHist);
+        //   //console.log();
+        //   // const add = res.formattedAddress;
+        //   // console.log("add", add);
+        //   // parkAddr.push(add);
+        // } catch (error) {
+        //   console.log("error in get real addresses", error);
+        // }
+
+        // await Promise.all(promises);
+
+        // console.log("parkAddr:", parkAddr);
         // })
         //});
         if (!getUserHist) {
@@ -64,7 +122,36 @@ const ParkingHistory = () => {
       }
     };
     getHistory();
+    // getRealParkAddress();
   }, []);
+  // useEffect(() => {
+  //   //const temp = [];
+
+  //   getRealParkAddress(coordArr);
+  //   //console.log(a);
+  //   // setAddArray(a);
+  //   //console.log("parkAddr", parkAddr);
+
+  //   console.log("addArray in useEffect:", addArray);
+  // }, [historyExist]);
+
+  // const groupItems = (items) => {
+  //   const grouped = {};
+
+  //   items.forEach((item) => {
+  //     if (!grouped[item.category]) {
+  //       grouped[item.category] = [];
+  //     }
+  //     grouped[item.category].push(item);
+  //   });
+
+  //   return grouped;
+  // };
+  // const groupedItems = groupItems(items);
+  // useEffect(() => {
+  //   // setAddArray(parkAddr);
+  //   console.log("addArray:", addArray);
+  // }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -75,13 +162,22 @@ const ParkingHistory = () => {
       <div>
         {" "}
         {historyExist ? (
-          <div>
-            {userHistory.map((item) => (
-              <div className="location-item">
-                <LocationItem key={item._id} locationItem={item} />
-              </div>
-            ))}
-          </div>
+          <>
+            <div>
+              {userHistory.map((item) => (
+                <div className="location-item">
+                  <LocationItem key={item._id} locationItem={item} />
+                </div>
+              ))}
+            </div>
+            <div>
+              {addArray ? (
+                addArray.map((item) => <div>{item.formattedAddress}</div>)
+              ) : (
+                <div>hello</div>
+              )}
+            </div>
+          </>
         ) : (
           <div>No Parking History available</div>
         )}
