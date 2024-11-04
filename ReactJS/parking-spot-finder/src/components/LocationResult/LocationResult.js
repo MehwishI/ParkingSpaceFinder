@@ -55,8 +55,8 @@ const LocationResult = () => {
 
   // console.log("addressCoordinate:", addressCoordinate);
   const coord = {
-    lat: addressCoordinate.lat,
-    lng: addressCoordinate.lng,
+    lat: addressCoordinate.addressCoordinate.lat,
+    lng: addressCoordinate.addressCoordinate.lng,
   };
 
   // const onDataChange = props.onDataChange;
@@ -65,11 +65,11 @@ const LocationResult = () => {
   useEffect(() => {
     // console.log("locRes", destCoord);
 
-    console.log("location result", addressCoordinate);
+    console.log("location result", addressCoordinate.addressCoordinate);
     const fetchdata = async () => {
       try {
-        if (Object.keys(addressCoordinate).length > 0) {
-          console.log("wpa hello", addressCoordinate);
+        if (Object.keys(addressCoordinate.addressCoordinate).length > 0) {
+          console.log("wpa hello", addressCoordinate.addressCoordinate);
 
           setDestCoord(coord); //setting destCoord
 
@@ -125,7 +125,7 @@ const LocationResult = () => {
           destCoord={destCoord}
         />
       </div>
-      <AISuggestion onDataChange={getCoordPointsForMap} getCurrLoc={addressCoordinate} locRealAdd={getRealAddress} />
+      <AISuggestion onDataChange={getCoordPointsForMap} getCurrLoc={addressCoordinate.addressCoordinate} locRealAdd={getRealAddress} />
       <LocationList wpaLocRes={locRes} />
     </div>
   );

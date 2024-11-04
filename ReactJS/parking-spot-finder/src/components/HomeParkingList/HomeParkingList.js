@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./HomeParkingList.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faMapMarker } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faMapMarker, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router';
 import { MdOutlineTurnRight } from "react-icons/md";
 import { locResultForCoord } from 'services/locationResultService';
@@ -58,7 +58,8 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd, getCurrRealAddress }) 
     const getAiSuggest = () => {
         navigate('/locationresult', {
             state: {
-                addressCoordinate: { getCurrLocAdd },
+                // addressCoordinate: { getCurrLocAdd },
+                addressCoordinate: { addressCoordinate: getCurrLocAdd },
                 searchInput: {},
                 getRealAddress: { getCurrRealAddress }
             },
@@ -104,8 +105,9 @@ const HomeParkingList = ({ getAllParkList, getCurrLocAdd, getCurrRealAddress }) 
                 <div>
                     <div className='ai-section-style'>No Data Available</div>
                     <button className='custom-btn-two' onClick={getAiSuggest}>
-                        <img src={iconAiSuggest} className='btn-ai-style' alt="AI Suggest" />
-                        AI Suggest
+                        {/* <img src={iconAiSuggest} className='btn-ai-style' alt="AI Suggest" /> */}
+                        <FontAwesomeIcon icon={faArrowRight} className='btn-ai-style'/>
+                        Go to AI Suggest
                     </button>
                 </div>
             )}

@@ -119,7 +119,7 @@ const LocationList = ({ wpaLocRes }) => {
       />
       <div className="div-filter-box">
         <div className="drop-filter">
-          <img src={filtericon}>
+          <img src={filtericon} />
             {/* <select>
               <option className="sort-option" value="hourly_rate">
                 Price
@@ -129,12 +129,12 @@ const LocationList = ({ wpaLocRes }) => {
                 Capacity
               </option>
             </select> */}
-          </img>
+          {/* </img> */}
         </div>
         &nbsp;&nbsp;
         <div>
           <div className="sort-dropdown">
-            <select value={sortby} onChange={(e) => setSortBy(e.target.value)}>
+            <select value={sortby} onChange={(e) => setSortBy(e.target.value)} className="form-control" style={{width: '87px'}}>
               <option className="sort-option" value="">
                 Sort by
               </option>

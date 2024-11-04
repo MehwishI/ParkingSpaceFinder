@@ -36,10 +36,11 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
     const { getAccessTokenSilently } = useAuth0();
 
     const getHandleGenVoice = async () => {
+        console.log("wqas",getCurrLoc);
         setIsLoading(true);
         try {
             if (Object.keys(locRealAdd.getCurrRealAddress).length < 1) {
-                console.log("wqas");
+                
 
                 // setTextAddress(locRealAdd.getCurrRealAddress.formattedAddress);
                 return;
@@ -62,7 +63,8 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
             // jsonData.currentAddress = "";
             // jsonData.currentCoordinates = `Lat: ${getCurrLoc.lat}, Long: ${getCurrLoc.lng}`;
             jsonData.destLocAddress = locRealAdd.getCurrRealAddress.formattedAddress;
-            jsonData.destCoordinates = `Lat: ${coordsAddState.getCurrLocAdd.lat}, Long: ${coordsAddState.getCurrLocAdd.lng}`;
+            jsonData.destCoordinates = `Lat: ${coordsAddState.lat}, Long: ${coordsAddState.lng}`;
+            // jsonData.destCoordinates = `Lat: ${coordsAddState.getCurrLocAdd.lat}, Long: ${coordsAddState.getCurrLocAdd.lng}`;
 
             // return;
             // get auth token
