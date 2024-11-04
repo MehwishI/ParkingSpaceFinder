@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./LocationItem.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router";
+
 import {
   faParking,
   faCircle,
@@ -11,9 +13,30 @@ import locIcon from "../../images/weui_location-filled.png";
 import eclipse from "../../images/Ellipse 5.png";
 import dirIcon from "../../images/Group 30.png";
 
+
 //import "@fortawesome/fontawesome-free-solid";
 
 const LocationItem = ({ locationItem }) => {
+  const [getcurrCoords, setCurrCoords] = useState({});
+  const navigate = useNavigate();
+
+  const buildCoords = {};
+
+  const getHandleClick = (item) => {
+    buildCoords.lat = item.locLatitude.$numberDecimal;
+    buildCoords.lng = item.locLongitude.$numberDecimal;
+    navigator.geolocation.getCurrentPosition((position) => {
+      const userLocaton = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      setCurrCoords(userLocaton);
+    });
+
+    navigate("/mapdirection", {
+      state: { coords: buildCoords, currCoords: getcurrCoords, allItems: item },
+    });
+  };
   // will receive parkdata from  db
 
   //const { } = props;
@@ -58,7 +81,7 @@ const LocationItem = ({ locationItem }) => {
         {/* <div>Mobile Pay Zone: {locationItem.mobile_pay_zone}</div>
     </div>  */}
       </div>
-      <div>
+      <div onClick={() => getHandleClick(locationItem)}>
         <img src={dirIcon} className="diricon"></img>
       </div>
     </div>

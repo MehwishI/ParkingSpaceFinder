@@ -12,6 +12,8 @@ import { MdOutlineTurnRight } from "react-icons/md";
 import parkingicon from "../../images/Line 23.png";
 import filtericon from "../../images/ion_filter.png";
 import crossicon from "../../images/basil_cross-outline.png";
+import rectangle from "../../images/Rectangle 40.png";
+import diricon from "../../images/Frame 20.png";
 import "./LocationList.css";
 
 const LocationList = ({ wpaLocRes }) => {
@@ -177,15 +179,16 @@ const LocationList = ({ wpaLocRes }) => {
                     icon={faMapMarker}
                     className="marker-style"
                   /> */}
-                      <FontAwesomeIcon
+                      {/* <FontAwesomeIcon
                         icon={faMapLocationDot}
                         className="parking-icon"
                         color="#129F4E"
-                      />
+                      /> */}
+                      <img src={rectangle} height="120px"></img>
                     </div>
 
                     <div className="ms-2 details-box">
-                      <div className="d-flex align-items-center side-containers">
+                      <div className="d-flex  side-containers box">
                         <div>
                           <div className="overlay-text-top">
                             <b>{item.street}</b>
@@ -210,10 +213,11 @@ const LocationList = ({ wpaLocRes }) => {
                           onClick={() => getHandleClick(item)}
                         >
                           <div className="arrow-dir">
-                            <MdOutlineTurnRight />
+                            {/* <MdOutlineTurnRight /> */}
+                            <img src={diricon}></img>
                           </div>
-                          &nbsp;
-                          <span>Directions</span>
+                          {/* &nbsp;
+                          <span>Directions</span> */}
                         </div>
                       </div>
                     </div>

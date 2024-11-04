@@ -56,12 +56,12 @@
 }
 
 .btn-dir-style {
-  /* margin-bottom: 42px;
+  /* /* margin-bottom: 42px;
   padding-top: 0px !important;
   font-size: 18px;
   background-color: white;
   border-radius: 50%;
-  padding: 6px; */
+  padding: 6px; 
   color: white;
   display: flex;
   flex-direction: row;
@@ -79,16 +79,21 @@
   border-top-right-radius: 17px;
   border-bottom-left-radius: 17px;
   border-bottom-right-radius: 17px;
-  overflow: hidden;
+  overflow: hidden; */
 }
 .btn-dir-style span {
   width: 65px;
   height: 21px;
 }
 .arrow-dir {
-  padding: 0px;
+  /* padding: 0px;
   height: 16px;
-  width: 16px;
+  width: 16px; */
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 13px;
 }
 .details-box {
   height: 130px;
@@ -298,7 +303,6 @@
 }
 .div-cross-icon {
   width: 18px;
- 
 }
 @media only screen and (max-width: 768px) {
   .loc-list {
