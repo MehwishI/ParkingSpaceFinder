@@ -172,9 +172,12 @@ const MapLocContainer = ({
           lng: position.coords.longitude,
         };
         // const center = { lat: lat, lng: long };
-        setDefaultCenter(userLocaton);
-
-        onDataChange(userLocaton);
+        if (destCoord) {
+          setDefaultCenter(destCoord);
+        } else {
+          setDefaultCenter(userLocaton);
+        }
+        onDataChange(destCoord);
 
         if (map) {
           map.panTo(userLocaton);
@@ -457,7 +460,7 @@ const MapLocContainer = ({
           //   url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(<CustomMarker />),
           //   scaledSize: new window.google.maps.Size(40, 40), // Adjust the size
           // }}
-          position={{ lat: defaultCenter.lat, lng: defaultCenter.lng }}
+          position={{ lat: destCoord.lat, lng: destCoord.lng }}
         />
         <MarkerF key="Destination" title="" />
 

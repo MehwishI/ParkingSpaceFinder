@@ -43,8 +43,8 @@ const LocationResult = () => {
 
   // //
   //console.log("params:", params);
-  // const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
-  const { addressCoordinate, getRealAddress } = location.state || {};
+  const addressCoordinate = location.state.addressCoordinate.addressCoordinate;
+  //const { addressCoordinate, getRealAddress } = location.state || {};
   // const onDataChange = location.state.onDataChange.onDataChange;
   const searchInput = location.state.searchInput.inputValue;
 
@@ -73,9 +73,14 @@ const LocationResult = () => {
 
           setDestCoord(coord); //setting destCoord
 
-          if (coord.lat != null && coord.lng != null && typeof coord.lat === 'number' && typeof coord.lng === 'number') {
+          if (
+            coord.lat != null &&
+            coord.lng != null &&
+            typeof coord.lat === "number" &&
+            typeof coord.lng === "number"
+          ) {
             console.log("terry flex");
-            
+
             const wpaLocRes = await locResultForCoord(coord);
 
             console.log("wpaLocRes in LocationResult.js", wpaLocRes);
@@ -88,8 +93,6 @@ const LocationResult = () => {
           }
 
           //  const wpaLocRes = await response.json();
-
-
         } else {
           console.log("coord is empty:", coord);
         }
@@ -112,13 +115,13 @@ const LocationResult = () => {
   return (
     <div className="loc-result-container">
       <Search
-        onDataChange={getHandleDataChange}
+        // onDataChange={getHandleDataChange}
         backgroundColor={"none"}
         marginLeft={"10px"}
         searchInput={searchInput}
         isHomeScreen={false}
       />
-      <div className='map-container'>
+      <div className="map-container">
         <MapLocContainer
           wpaResData={locRes}
           onDataChange={getCurrentLocCoords}

@@ -6,6 +6,9 @@ import {
   faCircle,
   faGripVertical,
 } from "@fortawesome/free-solid-svg-icons";
+import verticalicon from "../../images/Rectangle33.png";
+import locIcon from "../../images/weui_location-filled.png";
+import eclipse from "../../images/Ellipse 5.png";
 
 //import "@fortawesome/fontawesome-free-solid";
 
@@ -13,26 +16,22 @@ const LocationItem = ({ locationItem }) => {
   // will receive parkdata from  db
   //const { } = props;
   return (
-    <div className="loc-container">
+    <div className="park-loc-container">
+      <div>{Date(locationItem.parking_date)}</div>
       <div className="icon-parkname">
         <div className="icons">
-          <FontAwesomeIcon icon={faCircle} size="1.5" />
-          <FontAwesomeIcon icon={faGripVertical} />
-
-          <FontAwesomeIcon
-            icon={faParking}
-            className="parking-icon"
-            size="10x"
-          />
+          <img className="eclipse-icon" src={eclipse} />
+          <img className="verticalicon" src={verticalicon} />
+          <img src={locIcon} />
         </div>
+
         <div className="street-date">
           <div>
             {locationItem.street}, {locationItem.city}
           </div>
-          <div>Parked on: {Date(locationItem.parking_date)}</div>
         </div>
       </div>
-      <div className="loc-details">
+      {/* <div className="loc-details">
         <div>Paystation Number: {locationItem.paystation_number}</div>
 
         <div>Hourly Rate: {locationItem.hourly_rate}</div>
@@ -41,8 +40,8 @@ const LocationItem = ({ locationItem }) => {
         {/* <div>{locationItem.total_space}</div>
         <div>{locationItem.accessible_space} </div> */}
 
-        <div>Mobile Pay Zone: {locationItem.mobile_pay_zone}</div>
-      </div>
+      {/* <div>Mobile Pay Zone: {locationItem.mobile_pay_zone}</div>
+    </div>  */}
     </div>
   );
 };

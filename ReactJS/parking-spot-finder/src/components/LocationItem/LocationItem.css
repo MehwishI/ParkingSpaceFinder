@@ -1,4 +1,4 @@
-.loc-container {
+.park-loc-container {
   align-items: center;
 }
 
@@ -27,8 +27,17 @@
   flex-direction: column;
   padding-block: 5px;
   justify-content: space-between;
+  align-items: center;
 }
 
 .loc-details {
   display: block;
+}
+.verticalicon {
+  height: 44px;
+  width: 2px;
+}
+.eclipse-icon {
+  width: 8px;
+  height: 8px;
 }
