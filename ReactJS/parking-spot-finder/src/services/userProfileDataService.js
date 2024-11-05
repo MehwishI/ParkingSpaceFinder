@@ -16,6 +16,7 @@ const getUserProfileData = async (getUserId) => {
 };
 
 const saveUserProfileData = async (userData) => {
+  console.log("userData in react service:",userData);
   try {
     const response = await axios.post(`${localBaseUrl}/user/profile/save`, {
       userData,

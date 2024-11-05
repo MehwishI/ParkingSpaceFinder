@@ -9,10 +9,12 @@ import {
 import Login from "components/Authentication/Login";
 import Logout from "components/Authentication/Logout";
 import { NavLink } from "react-router-dom";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userExist, setUserExist] = useState(false);
+  const [showReg, setShowReg] = useState(false);
   //let btnCompReg;
 
   //save user data into db
@@ -27,6 +29,7 @@ const Profile = () => {
     };
 
     try {
+      console.log(userData);
       const response = await saveUserProfileData(userData);
       if (response.status === 200) {
         console.log("user saved Successfully!");
@@ -42,11 +45,16 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        if (user.isAuthenticated) {
+        // if (!userExist) {
+        console.log(isAuthenticated);
+        if (isAuthenticated) {
           const userFound = await getUserProfileData(user.sub);
+          console.log("found", userFound);
           if (userFound) {
             setUserExist(true);
           } else setUserExist(false);
+          // }
+          console.log(userExist);
         }
       } catch (error) {
         console.error(error);
@@ -55,6 +63,17 @@ const Profile = () => {
 
     fetchUserData();
   }, []);
+
+  useEffect(() => {
+    if (userExist === false) {
+      //setUserExist(true);
+      console.log("userExist:", userExist);
+      setShowReg(true);
+    } else {
+      setShowReg(false);
+    }
+    console.log("showReg:", showReg);
+  }, [userExist]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -87,7 +106,7 @@ const Profile = () => {
           )}
         </div>
         <div>
-          {isAuthenticated && userExist && (
+          {showReg && isAuthenticated && (
             <button onClick={handleCompReg} type="Submit">
               Complete Registeration
             </button>
