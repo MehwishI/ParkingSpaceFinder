@@ -23,7 +23,7 @@ const ParkingHistory = () => {
   const getUserId = isAuthenticated ? user.sub : null;
   let parkAddr = [];
   let coordArr = [];
-  // let temp = [];
+  let temp = [];
   const getRealParkAddress = async (coordArr) => {
     console.log("here");
     console.log("coordArr:", coordArr);
@@ -72,6 +72,7 @@ const ParkingHistory = () => {
 
   useEffect(() => {
     coordArr = [];
+    console.log("user:", isAuthenticated, user.email_verified);
     const getHistory = async () => {
       let temp1 = [];
       try {

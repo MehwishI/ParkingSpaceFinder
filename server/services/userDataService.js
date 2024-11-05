@@ -29,10 +29,15 @@ const saveUserData = async (userData) => {
 
   try {
     const newUser = new userCollection(userData);
-    const savedUser = await newUser.save();
-    console.log("User saved: ", savedUser);
+    //const savedUser = await newUser.save();
+
+    newUser
+      .save()
+      .then((result) => console.log(result))
+      .catch((err) => console.log(err));
+    // console.log("User saved result: ", result);
     // if(writeResult.hasWriteError())
-    return savedUser;
+    return true;
   } catch (error) {
     console.error(error);
     throw error;
