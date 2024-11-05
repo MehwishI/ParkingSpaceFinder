@@ -1,7 +1,55 @@
 .lower-third-style {
-    bottom: 9%;
+    bottom: 70px;
     position: absolute;
-    background-color: white;
-    place-items: center;
+    place-items: left;
     padding: 20px;
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 374px;
+    height: 105px;
+    border-radius: 20px;
+    background: #129F4E;
+}
+
+.upper-text {
+    font-size: 30px;
+    color: #ffffff;
+}
+
+.lower-text {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.btn-style {
+    font-size: 20px;
+    color: #DB4437;
+    font-weight: 700;
+    height: 36px;
+    width: 86px;
+    border-radius: 34px;
+    border: none;
+}
+
+.upper-third-style {
+    position: absolute;
+    top: 42px;
+    z-index: 1000;
+    background: #ffffff;
+    height: 72px;
+    width: 374px;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding-left: 16px;
+    padding-top: 12px;
+}
+
+.up-div-style {
+    color: #0D8541;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 4px;
+    margin-left: 12px;
 }

@@ -4,6 +4,9 @@ const userCollection = require("../models/User");
 //call encrypt data() --sensitive data
 const getUserData = async (userId) => {
   try {
+  
+    console.log("user data id",userId);
+    
     const userFound = await userCollection
       .findOne({
         userid: userId,

@@ -16,6 +16,8 @@ const getUserParkingHistory = async (userId) => {
   try {
     userFound = await userService.getUserData(userId);
 
+    console.log("get user found data", userFound);
+
     //console.log("userFound in parking service", userFound);
     if (userFound.emailVerified === false) {
       console.log(

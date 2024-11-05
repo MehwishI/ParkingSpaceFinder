@@ -38,7 +38,7 @@ const MapDirection = () => {
     };
 
     const clickToMapNav = () => {
-        navigate('/mapnavigation');
+        navigate('/mapnavigation', { state: { duration: duration, distance: distance}});
     };
 
     return (

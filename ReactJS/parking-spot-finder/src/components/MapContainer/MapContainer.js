@@ -17,6 +17,7 @@ import CustomMarker from "../FontIcon/FontIcon";
 import iconmarker from "../../images/marker-pinlet.png";
 import currentLocation from "../../images/CurrentLocationMarker.png";
 import destLocIcon from "../../images/SpotlightMarker.png";
+import mapNavIcon from "../../images/iconamoon_location-fill.png";
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({
@@ -27,6 +28,9 @@ const MapContainer = ({
   directionCoords,
   curCoords,
   onDurationTime,
+  currPosition,
+  path,
+  destCoorNav
 }) => {
   let initialCenter = {};
 
@@ -111,6 +115,8 @@ const MapContainer = ({
 
   useEffect(() => {
     // when map loads, get current location
+    console.log("jyhhhh", path);
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
 
@@ -147,7 +153,9 @@ const MapContainer = ({
 
       if (isProd === "false" || false) {
         console.log("I got yees u");
-        
+        console.log("dest nav", directResp);
+
+
         directionCoordinates.lat = 49.89163903407668;
         directionCoordinates.lng = -97.13962168666052;
 
@@ -185,6 +193,11 @@ const MapContainer = ({
       navigator.geolocation.getCurrentPosition(success);
     }
   }, []);
+
+  useEffect(() => {
+    console.log("current", currPosition);
+    console.log("path", path);
+  }, [currPosition]);
 
   useEffect(() => {
     if (curCoords) {
@@ -446,6 +459,48 @@ const MapContainer = ({
                 strokeColor: "#165CE9",
                 strokeWeight: 5,
               },
+            }}
+          />
+        )}
+
+        {currPosition && (
+          <MarkerF
+            key="current_location_nav"
+            title="You are here!"
+            animation="DROP"
+            icon={{
+              url: mapNavIcon,
+              scaledSize: new window.google.maps.Size(30, 30), // Adjust the size
+            }}
+            position={currPosition}
+          />
+        )}
+
+        {destCoorNav && (
+          <MarkerF
+            position={destCoorNav}
+            icon={{
+              url: destLocIcon,
+              scaledSize: new window.google.maps.Size(29, 42),
+            }}
+            title="Destination"
+          />
+        )}
+
+        {path && (
+          <Polyline
+            path={directResp}
+            options={{
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 6,
+              icons: [
+                {
+                  icon: { path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW },
+                  offset: '100%',
+                  repeat: '20px',
+                },
+              ],
             }}
           />
         )}
