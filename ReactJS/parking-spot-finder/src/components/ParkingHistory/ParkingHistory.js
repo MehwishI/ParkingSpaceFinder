@@ -72,7 +72,7 @@ const ParkingHistory = () => {
 
   useEffect(() => {
     coordArr = [];
-    console.log("user:", isAuthenticated, user.email_verified);
+    // console.log("user:", isAuthenticated, user.email_verified);
     const getHistory = async () => {
       let temp1 = [];
       try {
@@ -171,13 +171,13 @@ const ParkingHistory = () => {
                 </div>
               ))}
             </div>
-            <div>
-              {addArray ? (
+            {/* <div>
+              {historyExist && addArray ? (
                 addArray.map((item) => <div>{item.formattedAddress}</div>)
               ) : (
                 <div>hello</div>
               )}
-            </div>
+            </div> */}
           </>
         ) : (
           <div>No Parking History available</div>
