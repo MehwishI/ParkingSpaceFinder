@@ -53,7 +53,7 @@ const Profile = () => {
         if (isAuthenticated) {
           const userFound = await getUserProfileData(user.sub);
           console.log("found", userFound);
-          if (userFound) {
+          if (userFound.status === 200) {
             setUserExist(true);
           } else setUserExist(false);
           // }
@@ -114,11 +114,13 @@ const Profile = () => {
           )}
         </div>
         <div>
-          {isAuthenticated && showReg && (
-            <button onClick={handleCompReg} type="Submit">
-              Complete Registeration
-            </button>
-          )}
+          {isAuthenticated
+            ? showReg && (
+                <button onClick={handleCompReg} type="Submit">
+                  Complete Registeration
+                </button>
+              )
+            : ""}
 
           {isAuthenticated && <Logout />}
         </div>
