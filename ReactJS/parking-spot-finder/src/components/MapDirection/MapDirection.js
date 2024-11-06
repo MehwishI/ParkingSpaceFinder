@@ -17,8 +17,6 @@ const MapDirection = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("coords points", allItems);
-
         // build destination coordinates
         destCoord.lat = parseFloat(coords.lat);
         destCoord.lng = parseFloat(coords.lng);
@@ -38,7 +36,7 @@ const MapDirection = () => {
     };
 
     const clickToMapNav = () => {
-        navigate('/mapnavigation');
+        navigate('/mapnavigation', { state: { duration: duration, distance: distance}});
     };
 
     return (

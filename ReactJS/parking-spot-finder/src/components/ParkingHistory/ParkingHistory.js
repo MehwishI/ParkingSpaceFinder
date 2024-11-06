@@ -25,54 +25,28 @@ const ParkingHistory = () => {
   let coordArr = [];
   let temp = [];
   const getRealParkAddress = async (coordArr) => {
-    console.log("here");
-    console.log("coordArr:", coordArr);
     for (const item of coordArr) {
-      // coordArr.forEach(async (item) => {
-      console.log(1);
-      console.log("history coords:", item.locLatitude, item.locLongitude);
 
       try {
         const address = await getRealAddress(item);
-        console.log("address:", address.formattedAddress);
-        //const add = await address.formattedAddress;
         if (address.formattedAddress) {
           temp.push(address.formattedAddress);
-          console.log("temp", temp);
-          //  setAddArray(parkAddr);
         }
       } catch (error) {
         console.log(error);
       }
 
-      // return temp;
     }
-    //   map(async (item) => {
-    //   console.log("history coords:", item.locLatitude, item.locLongitude);
-
-    //   const address = await getRealAddress(item);
-    //   console.log("address:", address.formattedAddress);
-    //   //const add = await address.formattedAddress;
-    //   if (address.formattedAddress) {
-    //     temp.push(address.formattedAddress);
-    //     console.log("temp", temp);
-    //     //  setAddArray(parkAddr);
-    //   }
-    //   return temp;
-    // });
     if (temp) {
       parkAddr = temp;
-      console.log("parkAddr after", parkAddr);
       // return address;
       setAddArray(parkAddr);
-      console.log("addArray:", addArray);
       return parkAddr;
     }
   };
 
   useEffect(() => {
     coordArr = [];
-    // console.log("user:", isAuthenticated, user.email_verified);
     const getHistory = async () => {
       let temp1 = [];
       try {
@@ -80,6 +54,7 @@ const ParkingHistory = () => {
           return null;
         }
         const getUserHist = await getUserParkingHistory(getUserId);
+
         //getUserHist.then((history) => {
         console.log("history", getUserHist);
         console.log(getUserHist.response.status);

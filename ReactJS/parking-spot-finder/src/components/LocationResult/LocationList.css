@@ -300,6 +300,8 @@
   flex-direction: row;
   width: fit-content;
   align-items: center;
+
+  font-size: 18px;
 }
 .div-cross-icon {
   width: 18px;
@@ -312,6 +314,7 @@
     bottom: 0;
     padding-left: 10px;
     padding-right: 10px;
+    border-radius: 20px;
   }
   .loc-list-closed {
     height: 10%;

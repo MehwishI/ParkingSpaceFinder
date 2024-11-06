@@ -1,16 +1,11 @@
 import axios from "axios";
-//import { useAuth0 } from "@auth0/auth0-react";
 
 const getBaseApi = process.env.REACT_APP_BASE_URL_API;
-//const { getAccessTokenSilently } = useAuth0();
 
 const locResultSearch = async () => {
-  //const authtoken = await getAccessTokenSilently();
 
   try {
     const getLocRes = await axios.post(`${getBaseApi}/wpatimelimit`);
-
-    console.log(getLocRes.data);
 
     return getLocRes.data;
   } catch (error) {
@@ -35,8 +30,6 @@ const locResultForCoord = async (coordPoints) => {
     latitude: String(coordPoints.lat),
     longitude: String(coordPoints.lng),
   });
-
-  // console.log("COORDINATE DATA", getLocCoRes.data); //returning all data with all fields
 
   return getLocCoRes.data;
 };

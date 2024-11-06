@@ -198,9 +198,7 @@ const MapLocContainer = ({
   }, [directResp]);
 
   useEffect(() => {
-    console.log("i got to useEffect in map...");
     if (!getAllLocsData) {
-      console.log("useEffect is null...");
       return;
     }
     // check later
@@ -215,28 +213,12 @@ const MapLocContainer = ({
   }, [getAllLocsData]);
 
   useEffect(() => {
-    // destCoord = [
-    //   {
-    //     "name": "Polo Park Shopping Centre Parking Lot",
-    //     "coordinates": { "lat": 49.8825, "lng": -97.2083 }
-    //   },
-    //   {
-    //     "name": "St. Vital Centre Parking Garage",
-    //     "coordinates": { "lat": 49.8299, "lng": -97.1274 }
-    //   }
-    // ]
-    console.log("ffsv", destCoord);
-
-    console.log("wwwwssseee", destCoord.parking);
-
     if (destCoord?.parking?.length > 0) {
       const locData = destCoord.parking.map((location, index) => ({
         lat: location.coordinates.lat,
         lng: location.coordinates.lng,
         title: `Marker ${index + 1}`,
       }));
-
-      console.log("lov loc", getLocPoints);
 
       setLocAiPoints(locData);
     }
@@ -280,8 +262,6 @@ const MapLocContainer = ({
 
   const getHandleDrawPoly = async (destination) => {
     if (defaultCenter && destination) {
-      console.log("I fetched directions", defaultCenter, destination);
-
       const dirService = new window.google.maps.DirectionsService();
 
       const getRes = await dirService.route({
@@ -289,8 +269,6 @@ const MapLocContainer = ({
         destination: destination,
         travelMode: window.google.maps.TravelMode.DRIVING,
       });
-
-      console.log("directions fetched status", getRes);
 
       if (getRes.status === "OK") {
         setDirectResp(getRes);

@@ -8,9 +8,6 @@ const User = mongoose.model("User");
 //call encrypt data()
 
 const getUserParkingHistory = async (userId) => {
-  //get from db
-  //get user ._id from getuserdata()
-  console.log(userId);
 
   let userfound = {};
   try {
@@ -41,7 +38,6 @@ const getUserParkingHistory = async (userId) => {
       .exec();
 
     if (!parkHistory) {
-      console.log("User Parking history not available");
       return null;
     } else return parkHistory;
   } catch (error) {
@@ -63,9 +59,7 @@ const saveUserParkingHistory = async (parkData, userId) => {
         userid: userId,
       })
       .exec();
-    //  console.log("user found:", userFound);
     if (!userFound) {
-      console.log("User does not exist, can not save park history");
       return null;
     }
   } catch (error) {
@@ -90,23 +84,10 @@ const saveUserParkingHistory = async (parkData, userId) => {
 
     const savedItem = await newParkItem.save();
 
-    // console.log("saveditem", savedItem);
-    // console.log("userFound.userid", userFound.userid);
-
-    // const updatedUser = await User.findOneandUpdate(
-    //   { userid: userFound.userid },
-    //   { $push: { parkHistory: newParkItem._id } },
-    //   {
-    //     new: true,
-    //     useFindAndModify: false,
-    //   }
-    // );
-
     //update userFound
     userFound.parkHistory.push(newParkItem._id);
     userFound.save();
-
-    console.log("UserFound after updated Successfullly!", userFound);
+    
     // res.status(201).json(savedItem);
     return userFound;
   } catch (error) {

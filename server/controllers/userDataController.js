@@ -4,12 +4,9 @@ const fetchUserData = async (req, res) => {
   const userid = req.body.userid;
   try {
     const user = await userService.getUserData(userid);
-    //console.log(user);
     if (!user) {
-      console.log("User not found!");
       res.status(404).send(false);
     } else {
-      console.log("User found");
       res.status(200).send(user);
     }
   } catch (error) {
@@ -19,18 +16,13 @@ const fetchUserData = async (req, res) => {
 };
 
 const saveUserData = async (req, res) => {
-  //call fetchuserdata to check if email already exitsc
-  console.log(req.body.userData.userid);
   const userData = req.body.userData;
 
   const userExist = await userService.getUserData(req.body.userData.userid);
 
-  console.log("userexist in controlller:", userExist);
-
   if (!userExist) {
     try {
       const data = await userService.saveUserData(req.body.userData);
-      console.log("user data returned in userdatacontroller", data);
       if (data) {
         res.status(200).send("User data saved!");
       } else {

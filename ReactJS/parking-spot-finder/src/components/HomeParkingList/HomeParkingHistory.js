@@ -79,7 +79,6 @@ const HomeParkingHistory = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("history", isAuthenticated);
     if (isAuthenticated) {
       fetchUserParkingHist();
     }

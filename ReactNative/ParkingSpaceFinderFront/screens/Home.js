@@ -18,7 +18,6 @@ const Home = () => {
         redirectUri: 'com.ParkingSpaceFinderFront.auth0://dev-yu5loj22bbugaxrq.us.auth0.com/android/ParkingSpaceFinderFront/callback' // Adjust this as necessary
       })
       .then(credentials => {
-        // console.log('Access Token:', credentials.accessToken);
       })
       .catch(error => {
         console.error('Login failed:', error);

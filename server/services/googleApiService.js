@@ -4,7 +4,6 @@ const gglBaseUrl = process.env.GOOGLE_API_BASE_URL;
 const gglApiKey = process.env.GOOGLE_MAPS_API_KEY;
 const getGoogSearchResult = async (getInput) => {
   try {
-    // console.log("google input", getInput);
 
     const getRes = await axios.get(
       `${gglBaseUrl}/place/autocomplete/json?input=${encodeURIComponent(
@@ -24,13 +23,6 @@ const getCoordinatesByPlaceId = async (placeid) => {
       `${gglBaseUrl}/place/details/json?place_id=${placeid}&key=${gglApiKey}`
     );
 
-    console.log(response);
-    // const result = {
-    //   location: response.data.result.geometry.location,
-    //   photo_ref: response.data.result.photos.photo_reference
-    //     ? response.data.result.photos.photo_reference
-    //     : "",
-    // };
     return response.data.result.geometry.location; // returning cooridinates in the form for e.g: { lat: 49.88412429999999, lng: -97.1989378 }
   } catch (error) {
     console.log(error);
@@ -39,7 +31,6 @@ const getCoordinatesByPlaceId = async (placeid) => {
 };
 
 const getAddressTextByCoord = async (coords) => {
-  console.log("bbb:", coords);
   try {
     const addressTextRes = {};
 
