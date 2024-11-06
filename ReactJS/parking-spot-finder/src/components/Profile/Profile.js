@@ -10,11 +10,13 @@ import Login from "components/Authentication/Login";
 import Logout from "components/Authentication/Logout";
 import { NavLink } from "react-router-dom";
 import { faL } from "@fortawesome/free-solid-svg-icons";
+import usericon from "../../images/user.png";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userExist, setUserExist] = useState(false);
   const [showReg, setShowReg] = useState(false);
+  const [userSaved, setUserSaved] = useState(false);
   //let btnCompReg;
 
   //save user data into db
@@ -31,6 +33,8 @@ const Profile = () => {
     try {
       const response = await saveUserProfileData(userData);
       if (response.status === 200) {
+        console.log("user saved Successfully!");
+        setUserSaved(true);
       }
     } catch (error) {
       console.log("User not saved:", error);
@@ -45,7 +49,8 @@ const Profile = () => {
       try {
         if (isAuthenticated) {
           const userFound = await getUserProfileData(user.sub);
-          if (userFound) {
+          console.log("found", userFound);
+          if (userFound.status === 200) {
             setUserExist(true);
           } else setUserExist(false);
         }
@@ -65,6 +70,11 @@ const Profile = () => {
     }
   }, [userExist]);
 
+  useEffect(() => {
+    if (userSaved) {
+      setShowReg(false);
+    }
+  }, [userSaved]);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -96,11 +106,14 @@ const Profile = () => {
           )}
         </div>
         <div>
-          {showReg && isAuthenticated && (
-            <button onClick={handleCompReg} type="Submit">
-              Complete Registeration
-            </button>
-          )}
+          {isAuthenticated
+            ? showReg && (
+                <button onClick={handleCompReg} type="Submit">
+                  Complete Registeration
+                </button>
+              )
+            : ""}
+
           {isAuthenticated && <Logout />}
         </div>
       </div>
