@@ -82,6 +82,15 @@ const ParkingHistory = () => {
         const getUserHist = await getUserParkingHistory(getUserId);
         //getUserHist.then((history) => {
         console.log("history", getUserHist);
+        console.log(getUserHist.response.status);
+        if (getUserHist.response.status !== 200) {
+          setUserHistory(null);
+          setHistoryExist(false);
+          // return null;
+        } else {
+          setHistoryExist(true);
+          setUserHistory(getUserHist);
+        }
 
         //getreal address from history
         // getUserHist.map((item) => {
@@ -93,8 +102,7 @@ const ParkingHistory = () => {
         //   coordArr.push(coords);
         // });
         // console.log(coordArr);
-        setHistoryExist(true);
-        setUserHistory(getUserHist);
+
         // setCoordArr(temp1);
         // try {
         //   const promises = getRealParkAddress(getUserHist);
@@ -111,11 +119,7 @@ const ParkingHistory = () => {
         // console.log("parkAddr:", parkAddr);
         // })
         //});
-        if (!getUserHist) {
-          setUserHistory(null);
-          setHistoryExist(false);
-          return null;
-        }
+
         //setHistoryExist(true);
         // setUserHistory(getUserHist);
       } catch (error) {
@@ -123,8 +127,16 @@ const ParkingHistory = () => {
       }
     };
     getHistory();
+    console.log("historyExist after:", historyExist);
     // getRealParkAddress();
   }, []);
+
+  useEffect(() => {
+    console.log("re-render after historyExist gets updated!");
+    console.log("historyExist && userHistory", historyExist && userHistory);
+    console.log(historyExist);
+    console.log(userHistory);
+  }, [historyExist]);
   // useEffect(() => {
   //   //const temp = [];
 
@@ -162,23 +174,14 @@ const ParkingHistory = () => {
       <h2>Past Parkings</h2>
       <div>
         {" "}
-        {historyExist ? (
-          <>
-            <div>
-              {userHistory.map((item) => (
-                <div className="location-item">
-                  <LocationItem key={item._id} locationItem={item} />
-                </div>
-              ))}
-            </div>
-            {/* <div>
-              {historyExist && addArray ? (
-                addArray.map((item) => <div>{item.formattedAddress}</div>)
-              ) : (
-                <div>hello</div>
-              )}
-            </div> */}
-          </>
+        {historyExist && userHistory ? (
+          <div>
+            {userHistory.map((item) => (
+              <div className="location-item">
+                <LocationItem key={item._id} locationItem={item} />
+              </div>
+            ))}
+          </div>
         ) : (
           <div>No Parking History available</div>
         )}

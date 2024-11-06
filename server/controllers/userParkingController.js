@@ -11,8 +11,9 @@ const fetchUserParkingData = async (req, res) => {
     if (!parkHistory) {
       console.log("Parking history not found for this user.");
       res.status(404).send("Parking history not available for this user.");
+    } else {
+      return res.status(200).send(parkHistory);
     }
-    return res.status(200).send(parkHistory);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
