@@ -57,11 +57,10 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      console.log("user:", user);
       try {
         if (isAuthenticated) {
           const userFound = await getUserProfileData(user.sub);
-          console.log("found", userFound);
+
           if (userFound.status === 200) {
             setUserExist(true);
           } else setUserExist(false);

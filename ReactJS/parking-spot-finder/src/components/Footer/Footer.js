@@ -44,13 +44,10 @@ const Footer = () => {
           <span>Activity</span>
         </div>
         <div className="footer-item">
-          {isAuthenticated ? (
-            <NavLink to="/profile">
-              <FontAwesomeIcon icon={faUser} />
-            </NavLink>
-          ) : (
-            ""
-          )}
+          <NavLink to="/profile">
+            <FontAwesomeIcon icon={faUser} />
+          </NavLink>
+
           <span>Account</span>
         </div>
       </div>
