@@ -36,38 +36,16 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
     const { getAccessTokenSilently } = useAuth0();
 
     const getHandleGenVoice = async () => {
-        console.log("wqas",getCurrLoc);
         setIsLoading(true);
         try {
             if (Object.keys(locRealAdd.getCurrRealAddress).length < 1) {
                 
-
-                // setTextAddress(locRealAdd.getCurrRealAddress.formattedAddress);
                 return;
             };
-            // check that object is not empty
-            // if (Object.keys(jsonData).length === 0) {
-            //     return "Data cannot be empty";
-            // };
-
-            // append current location before sending to api
-
-            // console.log("xza");
-            // console.log("is it true", getDestLoc.destLocAddress);
-
-            // if (coordsAddState !== null) {
-            //     getCurrLoc.lat = coordsAddState.getCurrLocAdd.lat;
-            //     getCurrLoc.lng = coordsAddState.getCurrLocAdd.lng;
-            // };
-
-            // jsonData.currentAddress = "";
-            // jsonData.currentCoordinates = `Lat: ${getCurrLoc.lat}, Long: ${getCurrLoc.lng}`;
+            
             jsonData.destLocAddress = locRealAdd.getCurrRealAddress.formattedAddress;
             jsonData.destCoordinates = `Lat: ${coordsAddState.lat}, Long: ${coordsAddState.lng}`;
-            // jsonData.destCoordinates = `Lat: ${coordsAddState.getCurrLocAdd.lat}, Long: ${coordsAddState.getCurrLocAdd.lng}`;
-
-            // return;
-            // get auth token
+            
             const getAuth0Tok = await getAccessTokenSilently();
 
             // encrypt data before sending it to the database
@@ -83,7 +61,6 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
 
             const { text, txtJson, audio } = getResp.data;
 
-            console.log("content type", text, txtJson, audio);
             setAiText(text);
 
             onDataChange(txtJson);
@@ -138,21 +115,15 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
     }, [isPlaying]);
 
     const handlePlayPause = () => {
-        console.log("handle clicked...");
-
         if (audioRef.current) {
             if (isPlaying) {
-                console.log("pause");
-
                 audioRef.current.pause();
                 setIsPlaying(false);
             } else {
-                console.log("play");
 
                 audioRef.current.play();
                 setIsPlaying(true);
             }
-            // setIsPlaying(!isPlaying);
         }
     };
 

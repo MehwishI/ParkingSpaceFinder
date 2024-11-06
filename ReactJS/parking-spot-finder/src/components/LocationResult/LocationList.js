@@ -17,8 +17,6 @@ import diricon from "../../images/Frame 20.png";
 import "./LocationList.css";
 
 const LocationList = ({ wpaLocRes }) => {
-  // const [fetchCoords, setCoords] = useState();
-  // console.log(wpaLocRes);
   const [getcurrCoords, setCurrCoords] = useState({});
   const [toggleListOpen, setToggleListOpen] = useState(true);
   const [sortby, setSortBy] = useState(null);
@@ -52,14 +50,9 @@ const LocationList = ({ wpaLocRes }) => {
 
   useEffect(() => {
     const sortData = (type) => {
-      // console.log(e.target.value);
-      console.log("before sort:", data);
-      // setSortBy(e.target.value);
       const types = {
-        //  hr- dec: "hourly_rate",
       };
       let sorted = [...data];
-      console.log("sortby", type);
       if (type === "") {
         setSortBy(null);
         setField(null);
@@ -97,16 +90,11 @@ const LocationList = ({ wpaLocRes }) => {
             setField(null);
             break;
         }
-      console.log("sorted:", sorted);
       setData(sorted);
-      console.log(data);
     };
     sortData(sortby);
   }, [sortby]);
 
-  //console.log("after sorting:", wpaLocRes);
-
-  // useEffect(() => {}, sortby);
   const handleCloseClick = (e) => {
     setSortBy(null);
   };

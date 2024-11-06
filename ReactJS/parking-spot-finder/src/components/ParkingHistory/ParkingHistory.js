@@ -25,54 +25,28 @@ const ParkingHistory = () => {
   let coordArr = [];
   let temp = [];
   const getRealParkAddress = async (coordArr) => {
-    console.log("here");
-    console.log("coordArr:", coordArr);
     for (const item of coordArr) {
-      // coordArr.forEach(async (item) => {
-      console.log(1);
-      console.log("history coords:", item.locLatitude, item.locLongitude);
 
       try {
         const address = await getRealAddress(item);
-        console.log("address:", address.formattedAddress);
-        //const add = await address.formattedAddress;
         if (address.formattedAddress) {
           temp.push(address.formattedAddress);
-          console.log("temp", temp);
-          //  setAddArray(parkAddr);
         }
       } catch (error) {
         console.log(error);
       }
 
-      // return temp;
     }
-    //   map(async (item) => {
-    //   console.log("history coords:", item.locLatitude, item.locLongitude);
-
-    //   const address = await getRealAddress(item);
-    //   console.log("address:", address.formattedAddress);
-    //   //const add = await address.formattedAddress;
-    //   if (address.formattedAddress) {
-    //     temp.push(address.formattedAddress);
-    //     console.log("temp", temp);
-    //     //  setAddArray(parkAddr);
-    //   }
-    //   return temp;
-    // });
     if (temp) {
       parkAddr = temp;
-      console.log("parkAddr after", parkAddr);
       // return address;
       setAddArray(parkAddr);
-      console.log("addArray:", addArray);
       return parkAddr;
     }
   };
 
   useEffect(() => {
     coordArr = [];
-    console.log("user:", isAuthenticated, user.email_verified);
     const getHistory = async () => {
       let temp1 = [];
       try {
@@ -80,79 +54,19 @@ const ParkingHistory = () => {
           return null;
         }
         const getUserHist = await getUserParkingHistory(getUserId);
-        //getUserHist.then((history) => {
-        console.log("history", getUserHist);
-
-        //getreal address from history
-        // getUserHist.map((item) => {
-        //   console.log("history coords:", item.locLatitude, item.locLongitude);
-        //   const coords = {
-        //     lat: item.locLatitude.$numberDecimal,
-        //     lng: item.locLongitude.$numberDecimal,
-        //   };
-        //   coordArr.push(coords);
-        // });
-        // console.log(coordArr);
         setHistoryExist(true);
         setUserHistory(getUserHist);
-        // setCoordArr(temp1);
-        // try {
-        //   const promises = getRealParkAddress(getUserHist);
-        //   //console.log();
-        //   // const add = res.formattedAddress;
-        //   // console.log("add", add);
-        //   // parkAddr.push(add);
-        // } catch (error) {
-        //   console.log("error in get real addresses", error);
-        // }
-
-        // await Promise.all(promises);
-
-        // console.log("parkAddr:", parkAddr);
-        // })
-        //});
         if (!getUserHist) {
           setUserHistory(null);
           setHistoryExist(false);
           return null;
         }
-        //setHistoryExist(true);
-        // setUserHistory(getUserHist);
       } catch (error) {
         console.error(error);
       }
     };
     getHistory();
-    // getRealParkAddress();
   }, []);
-  // useEffect(() => {
-  //   //const temp = [];
-
-  //   getRealParkAddress(coordArr);
-  //   //console.log(a);
-  //   // setAddArray(a);
-  //   //console.log("parkAddr", parkAddr);
-
-  //   console.log("addArray in useEffect:", addArray);
-  // }, [historyExist]);
-
-  // const groupItems = (items) => {
-  //   const grouped = {};
-
-  //   items.forEach((item) => {
-  //     if (!grouped[item.category]) {
-  //       grouped[item.category] = [];
-  //     }
-  //     grouped[item.category].push(item);
-  //   });
-
-  //   return grouped;
-  // };
-  // const groupedItems = groupItems(items);
-  // useEffect(() => {
-  //   // setAddArray(parkAddr);
-  //   console.log("addArray:", addArray);
-  // }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;

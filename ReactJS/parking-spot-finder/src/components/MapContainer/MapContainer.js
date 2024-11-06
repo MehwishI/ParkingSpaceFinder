@@ -98,7 +98,6 @@ const MapContainer = ({
 
   useEffect(() => {
     if (aiSugData === null) {
-      console.log("value is null");
     } else if (Object.keys(aiSugData).length > 0 && map) {
       const convAiSugData = convertToObject(aiSugData);
 
@@ -115,8 +114,6 @@ const MapContainer = ({
 
   useEffect(() => {
     // when map loads, get current location
-    console.log("jyhhhh", path);
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
 
@@ -152,28 +149,18 @@ const MapContainer = ({
       const directionCoordinates = {};
 
       if (isProd === "false" || false) {
-        console.log("I got yees u");
-        console.log("dest nav", directResp);
-
-
         directionCoordinates.lat = 49.89163903407668;
         directionCoordinates.lng = -97.13962168666052;
 
         getCalcRoute(defaultCenter, directionCoordinates);
       } else {
-        // directionCoordinates.lat = 49.89163903407668;
-        // directionCoordinates.lng = -97.13962168666052;
-        console.log("I got yees u two");
-
         getCalcRoute(defaultCenter, directResp);
       }
     }
   }, [directResp]);
 
   useEffect(() => {
-    console.log("i got to useEffect in map...");
     if (!getAllLocsData) {
-      console.log("useEffect is null...");
       return;
     }
 
@@ -195,16 +182,43 @@ const MapContainer = ({
   }, []);
 
   useEffect(() => {
-    console.log("current", currPosition);
-    console.log("path", path);
-  }, [currPosition]);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+
+        const userLocaton = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        }
+
+        if (isProd === 'false' || false) {
+          userLocaton.lat = 49.891270;
+          userLocaton.lng = -97.139283;
+        };
+
+        // const center = { lat: lat, lng: long };
+        setDefaultCenter(userLocaton);
+
+        getHandleDrawPoly(userLocaton, destCoorNav);
+
+        if (map) {
+          map.panTo(userLocaton);
+          map.setZoom(20);
+          // map.setZoom(16);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+
+  }, [map, destCoorNav]);
 
   useEffect(() => {
     if (curCoords) {
       setDefaultCenter(curCoords);
     }
 
-    getHandleDrawPoly(directionCoords);
+    getHandleDrawPoly(null, directionCoords);
   }, [map, directionCoords, curCoords]);
 
   const success = (position) => {
@@ -228,15 +242,25 @@ const MapContainer = ({
     }
   };
 
-  const getHandleDrawPoly = async (destination) => {
+  const getHandleDrawPoly = async (currLoc, destination) => {
+    let currentCoordinate = {};
     if (defaultCenter && destination) {
-      console.log("I fetched directions", defaultCenter, destination);
+
+      currentCoordinate = defaultCenter;
+
+      if (currLoc !== null) {
+        if (Object.keys(currLoc).length > 0) {
+
+          currentCoordinate = currLoc;
+          // setDefaultCenter(currLoc);
+        }
+      };
 
       const dirService = new window.google.maps.DirectionsService();
 
       const getRes = await dirService.route(
         {
-          origin: defaultCenter,
+          origin: currentCoordinate,
           destination: destination,
           travelMode: window.google.maps.TravelMode.DRIVING,
         },
@@ -255,8 +279,6 @@ const MapContainer = ({
           }
         }
       );
-
-      console.log("directions fetched status", getRes);
 
       if (getRes.status === "OK") {
         setDirectResp(getRes);
@@ -432,7 +454,7 @@ const MapContainer = ({
             <div>
               <h3>{activeMarker.title}</h3>
               <p>{activeMarker.description}</p>
-              <button onClick={() => getHandleDrawPoly(activeMarker)}>
+              <button onClick={() => getHandleDrawPoly(null, activeMarker)}>
                 View Details
               </button>
             </div>

@@ -32,7 +32,6 @@ const fetchCoordinatesbyPlaceId = async (req, res) => {
 };
 
 const fetchAddressText = async (req, res) => {
-  console.log("aaa:", req.body);
   try {
     const getAddressData = await getGglService.getAddressTextByCoord(req.body);
 

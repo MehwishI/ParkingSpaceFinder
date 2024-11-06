@@ -29,10 +29,8 @@ const Profile = () => {
     };
 
     try {
-      console.log(userData);
       const response = await saveUserProfileData(userData);
       if (response.status === 200) {
-        console.log("user saved Successfully!");
       }
     } catch (error) {
       console.log("User not saved:", error);
@@ -45,16 +43,11 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // if (!userExist) {
-        console.log(isAuthenticated);
         if (isAuthenticated) {
           const userFound = await getUserProfileData(user.sub);
-          console.log("found", userFound);
           if (userFound) {
             setUserExist(true);
           } else setUserExist(false);
-          // }
-          console.log(userExist);
         }
       } catch (error) {
         console.error(error);
@@ -66,13 +59,10 @@ const Profile = () => {
 
   useEffect(() => {
     if (userExist === false) {
-      //setUserExist(true);
-      console.log("userExist:", userExist);
       setShowReg(true);
     } else {
       setShowReg(false);
     }
-    console.log("showReg:", showReg);
   }, [userExist]);
 
   if (isLoading) {

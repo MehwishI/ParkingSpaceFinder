@@ -53,32 +53,16 @@ const Search = ({
   };
 
   const handlePredictionClick = (description, place_id) => {
-    console.log("reached pred click with:", description, place_id);
     setInputValue(description);
     setPlaceId(place_id);
     setGglePrediction([]);
     getCoordinatePoints(place_id);
     setShowSuggestions(false);
     setSelectedPred(description);
-    // setShowResult(true);
-    //showR = true;
-    // console.log("After setPlaceId in parent comp:", placeid);
   };
-  // useEffect(() => {
-  //   console.log("placeid updated:", placeid);
-
-  //   console.log("showResult updated:", showResult);
-  //   // getCoordinatePoints(placeid);
-  // }, [placeid, showResult]);
-
-  // useEffect(() => {
-  //   setBackgrundColor(changeBackgroundColor);
-  // }, [changeBackgroundColor]);
 
   const getHandleChange = (e) => {
     setBackgrundColor("none");
-    console.log("inputValue:", inputValue);
-    console.log("selectedPred:", selectedPred);
 
     setInputValue(e.target.value);
     fetchAutoCompleteSuggestion(e.target.value);
@@ -101,27 +85,15 @@ const Search = ({
     navigate("/");
   };
   const getCoordinatePoints = async (getPlaceForId) => {
-    // console.log("in getCooridnates, placeid:", getPlaceForId);
     const response = await getGoogleCoordinates(getPlaceForId);
 
-    // console.log("response received in getCoordinatePoints:", response);
-    // const coordinates = response.data;
-
-    // console.log("After setAddressCoord:", addressCoord);
     if (response) {
-      // console.log("1", showResult);
-      // showR = true;
-      // await setShowResult(true);
-      // console.log("2", showR);
-
       setAddressCoord(response);
       addressCoordinate.destLocAddress = inputValue;
       addressCoordinate.lat = response.lat;
       addressCoordinate.lng = response.lng;
 
-      //  onDataChange(addressCoordinate);
       console.log("addressCoordinate in Search:", addressCoordinate);
-      // console.log("showResult:", showResult);
 
       navigate("/locationresult", {
         state: {

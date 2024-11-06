@@ -10,7 +10,6 @@ const getWpaPayStationAll = async () => {
 
     return resp.data;
   } catch (error) {
-    console.log("Error in ApiService:", error);
     throw error;
   }
 };
@@ -27,7 +26,6 @@ const getWpaPayStationStreet = async (getStreet) => {
 
     return resp.data;
   } catch (error) {
-    console.log("Error in ApiService:", error);
     throw error;
   }
 };
@@ -46,15 +44,11 @@ const getWpaPayStationTimeLimit = async (getTimeLimit) => {
 
     return resp.data;
   } catch (error) {
-    console.log("Error in ApiService:", error);
     throw error;
   }
 };
 
 const getWpaPayStationLocation = async (getLocation) => {
-  // const getTimeLimitFull = getTimeLimit.toString() + 'HOUR PARKING';
-
-  //console.log("Getlocation", getLocation);
   try {
     const resp = await axios.get(
       urlBase +
@@ -65,12 +59,9 @@ const getWpaPayStationLocation = async (getLocation) => {
         },
       }
     );
-    //console.log("resp:", resp);
 
-    //console.log("resp.data", resp.data);
     return resp.data;
   } catch (error) {
-    console.log("Error in ApiService:", error);
     throw error;
   }
 };

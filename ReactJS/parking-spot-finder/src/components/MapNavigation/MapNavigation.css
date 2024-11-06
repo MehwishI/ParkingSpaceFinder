@@ -25,7 +25,7 @@
     font-size: 20px;
     color: #DB4437;
     font-weight: 700;
-    height: 36px;
+    height: 38px;
     width: 86px;
     border-radius: 34px;
     border: none;
@@ -48,8 +48,8 @@
 
 .up-div-style {
     color: #0D8541;
-    font-size: 24px;
+    font-size: 21px;
     font-weight: 600;
-    margin-top: 4px;
     margin-left: 12px;
+    line-height: 1;
 }
