@@ -7,9 +7,11 @@ import ParkingHistory from "components/ParkingHistory/ParkingHistory";
 import Profile from "components/Profile/Profile";
 import { NavLink } from "react-router-dom";
 import "./Footer.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Footer = () => {
   //const {} = props;
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   // const onHistoryClick = () => {
   //   setisHistory(true);
@@ -42,9 +44,13 @@ const Footer = () => {
           <span>Activity</span>
         </div>
         <div className="footer-item">
-          <NavLink to="/profile">
-            <FontAwesomeIcon icon={faUser} />
-          </NavLink>
+          {isAuthenticated ? (
+            <NavLink to="/profile">
+              <FontAwesomeIcon icon={faUser} />
+            </NavLink>
+          ) : (
+            ""
+          )}
           <span>Account</span>
         </div>
       </div>

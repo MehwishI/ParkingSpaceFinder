@@ -11,9 +11,16 @@ import Logout from "components/Authentication/Logout";
 import { NavLink } from "react-router-dom";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import usericon from "../../images/user.png";
+import notifIcon from "../../images/Left item.png";
+import settingsIcon from "../../images/settings.png";
+import phoneIcon from "../../images/f7_phone.png";
+import terms from "../../images/proicons_document.png";
+import logoutIcon from "../../images/logout.png";
+import line from "../../images/Line 26.png";
+import arrow from "../../images/Back.png";
 
 const Profile = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, logout } = useAuth0();
   const [userExist, setUserExist] = useState(false);
   const [showReg, setShowReg] = useState(false);
   const [userSaved, setUserSaved] = useState(false);
@@ -45,8 +52,13 @@ const Profile = () => {
   const onLoginClick = () => {
     return <Login />;
   };
+  const handleLogout = () => {
+    logout({ logoutParams: { returnTo: window.location.origin } });
+  };
+
   useEffect(() => {
     const fetchUserData = async () => {
+      console.log("user:", user);
       try {
         // if (!userExist) {
         console.log(isAuthenticated);
@@ -74,6 +86,7 @@ const Profile = () => {
       setShowReg(true);
     } else {
       setShowReg(false);
+      console.log("user:", user);
     }
     console.log("showReg:", showReg);
   }, [userExist]);
@@ -89,7 +102,7 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      <h3>Account</h3>
+      <div className="account">Account</div>
       <div className="profile-container">
         <div>
           {!isAuthenticated && (
@@ -99,7 +112,77 @@ const Profile = () => {
           )}
           {isAuthenticated && (
             <div>
-              <div className="name-img-container">
+              <div className="name-container">
+                <img
+                  src={usericon}
+                  alt={user.picture}
+                  style={{ width: "50px", height: "50px" }}
+                ></img>
+                <div className="name-btn">
+                  <div className="name">
+                    {user.name} {""}
+                    {user.family_name}
+                  </div>
+                  <div>
+                    {" "}
+                    {isAuthenticated
+                      ? showReg && (
+                          <button className="comp-btn" onClick={handleCompReg}>
+                            {/* <i class="fa fa-user-plus" aria-hidden="true"></i> */}
+                            Complete Registeration
+                          </button>
+                        )
+                      : ""}
+                  </div>
+                </div>
+              </div>
+              <div className="general-cont">
+                <div className="general">General</div>
+                <img src={line} alt=""></img>
+                <div className="text-cont">
+                  <img src={notifIcon} alt=""></img>
+                  <div className="text">Notifications</div>
+                  <img src={arrow} alt="" className="arrow-icon"></img>
+                </div>
+                <div className="text-cont">
+                  <img src={settingsIcon} alt=""></img>
+                  <div className="text">Settings</div>
+                  <img src={arrow} alt="" className="arrow-icon"></img>
+                </div>
+              </div>
+
+              <div className="support-cont">
+                <div className="general">Support</div>
+                <img src={line} alt=""></img>
+                <div className="text-cont">
+                  <img src={phoneIcon} alt=""></img>
+                  <div className="text">Contact Us</div>
+                  <img src={arrow} alt="" className="arrow-icon"></img>
+                </div>
+              </div>
+              <div className="terms-cont">
+                <div className="general">Terms of Use</div>
+                <img src={line} alt=""></img>
+                <div className="text-cont">
+                  <img src={terms} alt=""></img>
+                  <div className="text">Terms and Conditions</div>
+                  <img src={arrow} alt="" className="arrow-icon"></img>
+                </div>
+              </div>
+              {isAuthenticated && (
+                <div className="logout-cont">
+                  {" "}
+                  <div className="general">Logout</div>
+                  <img src={line} alt=""></img>
+                  <div className="text-cont" onClick={handleLogout}>
+                    <img src={logoutIcon} alt=""></img>
+                    <div className="text-logout">Logout</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+          {/* <div className="name-img-container">
                 <img src={user.picture} alt={user.given_name} />
                 <h3>{user.name}</h3>
                 <h3>
@@ -112,17 +195,15 @@ const Profile = () => {
               </div>
             </div>
           )}
-        </div>
-        <div>
-          {isAuthenticated
+        </div> */}
+
+          {/* {isAuthenticated
             ? showReg && (
                 <button onClick={handleCompReg} type="Submit">
                   Complete Registeration
                 </button>
               )
-            : ""}
-
-          {isAuthenticated && <Logout />}
+            : ""} */}
         </div>
       </div>
     </div>
