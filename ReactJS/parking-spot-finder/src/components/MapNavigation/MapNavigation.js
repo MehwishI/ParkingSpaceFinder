@@ -14,6 +14,8 @@ const destination = {
     lng: -97.167346
 };
 
+const DESTINATION_RANGE = 40;
+
 const MapNavigation = () => {
     const [currentPos, setCurrentPos] = useState(null);
     const [directions, setDirections] = useState(null);
@@ -89,8 +91,25 @@ const MapNavigation = () => {
                     console.log("Error fetching directions:", status);
                 }
             });
+
+            checkProximityToDestination();
         }
     }, [currentPos]);
+
+    const checkProximityToDestination = () => {
+        if (!currentPos) {
+            return;
+        };
+
+        const getDistanceToDestination = window.google.maps.geometry.spherical.computeDistanceBetween(
+            new window.google.maps.LatLng(currentPos.lat, currentPos.lng),
+            new window.google.maps.LatLng(destination.lat, destination.lng)
+        );
+
+        if (getDistanceToDestination < DESTINATION_RANGE) {
+            alert("You have reached your destination!");
+        }
+    }
 
     const handleStepProgress = () => {
         if (!directions) return;

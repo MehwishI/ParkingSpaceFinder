@@ -216,4 +216,14 @@
   .marker-style {
     font-size: 26px !important;
   }
+
+  .custom-btn-two {
+    width: 100% !important;
+  }
+}
+
+@media only screen and (min-device-width: 430px) and (max-device-width: 932px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
+  .custom-btn-two {
+    width: 100%;
+  }
 }
