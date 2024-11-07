@@ -102,7 +102,7 @@ const LocationResult = () => {
         />
       </div>
       <AISuggestion onDataChange={getCoordPointsForMap} getCurrLoc={addressCoordinate.addressCoordinate} locRealAdd={getRealAddress} />
-      <LocationList wpaLocRes={locRes} />
+      <LocationList wpaLocRes={locRes} getAIResDetails={destCoord}/>
     </div>
   );
 };

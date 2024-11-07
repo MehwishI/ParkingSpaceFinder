@@ -141,3 +141,9 @@ and (-webkit-min-device-pixel-ratio: 2) {
     margin-left: 16px;
   }
 }
+
+@media (max-width: 360px) and (max-height: 740px) {
+  .mapcontainer {
+    height: 100%;
+  }
+}
