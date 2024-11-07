@@ -7,6 +7,8 @@
   padding: 10px;
   flex-direction: row;
   margin-top: 20px;
+  padding-left: 0px;
+  padding-right: 15px;
 }
 .profile-container h3 {
   padding: 5px;
@@ -33,4 +35,72 @@
   margin-block: 30px;
   border-top-width: 20px;
   padding-top: 20px;
+}
+.account {
+  font-family: Nunito Sans;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 27.28px;
+  text-align: left;
+}
+.name-container {
+  display: flex;
+  margin-bottom: 36px;
+}
+
+.name {
+  font-family: Nunito Sans;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.011em;
+  text-align: center;
+}
+.name-btn {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+}
+.comp-btn {
+  border-radius: 20px;
+  font-family: Nunito Sans;
+  font-size: 17px;
+
+  padding: 3px;
+}
+.general {
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18.9px;
+  text-align: left;
+}
+.text {
+  font-family: Nunito Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.6px;
+  text-align: left;
+  padding-left: 15px;
+}
+.text-cont {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.text-logout {
+  color: red;
+  padding-left: 15px;
+}
+.general-cont,
+.support-cont,
+.terms-cont,
+.logout-cont {
+  margin-top: 30px;
+  margin-bottom: 35px;
+}
+
+.arrow-icon {
+  position: absolute;
+  right: 6%;
 }

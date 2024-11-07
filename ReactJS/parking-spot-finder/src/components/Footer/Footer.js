@@ -13,9 +13,11 @@ import clockIconSolid from "../../images/homeicons/fluent_shifts-activity-20-fil
 import clockIcon from "../../images/homeicons/fluent_shifts-activity-20-filled (1).png";
 import accountIcon from "../../images/homeicons/line-md_account.png";
 import accountIconSolid from "../../images/homeicons/line-md_account (1).png";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Footer = () => {
   //const {} = props;
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   // const onHistoryClick = () => {
   //   setisHistory(true);
@@ -63,6 +65,7 @@ const Footer = () => {
               </>
             )}
           </NavLink>
+
           <span>Account</span>
         </div>
       </div>
