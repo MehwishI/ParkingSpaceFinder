@@ -176,3 +176,9 @@
     height: 24px;
   }
 }
+
+@media (max-width: 360px) and (max-height: 740px) {
+  .search-bar {
+    margin-top: 34px;
+  }
+}
