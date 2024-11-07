@@ -53,3 +53,23 @@
     margin-left: 12px;
     line-height: 1;
 }
+
+@media only screen and (min-device-width: 430px) and (max-device-width: 932px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
+    .upper-third-style {
+        width: 413px;
+    }
+
+    .lower-third-style {
+        width: 413px;
+    }
+}
+
+@media only screen and (min-device-width: 412px) and (max-device-width: 915px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
+    .upper-third-style {
+        width: 395px;
+    }
+
+    .lower-third-style {
+        width: 395px;
+    }
+}
