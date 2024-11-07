@@ -133,7 +133,13 @@ const Profile = () => {
                 <div className="text-cont">
                   <img src={notifIcon} alt=""></img>
                   <div className="text">Notifications</div>
-                  <img src={arrow} alt="" className="arrow-icon"></img>
+                  {/* <img src={arrow} alt="" className="arrow-icon"></img> */}
+                  <input
+                    id="toggle_switch"
+                    name="toggle_switch"
+                    type="checkbox"
+                  />
+                  <label for="toggle_switch"></label>
                 </div>
                 <div className="text-cont">
                   <img src={settingsIcon} alt=""></img>

@@ -104,3 +104,39 @@
   position: absolute;
   right: 6%;
 }
+
+input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+label {
+  display: block;
+
+  width: 53px;
+  height: 31px;
+  background-color: #169c39;
+  border-radius: 100px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+  box-shadow: 0 0 50px #477a85;
+  position: absolute;
+  right: 6%;
+}
+label::after {
+  content: "";
+
+  width: 36px;
+  height: 30px;
+  background-color: white;
+  position: absolute;
+  border-radius: 50%;
+  /* top: 15px; */
+  left: 15px;
+  transition: 0.5s;
+}
+input:checked + label:after {
+  left: calc(100% - 15px);
+  transform: translateX(-100%);
+}
