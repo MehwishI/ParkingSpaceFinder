@@ -129,11 +129,11 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
 
     return (
         <>
-            {getIsLoading && (
+            {/* {getIsLoading && (
                 <div className='spinner'>
                     <ClipLoader size={20} color={"#000"} loading={getIsLoading} />
                 </div>
-            )}
+            )} */}
             {/* {error && <div className="error">{error}</div>} */}
 
             <div className='text-btn-style'>
@@ -158,7 +158,12 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
                         {/* <VoiceIndicator /> */}
                         <button onClick={handlePlayPause} className='play-button'>
                             <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} style={{ marginRight: '8px' }} />
-                            {isPlaying ? 'Stop' : 'Play'}
+                            {/* {isPlaying ? 'Stop' : 'Play'} */}
+                            {getIsLoading ? (
+                                <span>Please wait...</span>
+                            ) : (
+                                isPlaying ? 'Stop' : 'Play'
+                            )}
                         </button>
 
                         {/* <audio ref={audioRef} controls>

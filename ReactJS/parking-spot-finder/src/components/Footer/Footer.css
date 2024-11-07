@@ -2,6 +2,11 @@
   display: none;
 }
 
+.footer-icon-style {
+  height: 28px;
+  width: 28px;
+}
+
 @media screen and (max-width: 768px) {
   .footer-item {
     display: flex;
@@ -23,7 +28,7 @@
 
   .footer {
     position: fixed;
-    bottom: 2px;
+    bottom: 1px;
     display: flex;
     justify-content: space-around;
     align-items: center;
