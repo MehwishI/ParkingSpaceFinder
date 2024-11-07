@@ -42,7 +42,7 @@
     }
 
     .park-hist-style {
-        height: 170px;
+        height: 30px;
     }
 }
 
@@ -63,29 +63,16 @@
         font-size: 19px;
         color: #000000;
     }
-}
-
-/* @media only screen and (min-device-width: 412px) and (max-device-width: 915px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
-    .text-top {
-        font-size: 16px;
-    }
-
-    .text-bottom {
-        font-size: 15px;
-    }
 
     .park-hist-style {
-        height: 170px;
+        height: 30px;
     }
-
-    .custom-icon {
-        font-size: 19px;
-        color: #000000;
-    }
-} */
+}
 
 @media only screen and (max-width: 390px) and (orientation: portrait) {}
 
 @media only screen and (min-device-width: 430px) and (max-device-width: 430px) and (min-device-height: 932px) and (max-device-height: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  
+    .park-hist-style {
+        height: 30px;
+    }
 }

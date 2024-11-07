@@ -16,7 +16,7 @@ import rectangle from "../../images/Rectangle 40.png";
 import diricon from "../../images/Frame 20.png";
 import "./LocationList.css";
 
-const LocationList = ({ wpaLocRes }) => {
+const LocationList = ({ wpaLocRes, getAIResDetails }) => {
   const [getcurrCoords, setCurrCoords] = useState({});
   const [toggleListOpen, setToggleListOpen] = useState(true);
   const [sortby, setSortBy] = useState(null);
@@ -47,6 +47,10 @@ const LocationList = ({ wpaLocRes }) => {
     // Update data when wpaLocRes changes
     setData(wpaLocRes);
   }, [wpaLocRes]);
+
+  useEffect(() => {
+    console.log("AI data details", getAIResDetails);
+  }, [getAIResDetails])
 
   useEffect(() => {
     const sortData = (type) => {
