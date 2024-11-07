@@ -16,18 +16,47 @@ import rectangle from "../../images/Rectangle 40.png";
 import diricon from "../../images/Frame 20.png";
 import "./LocationList.css";
 
+const dataTest = {
+  "parking": [
+    {
+      "name": "Seasons of Tuxedo Parking Lot",
+      "coordinates": {
+        "lat": 49.845,
+        "lng": -97.169
+      }
+    },
+    {
+      "name": "Bridgwater Town Centre Parking Area",
+      "coordinates": {
+        "lat": 49.817,
+        "lng": -97.205
+      }
+    }
+  ]
+}
+
+const isProd = process.env.REACT_APP_ISPROD;
+
 const LocationList = ({ wpaLocRes, getAIResDetails }) => {
   const [getcurrCoords, setCurrCoords] = useState({});
   const [toggleListOpen, setToggleListOpen] = useState(true);
   const [sortby, setSortBy] = useState(null);
   const [data, setData] = useState(wpaLocRes);
   const [field, setField] = useState(null);
+  const [aiListData, setAiListDate] = useState([]);
   const navigate = useNavigate();
 
   const buildCoords = {};
   const getHandleClick = (item) => {
-    buildCoords.lat = item.location.latitude;
-    buildCoords.lng = item.location.longitude;
+    if (aiListData.parking && aiListData.parking.length > 0) {
+      buildCoords.lat = Number(item.coordinates.lat);
+      buildCoords.lng = Number(item.coordinates.lng);
+    } else {
+      buildCoords.lat = item.location.latitude;
+      buildCoords.lng = item.location.longitude;
+    }
+    // buildCoords.lat = item.location.latitude;
+    // buildCoords.lng = item.location.longitude;
     navigator.geolocation.getCurrentPosition((position) => {
       const userLocaton = {
         lat: position.coords.latitude,
@@ -49,7 +78,17 @@ const LocationList = ({ wpaLocRes, getAIResDetails }) => {
   }, [wpaLocRes]);
 
   useEffect(() => {
-    console.log("AI data details", getAIResDetails);
+    if (getAIResDetails) {
+      console.log(getAIResDetails);
+      console.log("jay", dataTest);
+
+      if (isProd === "false" || false) {
+        setAiListDate(dataTest);
+      } else {
+        setAiListDate(getAIResDetails);
+        // setAiListDate(dataTest);
+      }
+    }
   }, [getAIResDetails])
 
   useEffect(() => {
@@ -114,7 +153,7 @@ const LocationList = ({ wpaLocRes, getAIResDetails }) => {
       <div className="div-filter-box">
         <div className="drop-filter">
           <img src={filtericon} />
-            {/* <select>
+          {/* <select>
               <option className="sort-option" value="hourly_rate">
                 Price
               </option>
@@ -128,7 +167,7 @@ const LocationList = ({ wpaLocRes, getAIResDetails }) => {
         &nbsp;&nbsp;
         <div>
           <div className="sort-dropdown">
-            <select value={sortby} onChange={(e) => setSortBy(e.target.value)} className="form-control" style={{width: '87px'}}>
+            <select value={sortby} onChange={(e) => setSortBy(e.target.value)} className="form-control" style={{ width: '87px' }}>
               <option className="sort-option" value="">
                 Sort by
               </option>
@@ -222,9 +261,64 @@ const LocationList = ({ wpaLocRes, getAIResDetails }) => {
             </div>
           ))
         ) : (
-          <div className="label">
-            No parking locations found around this address.
-          </div>
+          aiListData.parking && aiListData.parking.length > 0 ? (
+            <></>
+          ) : (
+            <div className="label">
+              No parking locations found around this address.
+            </div>
+          )
+        )}
+
+        {aiListData.parking && aiListData.parking.length > 0 ? (
+          aiListData.parking.map((item, index) => (
+            <div>
+              <div key={index} className="list-style-box">
+                <div className="row">
+                  <div className="col-sm-3 d-flex align-items-center">
+                    <div>
+                      <span className="list-number">{index + 1}</span>
+                      <img src={rectangle} height="120px"></img>
+                    </div>
+
+                    <div className="ms-2 details-box">
+                      <div className="d-flex  side-containers box">
+                        <div>
+                          <div className="overlay-text-top">
+                            <b>{item.name}</b>
+                          </div>
+                          {/* <div className="overlay-text-bottom">
+                            {item.coordinates.lat}
+                          </div> */}
+                          <div className="d-flex lower-info-boxes">
+                            <div className="address-small">
+                              LAT: {item.coordinates.lat}
+                            </div>
+                            <div className="price-small">
+                              LNG: {item.coordinates.lng}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className="btn-dir-style"
+                          onClick={() => getHandleClick(item)}
+                        >
+                          <div className="arrow-dir">
+                            <img src={diricon}></img>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="line-divider-box">
+                <img src={parkingicon} className="line-divider"></img>
+              </div>
+            </div>
+          ))
+        ) : (
+          <></>
         )}
       </div>
     </div>

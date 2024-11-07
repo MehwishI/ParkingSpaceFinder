@@ -17,6 +17,9 @@ const MapDirection = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("name", allItems);
+        console.log("coodf", coords);
+        
         // build destination coordinates
         destCoord.lat = parseFloat(coords.lat);
         destCoord.lng = parseFloat(coords.lng);
@@ -36,13 +39,13 @@ const MapDirection = () => {
     };
 
     const clickToMapNav = () => {
-        navigate('/mapnavigation', { state: { duration: duration, distance: distance}});
+        navigate('/mapnavigation', { state: { duration: duration, distance: distance } });
     };
 
     return (
         <>
-            <Search backgroundColor={'none'} marginLeft={'10px'}/>
-            <div className='map-container' style={{position: 'relative'}}>
+            <Search backgroundColor={'none'} marginLeft={'10px'} />
+            <div className='map-container' style={{ position: 'relative' }}>
                 <MapContainer
                     wpaResData={{}}
                     aiSugData={{}}
@@ -66,12 +69,31 @@ const MapDirection = () => {
 
                 <div className='list-info-style'>
                     <ul>
-                        <li>Location: <span className='data-style'>{allItems.street}</span></li>
-                        <li>Restriction: <span className='data-style'>{allItems.restriction}</span></li>
-                        <li>Time Limit: <span className='data-style'>{allItems.time_limit}</span></li>
-                        <li>Total Spaces: <span className='data-style'>{allItems.total_space}</span></li>
-                        <li>Accessible Spaces: <span className='data-style'>{allItems.accessible_space}</span></li>
-                        <li>Payment Options: <span className='data-style'>Mobile pay available (Zone {allItems.mobile_pay_zone})</span></li>
+                        {allItems.street ? (
+                            <li>Location: <span className='data-style'>{allItems.street}</span></li>
+                        ) : (
+                            <li>Location: <span className='data-style'>{allItems.name}</span></li>
+                        )}
+
+                        {allItems.restriction && (
+                            <li>Restriction: <span className='data-style'>{allItems.restriction}</span></li>
+                        )}
+
+                        {allItems.time_limit && (
+                            <li>Time Limit: <span className='data-style'>{allItems.time_limit}</span></li>
+                        )}
+
+                        {allItems.total_space && (
+                            <li>Total Spaces: <span className='data-style'>{allItems.total_space}</span></li>
+                        )}
+
+                        {allItems.accessible_space && (
+                            <li>Accessible Spaces: <span className='data-style'>{allItems.accessible_space}</span></li>
+                        )}
+
+                        {allItems.mobile_pay_zone && (
+                            <li>Payment Options: <span className='data-style'>Mobile pay available (Zone {allItems.mobile_pay_zone})</span></li>
+                        )}
                     </ul>
                 </div>
 
