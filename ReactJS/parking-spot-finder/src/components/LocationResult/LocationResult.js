@@ -61,7 +61,7 @@ const LocationResult = () => {
             const wpaLocRes = await locResultForCoord(coord);
 
             console.log("hayo", wpaLocRes);
-            
+
 
             if (wpaLocRes.length === 0) {
             }
@@ -104,8 +104,12 @@ const LocationResult = () => {
           destCoord={destCoord}
         />
       </div>
-      <AISuggestion onDataChange={getCoordPointsForMap} getCurrLoc={addressCoordinate.addressCoordinate} locRealAdd={getRealAddress} />
-      <LocationList wpaLocRes={locRes} getAIResDetails={destCoord}/>
+
+      {locRes && (
+        <AISuggestion onDataChange={getCoordPointsForMap} getCurrLoc={addressCoordinate.addressCoordinate} locRealAdd={getRealAddress} />
+      )}
+
+      <LocationList wpaLocRes={locRes} getAIResDetails={destCoord} />
     </div>
   );
 };
