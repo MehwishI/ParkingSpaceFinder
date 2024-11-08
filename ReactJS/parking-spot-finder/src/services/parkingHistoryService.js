@@ -14,7 +14,7 @@ const getUserParkingHistory = async (getUserId) => {
     if (response.status === 404) {
       return false;
     } else {
-      return response.data;
+      return response;
     }
   } catch (error) {
     console.log(error);

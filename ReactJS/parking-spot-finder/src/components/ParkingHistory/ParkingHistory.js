@@ -26,7 +26,6 @@ const ParkingHistory = () => {
   let temp = [];
   const getRealParkAddress = async (coordArr) => {
     for (const item of coordArr) {
-
       try {
         const address = await getRealAddress(item);
         if (address.formattedAddress) {
@@ -35,7 +34,6 @@ const ParkingHistory = () => {
       } catch (error) {
         console.log(error);
       }
-
     }
     if (temp) {
       parkAddr = temp;
@@ -57,14 +55,14 @@ const ParkingHistory = () => {
 
         //getUserHist.then((history) => {
         console.log("history", getUserHist);
-        console.log(getUserHist.response.status);
-        if (getUserHist.response.status !== 200) {
+        console.log(getUserHist.status);
+        if (getUserHist.status !== 200) {
           setUserHistory(null);
           setHistoryExist(false);
           // return null;
         } else {
           setHistoryExist(true);
-          setUserHistory(getUserHist);
+          setUserHistory(getUserHist.data);
         }
 
         //getreal address from history
