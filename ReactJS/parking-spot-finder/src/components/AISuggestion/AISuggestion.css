@@ -28,7 +28,7 @@
     width: 249px;
     padding-left: 8px;
     padding-right: 8px;
-    bottom: 46%;
+    bottom: 51%;
     background-color: white;
     overflow: auto;
     position: absolute;
@@ -49,7 +49,7 @@
 .play-button {
     height: 42px;
     width: 99px;
-    bottom: 45%;
+    bottom: 50%;
     position: absolute;
     border-radius: 77px;
     margin-left: 278px;
