@@ -127,7 +127,7 @@
     position: relative;
     align-content: center;
     /* margin: auto; */
-    margin-top: 36px;
+    margin-top: 23px;
     margin-bottom: 23px;
   }
 
@@ -179,6 +179,6 @@
 
 @media (max-width: 360px) and (max-height: 740px) {
   .search-bar {
-    margin-top: 34px;
+    margin-top: 23px;
   }
 }
