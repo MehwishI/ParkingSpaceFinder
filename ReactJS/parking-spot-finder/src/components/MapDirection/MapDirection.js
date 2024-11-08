@@ -71,8 +71,10 @@ const MapDirection = () => {
                     <ul>
                         {allItems.street ? (
                             <li>Location: <span className='data-style'>{allItems.street}</span></li>
-                        ) : (
+                        ) : allItems.name ? (
                             <li>Location: <span className='data-style'>{allItems.name}</span></li>
+                        ) : (
+                            <li>Location: <span className='data-style'>{allItems.title}</span></li>
                         )}
 
                         {allItems.restriction && (

@@ -60,6 +60,9 @@ const LocationResult = () => {
           ) {
             const wpaLocRes = await locResultForCoord(coord);
 
+            console.log("hayo", wpaLocRes);
+            
+
             if (wpaLocRes.length === 0) {
             }
             setLocRes(wpaLocRes);
