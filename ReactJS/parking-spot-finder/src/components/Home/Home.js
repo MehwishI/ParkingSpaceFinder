@@ -40,15 +40,50 @@ const Home = () => {
   };
 
   useEffect(() => {
+    console.log("lenghty", getAllParkingLocs.length);
     if (getAllParkingLocs.length > 0) {
+      console.log("lenghty one");
+
       setMapHeight("120px");
       setLabelPark(false);
     } else {
       // setMapHeight("470px");
+      console.log("lenghty two");
       const updateHeightOnScreenChange = () => {
-        setMapHeight(window.matchMedia("(max-width: 369px").matches ? "400px" : "470px");
+        console.log("lenghty three");
+        // setMapHeight(
+
+        //   //   window.matchMedia("(max-width: 369px)").matches 
+        //   // ? "400px" : window.matchMedia("(max-width: 414px)").matches ? "120"
+        //   // : "470px");
+
+        //   window.matchMedia("(max-width: 360px)").matches
+        //     ? "400px"
+        //     : window.matchMedia("(max-width: 414px) and (min-width: 375px)").matches
+        //       ? "470px"
+        //       : window.matchMedia("(max-width: 736px) and (min-width: 667px)").matches
+        //         ? "400px"
+        //         : window.matchMedia("(max-width: 360px) and (min-width: 360px)").matches
+        //           ? "400px"
+        //           : "470px");
+
+        setMapHeight(
+          
+          window.matchMedia("(max-width: 360px)").matches
+            ? (console.log("Galaxy A50 or similar: Width <= 360px"), "400px")
+            : window.matchMedia("(max-width: 414px) and (min-width: 375px)").matches
+            ? (console.log("Width between 375px and 414px"), "470px")
+            : window.matchMedia("(max-width: 736px) and (min-width: 667px)").matches
+            ? (console.log("Width between 667px and 736px"), "400px")
+            : window.matchMedia("(max-width: 360px) and (min-width: 360px)").matches
+            ? (console.log("Galaxy A50: Exact Width = 360px"), "400px")
+            : (console.log("Default size: > 736px or no media query matched"), "470px")
+        );
+
         setLabelPark(true);
       }
+
+      updateHeightOnScreenChange();
 
       window.addEventListener("resize", updateHeightOnScreenChange);
 

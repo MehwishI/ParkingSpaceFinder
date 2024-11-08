@@ -9,6 +9,7 @@ import speakIcon from "../../images/ant-design_sound-filled.png";
 import { useLocation } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import { getRealAddress } from 'services/getCoordinatesService';
 
 const getBaseApi = process.env.REACT_APP_BASE_URL_API;
 
@@ -40,9 +41,15 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
         setIsLoading(true);
         setOpenModal(false);
         try {
-            if (Object.keys(locRealAdd.getCurrRealAddress).length < 1) {
-                return;
-            };
+            // console.log("real address", locRealAdd);
+            
+            if (locRealAdd === undefined || locRealAdd === null) {
+                locRealAdd = { getCurrRealAddress: "" };
+            } else {
+                if (Object.keys(locRealAdd.getCurrRealAddress).length < 1) {
+                    return;
+                };
+            }
 
             jsonData.destLocAddress = locRealAdd.getCurrRealAddress.formattedAddress;
             jsonData.destCoordinates = `Lat: ${coordsAddState.lat}, Long: ${coordsAddState.lng}`;
