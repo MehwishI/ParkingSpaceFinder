@@ -166,7 +166,8 @@ const MapNavigation = () => {
                     aiSugData={{}}
                     onDataChange={() => { }}
                     getAllLocsData={null}
-                    currPosition={center}
+                    // currPosition={center}
+                    currPosition={currentPos}
                     path={[]}
                     destCoorNav={destination}
                     directionsRenderer={directionsRenderer}

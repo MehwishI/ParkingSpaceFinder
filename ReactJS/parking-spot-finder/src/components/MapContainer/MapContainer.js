@@ -17,7 +17,7 @@ import CustomMarker from "../FontIcon/FontIcon";
 import iconmarker from "../../images/marker-pinlet.png";
 import currentLocation from "../../images/CurrentLocationMarker.png";
 import destLocIcon from "../../images/SpotlightMarker.png";
-import mapNavIcon from "../../images/iconamoon_location-fill.png";
+import mapNavIcon from "../../images/Group 36.png";
 
 // const MapContainer = ({ coordinates }) => {
 const MapContainer = ({
@@ -492,7 +492,7 @@ const MapContainer = ({
             animation="DROP"
             icon={{
               url: mapNavIcon,
-              scaledSize: new window.google.maps.Size(30, 30), // Adjust the size
+              scaledSize: new window.google.maps.Size(30, 30),
             }}
             position={currPosition}
           />
@@ -511,6 +511,7 @@ const MapContainer = ({
 
         {path && (
           <Polyline
+            // path={directResp}
             path={directResp}
             options={{
               strokeColor: '#FF0000',
