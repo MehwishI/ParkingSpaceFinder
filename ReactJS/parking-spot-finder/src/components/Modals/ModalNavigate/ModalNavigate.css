@@ -1,0 +1,36 @@
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .modal-content {
+    max-width: 400px;
+    position: relative;
+    border-radius: 8px;
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    width: 80%;
+  }
+  
+  .close {
+    position: absolute;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+  }
+  
+  .modal-body {
+    margin-top: 10px;
+  }
