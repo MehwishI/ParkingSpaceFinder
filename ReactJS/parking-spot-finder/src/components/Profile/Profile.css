@@ -110,7 +110,7 @@ input[type="checkbox"] {
   height: 0;
   visibility: hidden;
 }
-label {
+#label_toggle {
   display: block;
 
   width: 53px;
@@ -124,17 +124,17 @@ label {
   position: absolute;
   right: 6%;
 }
-label::after {
+#label_toggle::after {
   content: "";
-
-  width: 36px;
+  width: 33px;
   height: 30px;
   background-color: white;
   position: absolute;
   border-radius: 50%;
   /* top: 15px; */
-  left: 15px;
+  left: 28px;
   transition: 0.5s;
+  right: 25px;
 }
 input:checked + label:after {
   left: calc(100% - 15px);

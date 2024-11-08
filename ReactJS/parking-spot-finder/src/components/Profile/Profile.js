@@ -112,7 +112,6 @@ const Profile = () => {
                 <div className="name-btn">
                   <div className="name">
                     {user.name} {""}
-                    {user.family_name}
                   </div>
                   <div>
                     {" "}
@@ -139,7 +138,7 @@ const Profile = () => {
                     name="toggle_switch"
                     type="checkbox"
                   />
-                  <label for="toggle_switch"></label>
+                  <label for="toggle_switch" id="label_toggle"></label>
                 </div>
                 <div className="text-cont">
                   <img src={settingsIcon} alt=""></img>
