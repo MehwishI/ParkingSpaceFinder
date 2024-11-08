@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import MapContainer from 'components/MapContainer/MapContainer';
 import './MapNavigation.css';
 import turnLeft from '../../images/turn_left.png';
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import { saveUserParkingHistory } from "../../services/parkingHistoryService";
 
 const center = {
     lat: 49.797410,
@@ -14,7 +15,16 @@ const destination = {
     lng: -97.167346
 };
 
+const userParkHist = {
+    userid: "Add userid here",
+    latitude: "Add latitude here",
+    longitude: "Add longitude here",
+    street: "street",
+}
+
 const DESTINATION_RANGE = 40;
+
+const isProd = process.env.REACT_APP_ISPROD;
 
 const MapNavigation = () => {
     const [currentPos, setCurrentPos] = useState(null);
@@ -25,6 +35,8 @@ const MapNavigation = () => {
     const [distancenData, setDistanceData] = useState('');
     const [remainingTime, setRemainingTime] = useState(null);
     const [targetTime, setTargetTime] = useState(null);
+    const [hasReachedLoc, setHasReachedLoc] = useState(false);
+    const navigate = useNavigate();
 
     const directionsService = new window.google.maps.DirectionsService();
     const directionsRenderer = new window.google.maps.DirectionsRenderer();
@@ -107,7 +119,7 @@ const MapNavigation = () => {
         );
 
         if (getDistanceToDestination < DESTINATION_RANGE) {
-            alert("You have reached your destination!");
+            setHasReachedLoc(true);
         }
     }
 
@@ -148,6 +160,31 @@ const MapNavigation = () => {
         return `${formattedHours}:${formattedMinutes} ${period}`;
     };
 
+    const saveToTripHistory = () => {
+        let histData = {};
+
+        if (isProd === "false" || false) {
+            histData = userParkHist;
+        };
+
+        try {
+            const saveRespData = saveUserParkingHistory(histData);
+            console.log("save hist data is", saveRespData);
+
+            if (saveRespData.data.message === "User parking data saved successfully") {
+                alert("User parking data saved successfully");
+                navigate("/home");
+            };
+            
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const exitToHomePage = () => {
+        navigate("/home");
+    };
+
     return (
         <>
             <div className='upper-third-style d-flex'>
@@ -176,7 +213,15 @@ const MapNavigation = () => {
             <div className='lower-third-style'>
                 <div className='d-flex justify-content-between'>
                     <div className='upper-text'>{durationData}</div>
-                    <button className='btn-style'>Exit</button>
+                    {hasReachedLoc ? (
+                        <button className='btn-style' style={{ color: '#129F4E' }} onClick={saveToTripHistory}>
+                            Complete Trip
+                        </button>
+                    ) : (
+                        <button className='btn-style' style={{ color: '#DB4437' }} onClick={exitToHomePage}>
+                            Exit
+                        </button>
+                    )}
                 </div>
                 <div className='lower-text'>
                     {distancenData} - Expected Arrival {targetTime ? formatDuration(targetTime) : 'Calculating time...'}
