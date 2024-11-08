@@ -16,6 +16,9 @@ import { locResultForCoord } from "../../services/locationResultService";
 import CustomMarker from "../FontIcon/FontIcon";
 import parkLocIcon from "../../images/SpotlightMarker.png";
 import iconmarker from "../../images/marker-pinlet.png";
+import spotlighticon from "../../images/SpotlightMarker.png"
+import turnright from "../../images/turnright.png";
+import { useNavigate } from "react-router";
 
 // const MapContainer = ({ coordinates }) => {
 const MapLocContainer = ({
@@ -38,6 +41,11 @@ const MapLocContainer = ({
   const [selectedAiPoint, setSelectedAiPoint] = useState(null);
   const [defaultCenter, setDefaultCenter] = useState(initialCenter);
   const [getDirectionResp, setDirectionResp] = useState(null);
+  const [aiListData, setAiListDate] = useState([]);
+  const [getcurrCoords, setCurrCoords] = useState({});
+  const navigate = useNavigate();
+
+  const buildCoords = {};
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -125,9 +133,17 @@ const MapLocContainer = ({
       const constLocData = wpaResData.map((item, index) => ({
         lat: Number(item.location.latitude),
         lng: Number(item.location.longitude),
-        title: `Marker ${index + 1}`,
-        description: item.location.description,
+        title: item.street,
+        description: `PN: ${item.paystation_number}`,
+        accessible_space: item.accessible_space,
+        restriction: item.restriction,
+        time_limit: item.time_limit,
+        total_space: item.total_space,
+        mobile_pay_zone: item.mobile_pay_zone
       }));
+
+      console.log("bbb", constLocData);
+      
 
       setLocPoints(constLocData);
 
@@ -209,6 +225,9 @@ const MapLocContainer = ({
       description: item.location.description,
     }));
 
+    console.log('const logo', constLocData);
+
+
     setLocPoints(constLocData);
   }, [getAllLocsData]);
 
@@ -253,6 +272,8 @@ const MapLocContainer = ({
   };
 
   const handleMarkerClick = (marker) => {
+    console.log("markr, marker",marker);
+    
     if (activeMarker === marker) {
       setActiveMarker(null);
     } else {
@@ -340,21 +361,45 @@ const MapLocContainer = ({
     );
   };
 
-  const renderCustMarkersOne = (index) => {
-    const markerIconOne = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" height="24">
-  <path fill="#129F4E" d="M384 192c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192z"/>
-  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="200" fill="white">
-        ${index}
-  </text>
-</svg>
-  `;
+  //   const renderCustMarkersOne = (index) => {
+  //     const markerIconOne = `
+  // <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" height="24">
+  //   <path fill="#129F4E" d="M384 192c0 87.4-117 243-168.3 307.2c-12.3 15.3-35.1 15.3-47.4 0C117 435 0 279.4 0 192C0 86 86 0 192 0S384 86 384 192z"/>
+  //   <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="200" fill="white">
+  //         ${index}
+  //   </text>
+  // </svg>
+  //   `;
 
-    return {
-      url:
-        "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(markerIconOne),
-      scaledSize: new window.google.maps.Size(30, 30),
-    };
+  //     return {
+  //       url:
+  //         "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(markerIconOne),
+  //       scaledSize: new window.google.maps.Size(30, 30),
+  //     };
+  //   };
+
+  const getHandleClick = (item) => {
+    console.log("item list", item);
+    
+    if (aiListData.parking && aiListData.parking.length > 0) {
+      buildCoords.lat = Number(item.coordinates.lat);
+      buildCoords.lng = Number(item.coordinates.lng);
+    } else {
+      buildCoords.lat = item.lat;
+      buildCoords.lng = item.lng;
+    }
+    
+    navigator.geolocation.getCurrentPosition((position) => {
+      const userLocaton = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      setCurrCoords(userLocaton);
+    });
+
+    navigate("/mapdirection", {
+      state: { coords: buildCoords, currCoords: getcurrCoords, allItems: item },
+    });
   };
 
   if (!isLoaded) {
@@ -390,7 +435,11 @@ const MapLocContainer = ({
               position={{ lat: locPoints.lat, lng: locPoints.lng }}
               animation="DROP"
               onClick={() => handleMarkerClick(locPoints)}
-              icon={renderCustMarkersOne(index + 1)}
+              // icon={renderCustMarkersOne(index + 1)}
+              icon={{
+                url: spotlighticon,
+                scaledSize: new window.google.maps.Size(29, 42),
+              }}
             />
           </>
         ))}
@@ -450,8 +499,9 @@ const MapLocContainer = ({
             <div>
               <h3>{activeMarker.title}</h3>
               <p>{activeMarker.description}</p>
-              <button onClick={() => getHandleDrawPoly(activeMarker)}>
-                View Details
+              <button onClick={() => getHandleClick(activeMarker)} className="btn btn-success">
+                  <img src={turnright} style={{marginRight: '6px'}}/>
+                Directions
               </button>
             </div>
           </InfoWindow>

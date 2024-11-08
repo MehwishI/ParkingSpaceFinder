@@ -14,3 +14,9 @@
   padding: 10px;
   font-family: "Nunito Sans";
 }
+
+@media only screen and (min-width: 384px) and (max-width: 384px) and (min-height: 842px) and (max-height: 842px) and (orientation: portrait) {
+  .home-list-style {
+    margin-top: 0px;
+  }
+}
