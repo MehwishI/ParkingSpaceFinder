@@ -16,7 +16,6 @@ const Home = () => {
   const [getWpaSearchRes, setWpaSearchRes] = useState([]);
   const [getAiCoordinates, setAiCoordinates] = useState(null);
   const [getAllParkingLocs, setAllParkingLocs] = useState([]);
-  const { isAuthenticated, isLoading } = useAuth0();
   const [mapHeight, setMapHeight] = useState("120px");
   const [labelPark, setLabelPark] = useState(true);
   const [realAddress, setRealAddress] = useState(null);
