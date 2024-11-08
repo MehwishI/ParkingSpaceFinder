@@ -52,6 +52,8 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
             // encrypt data before sending it to the database
             const encryptData = getEncryptedData(jsonData);
 
+            console.log("resp before AI", encryptData);
+
             const getResp = await axios.post(`${getBaseApi}/generate-ai-voice`, encryptData, {
                 responseType: 'json',
                 headers: {
@@ -59,6 +61,9 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
                     'Authorization': `Bearer ${getAuth0Tok}`
                 }
             });
+
+            console.log("resp from AI", getResp);
+            
 
             const { text, txtJson, audio } = getResp.data;
 
