@@ -34,7 +34,7 @@ const Home = () => {
     setAiCoordinates(aiResData);
   };
 
-  const getCurrentAddress = () => {};
+  const getCurrentAddress = () => { };
 
   const getAllLocsCoord = (getAllLocs) => {
     setAllParkingLocs(getAllLocs);
@@ -45,8 +45,15 @@ const Home = () => {
       setMapHeight("120px");
       setLabelPark(false);
     } else {
-      setMapHeight("470px");
-      setLabelPark(true);
+      // setMapHeight("470px");
+      const updateHeightOnScreenChange = () => {
+        setMapHeight(window.matchMedia("(max-width: 369px").matches ? "400px" : "470px");
+        setLabelPark(true);
+      }
+
+      window.addEventListener("resize", updateHeightOnScreenChange);
+
+      return () => window.removeEventListener("resize", updateHeightOnScreenChange);
     }
   }, [getAllParkingLocs]);
 

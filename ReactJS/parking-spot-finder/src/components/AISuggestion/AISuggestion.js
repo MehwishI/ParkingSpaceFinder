@@ -176,7 +176,7 @@ const AISuggestion = ({ onDataChange, getCurrLoc, locRealAdd }) => {
                     </div>
                 ) : (
                     <>
-                        <button onClick={modalToggle} className='button-gen'>
+                        <button onClick={modalToggle} className='button-gen' disabled={getIsLoading}>
                             <img src={speakIcon} style={{ marginRight: '5px' }} />
                             {getIsLoading ? 'Please wait...' : 'AI Suggest'}
                         </button>
