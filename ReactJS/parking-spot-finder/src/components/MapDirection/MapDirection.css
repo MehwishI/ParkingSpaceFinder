@@ -81,3 +81,9 @@
 /* .outer-div-style {
     background-color: #9f3812;
 } */
+
+@media (min-width: 360px) and (max-width: 400px) and (max-height: 800px) {
+    .direction-info {
+        width: 390px;
+    }
+}

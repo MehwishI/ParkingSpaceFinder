@@ -1,6 +1,7 @@
 //get parking history from userid
 
 import axios from "axios";
+import { getEncryptedData, getDecryptedData } from "./encryptdecrypt";
 const localBaseUrl = process.env.REACT_APP_BASE_URL_API;
 
 const getUserParkingHistory = async (getUserId) => {
@@ -26,8 +27,11 @@ const getUserParkingHistory = async (getUserId) => {
 
 const saveUserParkingHistory = async (parkData) => {
   try {
+    // encrypt parking history
+    const encryptParkingHistoryData = getEncryptedData(parkData);
+
     const response = await axios.post(`${localBaseUrl}/user/parking/save`, {
-      parkData,
+      encryptParkingHistoryData,
     });
     return response.result;
   } catch (error) {

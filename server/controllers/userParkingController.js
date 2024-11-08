@@ -1,4 +1,5 @@
 const userParkingService = require("../services/userParkingService");
+const { getDecryptedData, getEncrytedData } = require("../services/encryptService");
 
 const fetchUserParkingData = async (req, res) => {
   try {
@@ -17,19 +18,22 @@ const fetchUserParkingData = async (req, res) => {
 };
 
 const saveUserParkingData = async (req, res) => {
-  const userid = req.body.userid;
+  // start decrypt data
+  const getDecryptData = getDecryptedData(req.body);
+
+  const userid = getDecryptData.userid;
 
   const parkData = {
-    paystation_number: req.body.paystation_number,
-    restriction: req.body.restriction,
-    time_limit: req.body.time_limit,
-    street: req.body.street,
-    total_space: req.body.total_space,
-    accessible_space: req.body.accessible_space,
-    hourly_rate: req.body.hourly_rate,
-    mobile_pay_zone: req.body.mobile_pay_zone,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
+    paystation_number: getDecryptData.paystation_number,
+    restriction: getDecryptData.restriction,
+    time_limit: getDecryptData.time_limit,
+    street: getDecryptData.street,
+    total_space: getDecryptData.total_space,
+    accessible_space: getDecryptData.accessible_space,
+    hourly_rate: getDecryptData.hourly_rate,
+    mobile_pay_zone: getDecryptData.mobile_pay_zone,
+    latitude: getDecryptData.latitude,
+    longitude: getDecryptData.longitude,
     parking_date: Date.now(),
   };
   try {
