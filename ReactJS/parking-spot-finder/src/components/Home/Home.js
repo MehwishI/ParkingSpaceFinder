@@ -11,6 +11,8 @@ import HomeParkingHistory from "components/HomeParkingList/HomeParkingHistory";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getRealAddress } from "../../services/getCoordinatesService";
 
+const isProd = process.env.REACT_APP_ISPROD;
+
 const Home = () => {
   const [getCurrentLocAdd, setCurrentLocAdd] = useState({});
   const [getWpaSearchRes, setWpaSearchRes] = useState([]);
