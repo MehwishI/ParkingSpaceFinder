@@ -18,6 +18,7 @@ import parkLocIcon from "../../images/SpotlightMarker.png";
 import iconmarker from "../../images/marker-pinlet.png";
 import spotlighticon from "../../images/SpotlightMarker.png"
 import turnright from "../../images/turnright.png";
+import spotlightblue from "../../images/Spotlight Marker.png";
 import { useNavigate } from "react-router";
 
 // const MapContainer = ({ coordinates }) => {
@@ -455,14 +456,8 @@ const MapLocContainer = ({
             animation="DROP"
             onClick={() => handleMarkerClick(locPoints)}
             icon={{
-              url: iconmarker,
+              url: spotlightblue,
               labelOrigin: new window.google.maps.Point(12, 10)
-            }}
-            label={{
-              text: index.toString() + 1,
-              color: "white",
-              fontSize: "12px",
-              fontWeight: "bold",
             }}
           />
         ))}

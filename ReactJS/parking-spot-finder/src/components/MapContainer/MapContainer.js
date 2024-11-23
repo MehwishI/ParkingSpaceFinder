@@ -202,7 +202,7 @@ const MapContainer = ({
 
         if (map) {
           map.panTo(userLocaton);
-          map.setZoom(20);
+          map.setZoom(17);
           // map.setZoom(16);
         }
       },

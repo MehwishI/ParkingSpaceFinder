@@ -69,17 +69,6 @@ const LocationItem = ({ locationItem }) => {
             <div>{locationItem.city}, MB, Canada</div>
           </div>
         </div>
-        {/* <div className="loc-details">
-        <div>Paystation Number: {locationItem.paystation_number}</div>
-
-        <div>Hourly Rate: {locationItem.hourly_rate}</div>
-        <div>Restriction: {locationItem.restriction}</div>
-        <div>Time Limit: {locationItem.time_limit}</div>
-        {/* <div>{locationItem.total_space}</div>
-        <div>{locationItem.accessible_space} </div> */}
-
-        {/* <div>Mobile Pay Zone: {locationItem.mobile_pay_zone}</div>
-    </div>  */}
       </div>
       <div onClick={() => getHandleClick(locationItem)}>
         <img src={dirIcon} className="diricon"></img>

@@ -178,28 +178,6 @@ const Profile = () => {
               )}
             </div>
           )}
-          {/* <div className="name-img-container">
-                <img src={user.picture} alt={user.given_name} />
-                <h3>{user.name}</h3>
-                <h3>
-                  {""}
-                  {user.family_name}
-                </h3>
-              </div>
-              <div className="profile-details">
-                <p>Email: {user.email}</p>
-              </div>
-            </div>
-          )}
-        </div> */}
-
-          {/* {isAuthenticated
-            ? showReg && (
-                <button onClick={handleCompReg} type="Submit">
-                  Complete Registeration
-                </button>
-              )
-            : ""} */}
         </div>
       </div>
     </div>
